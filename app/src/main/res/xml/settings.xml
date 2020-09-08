@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Copyright 2019, The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    this is a bad example to have as settings tbh because of the format-->
+<!--    <PreferenceCategory-->
+<!--        app:key="garden_polygon_category"-->
+<!--        app:title="Garden layout">-->
+<!--        <EditTextPreference-->
+<!--            android:defaultValue="@string/garden_color_default"-->
+<!--            android:key="@string/preference_garden_color_key"-->
+<!--            android:selectAllOnFocus="true"-->
+<!--            android:singleLine="true"-->
+<!--            android:title="@string/settings_garden_color_title" />-->
+<!--    </PreferenceCategory>-->
+    <PreferenceCategory
+        app:key="garden_polygon_category"
+        app:title="Sound">
+        <SwitchPreferenceCompat
+            app:key="@string/background_music_on_off_key"
+            app:title="Background Music"
+            app:defaultValue="@string/background_music_on_off_default"/>
+
+        <ListPreference
+            android:defaultValue="@string/background_music_song_default"
+            android:entries="@array/background_music_songs_strings"
+            android:entryValues="@array/background_music_songs_values"
+            android:key = "@string/background_music_song_key"
+            android:title = "@string/background_music_song_title" />
+
+        <SeekBarPreference
+            android:key = "@string/background_music_volume_key"
+            app:title="@string/background_music_volume_title"
+            android:summary = "Adjust magnitude"
+            android:defaultValue = "@string/background_music_volume_default"
+            android:min = "0"
+            android:max = "100" />
+    </PreferenceCategory>
+</PreferenceScreen>

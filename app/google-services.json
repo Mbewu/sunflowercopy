@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "412764604162",
+    "firebase_url": "https://sunflowercopy.firebaseio.com",
+    "project_id": "sunflowercopy",
+    "storage_bucket": "sunflowercopy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412764604162:android:ee18eaab20d48c0dfe641b",
+        "android_client_info": {
+          "package_name": "com.example.sunflower_copy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412764604162-htk3kit2od6kl43epkpj0ld5a7djj3si.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sunflower_copy",
+            "certificate_hash": "b6aec8bd63f608a6f66eaf6e216fecbae1e2902a"
+          }
+        },
+        {
+          "client_id": "412764604162-cbih5o005pn6ka2st1vc6bl5rgvanr5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTZU2VQPrTFVKRbvG3vrPK91G14I8DGvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412764604162-cbih5o005pn6ka2st1vc6bl5rgvanr5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

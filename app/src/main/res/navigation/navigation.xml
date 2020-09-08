@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/titleFragment">
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.sunflower_copy.detail.DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="selectedPlant"
+            app:argType="com.example.sunflower_copy.domain.PlantInformation2" />
+        <action
+            android:id="@+id/action_detailFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.sunflower_copy.title.TitleFragment"
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPagerFragment"
+        android:name="com.example.sunflower_copy.ui.main.ViewPagerFragment"
+        tools:layout="@layout/fragment_view_pager" >
+        <action
+            android:id="@+id/action_viewPagerFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_plantedFragment"
+            app:destination="@id/plantedFragment" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.sunflower_copy.title.AboutFragment"
+        tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/plantedFragment"
+        android:name="com.example.sunflower_copy.planted.PlantedFragment"
+        tools:layout="@layout/fragment_planted">
+        <argument
+            android:name="selectedPlant"
+            app:argType="com.example.sunflower_copy.domain.PlantInformation2" />
+        <action
+            android:id="@+id/action_plantedFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_plantedFragment_to_fullscreenImageFragment"
+            app:destination="@id/fullscreenImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myGardenFragment"
+        android:name="com.example.sunflower_copy.ui.main.MyGardenFragment"
+        tools:layout="@layout/fragment_my_garden" />
+    <fragment
+        android:id="@+id/plantListFragment"
+        android:name="com.example.sunflower_copy.ui.main.PlantListFragment"
+        tools:layout="@layout/fragment_plant_list" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.sunflower_copy.map.MapFragment"
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_plantedFragment"
+            app:destination="@id/plantedFragment" />
+        <action
+            android:id="@+id/action_mapFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.sunflower_copy.title.SettingsFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/fullscreenImageFragment"
+        android:name="com.example.sunflower_copy.planted.FullscreenImageFragment">
+        <argument
+            android:name="imageFileName"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/move_plants"
+        android:title="@string/move_plants" />
+
+    <item
+        android:id="@+id/mapFragment"
+        android:title="@string/setup_garden" />
+
+    <item
+        android:id="@+id/clear_garden"
+        android:title="@string/clear_garden" />
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/aboutFragment"
+        android:title="@string/about" />
+
+</menu>

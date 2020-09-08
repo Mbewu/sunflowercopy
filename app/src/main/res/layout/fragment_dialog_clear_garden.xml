@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:padding="@dimen/dimen_12">
+
+        <LinearLayout
+            android:id="@+id/dialog_title_layout_clear_garden"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/holo_red_dark"
+            android:backgroundTint="@android:color/holo_red_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/dialog_image_clear_garden"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:foregroundTint="#FFFFFF"
+                android:padding="5dp"
+                android:text="Warning"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/font_size_16"
+                android:tint="#FFFFFF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_warning_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dialog_title_clear_garden"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#C81010"
+                android:padding="5dp"
+                android:text="Warning"
+                android:textColor="@color/colorTertiaryText"
+                android:textSize="30sp"
+                app:layout_constraintStart_toEndOf="@+id/dialog_image_clear_garden"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dialog_message_clear_garden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Remove plant from your garden?"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/font_size_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_title_layout_clear_garden" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPositiveRemove"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="@string/label_yes"
+            android:textColor="@color/colorTertiaryText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message_clear_garden" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNegativeRemove"
+            android:layout_width="@dimen/dimen_100"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_marginTop="@dimen/dimen_16"
+            android:padding="5dp"
+            android:text="@string/label_no"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnPositiveRemove"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message_clear_garden" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

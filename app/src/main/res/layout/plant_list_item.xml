@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.sunflower_copy.ui.main.PlantAndGardenPlantingsViewModel" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="plant"
+            type="com.example.sunflower_copy.domain.PlantInformation2" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTertiaryText"
+            android:orientation="vertical"
+            tools:context=".MainActivity"
+            android:id="@+id/frame_layout"
+            android:clickable="true"
+            android:foreground="@drawable/item_background"
+            android:focusable="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/mars_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/plant_image_description"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.imageUrl}"
+                    app:layout_constraintBottom_toTopOf="@id/text_layout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <LinearLayout
+
+                    android:id="@+id/text_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mars_image"
+                    tools:context=".MainActivity">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:paddingTop="@dimen/text_padding"
+                        android:paddingBottom="@dimen/text_padding"
+                        android:text="@{viewModel.plantNameAndId}"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toTopOf="@id/plant_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/plant_name" />
+
+                    <TextView
+                        android:id="@+id/plant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:paddingTop="@dimen/text_padding"
+                        android:paddingBottom="@dimen/text_padding"
+                        android:text="@{@string/latin_plant_name_insert(viewModel.latinName)}"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toTopOf="@+id/planted_time"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        tools:text="(Latin Plant Name)" />
+
+                    <!--            we have more information is the plant has been planted-->
+
+                    <TextView
+                        android:id="@+id/planted_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:paddingTop="@dimen/text_padding"
+                        android:paddingBottom="@dimen/text_padding"
+                        android:text="@{@string/time_planted_insert(viewModel.plantedTimeString)}"
+                        android:textAlignment="center"
+                        android:textSize="12sp"
+                        android:visibility="@{viewModel.planted ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                        tools:text="planted_time" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ready_to_water"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
+                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/mars_image"
+                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:srcCompat="@mipmap/water_notification_border_round"
+                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}" />
+
+                <ImageView
+                    android:id="@+id/ready_to_harvest"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
+                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/mars_image"
+                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:srcCompat="@mipmap/harvest_notification_border_round"
+                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}" />
+
+                <ImageView
+                    android:id="@+id/growing"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
+                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/mars_image"
+                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintVertical_bias="0.1"
+                    app:srcCompat="@mipmap/growing_notification_border_round"
+                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/frame" />
+
+    </FrameLayout>
+
+</layout>

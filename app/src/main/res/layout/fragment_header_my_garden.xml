@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.sunflower_copy.ui.main.PlantAndGardenPlantingsViewModel" />
+    </data>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:padding="16dp"
+        app:columnCount="2"
+        app:rowCount="2">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_plants_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/total_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/total"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/growing_plants_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/growing_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/growing"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/water_plants_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/water_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/to_water"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/harvest_plants_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                tools:text="3" />
+
+            <TextView
+                android:id="@+id/harvest_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="@string/to_harvest"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </GridLayout>
+</layout>

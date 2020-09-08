@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.sunflower_copy.ui.main.PlantAndGardenPlantingsViewModel" />
+
+        <variable
+            name="position"
+            type="int" />
+
+        <variable
+            name="plant"
+            type="com.example.sunflower_copy.domain.PlantInformation2" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_width="300dp"
+        tools:layout_height="80dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTertiaryText"
+            android:orientation="vertical"
+            tools:context=".MainActivity"
+            android:id="@+id/frame_layout"
+            android:clickable="true"
+            android:foreground="@drawable/item_background"
+            android:focusable="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:background="#ffffff"
+                    android:paddingStart="20dp"
+                    android:paddingTop="@dimen/text_padding"
+                    android:paddingBottom="@dimen/text_padding"
+                    android:text="@{viewModel.plantNameAndId}"
+                    android:textAlignment="textStart"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Beet #45" />
+
+
+                <ImageView
+                    android:id="@+id/ready_to_water"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/title"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toTopOf="@id/title"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:srcCompat="@mipmap/water_notification_border_round"
+                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}" />
+
+                <ImageView
+                    android:id="@+id/ready_to_harvest"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/title"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toTopOf="@id/title"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:srcCompat="@mipmap/harvest_notification_border_round"
+                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}" />
+
+                <ImageView
+                    android:id="@+id/growing"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintBottom_toBottomOf="@id/title"
+                    app:layout_constraintEnd_toEndOf="@id/title"
+                    app:layout_constraintHorizontal_bias="0.9"
+                    app:layout_constraintStart_toStartOf="@id/title"
+                    app:layout_constraintTop_toTopOf="@id/title"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:srcCompat="@mipmap/growing_notification_border_round"
+                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/frame" />
+
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">Sunflower</string>
+    <string name="tab_text_1">MY GARDEN</string>
+    <string name="tab_text_2">PLANT LIST</string>
+    <string name="plant_image_description">picture of a plant</string>
+    <string name="plant_name">Plant Name</string>
+
+    <string name="plant_name_insert">%1$s</string>
+    <string name="latin_plant_name_insert">(%1$s)</string>
+    <string name="plant_and_latin_name_insert">%1$s (%1$s)</string>
+    <string name="date_planted_insert">Date planted:\n %1$s</string>
+    <string name="time_planted_insert">Time planted:\n %1$s</string>
+    <string name="num_plants_in_garden">%1$s plants are in your garden</string>
+    <string name="num_available_plants">%1$s plants are available to plant</string>
+
+<!--    fragment_planted-->
+    <string name="plant_name_colon"><![CDATA[Plant name: %1$s <em>(%2$s)</em>]]></string>
+    <string name="plant_id_colon">Plant ID: #%1$d</string>
+    <string name="time_planted_colon">Time planted: %1$s</string>
+    <string name="maturation_time_colon">Maturation time: %1$d minutes %2$d seconds</string>
+    <string name="watering_interval_colon">Watering interval: %1$d seconds</string>
+    <string name="waterings_remaining_colon">Waterings remaining: %1$d</string>
+
+
+    <string name="sunflower_notification_channel_id" translatable="false">sunflower_channel</string>
+    <string name="sunflower_notification_channel_name" translatable="true">Sunflower</string>
+    <string name="sunflower_notification_channel_description" translatable="true">Watering and harvesting reminder</string>
+
+    <string name="timer_running">%1$s #%2$d is growing.</string>
+    <string name="timer_complete">%1$s #%2$d is ready to water or harvest.</string>
+    <string name="timer_complete_watering">%1$s #%2$d is ready to water.</string>
+    <string name="timer_complete_harvesting">%1$s #%2$d is ready to harvest.</string>
+    <string name="plant_ready">Plant needs watering…</string>
+    <string name="notification_title">Your garden:</string>
+
+
+
+
+
+    <string name="display_type">For %s</string>
+    <string name="display_price_monthly_rental">$%,.0f/month</string>
+    <string name="display_price">$%,.0f</string>
+    <string name="type_rent">Rent</string>
+    <string name="type_sale">Sale</string>
+    <string name="start">Start</string>
+    <string name="about">About</string>
+    <string name="setup_garden">Setup Garden</string>
+
+    <string name="about_text">Sunflower App is the place where I test out new ideas I have learnt and all that kind of thing.
+        \n\n Future ideas are to have a tick box at the beginning to specify what things we are testing so that the whole app doesn\'t run all the time.
+        But it still could be unfeasible to have everything in one app. We shall see.
+        \n\n Currently, we are working on just getting the whole thing up and running, adding menus and that kind of thing.</string>
+    <string name="time_until_next_watering">Time until next watering:</string>
+    <string name="plant_information">Plant information</string>
+    <string name="ready_to_harvest">READY TO HARVEST</string>
+    <string name="ready_to_water">READY TO WATER</string>
+    <string name="growing">GROWING</string>
+
+
+    <string name="dialog_text_add_plant">Add %1$s to your garden?</string>
+    <string name="dialog_text_remove_plant">Remove %1$s from your garden?</string>
+    <string name="label_yes">YES</string>
+    <string name="label_no">NO</string>
+    <string name="clear_garden">Clear Garden</string>
+
+    <string name="clear_garden_dialog_message">Are you sure you want to clear your Garden? This will remove all plants in your garden.</string>
+    <string name="warning">Warning</string>
+
+    <string name="dialog_text_remove_selected_plants">Are you sure you want to remove %1$d plant/s from your Garden?</string>
+    <string name="dialog_text_add_selected_plants">Are you sure you want to add %1$d plant/s to your Garden?</string>
+
+
+    <string name="map">Map</string>
+    <string name="dropped_pin">Dropped Pin</string>
+
+
+    <string name="title_activity_maps">Current Place Details</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
+
+    <string name="location_colon">Location: (%1$.3f, %2$.3f)</string>
+    <string name="plant_name_and_id">%1$s #%2$d</string>
+
+
+    <string name="setup_garden_dialog_title">Setup Garden?</string>
+    <string name="setup_garden_dialog_message">Would you like to change the location of your garden?
+        This will not affect the plants in your garden.</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+
+    <string name="planting_on_map_instructions">1. Long click to place marker.
+                                                \n2. Drag to move marker.
+                                                \n3. Tick button to confirm, cross to cancel.</string>
+    <string name="place_plant_on_the_map">Place plant on the map</string>
+
+    <string name="move_plants">Move plants</string>
+
+    <string name="move_plants_text">1. Long click to select marker.
+                                    \n2. Drag to move marker.
+                                    \n3. Move another marker, or
+                                    \n4. Tick button to confirm, cross to cancel all movements.</string>
+
+    <string name="instructions_set_garden_color_title">Set garden color</string>
+    <string name="instructions_set_garden_color_text">1. Adjust hue (color) and alpha (transparency) with sliders.
+                                    \n4. Tick button to confirm, cross to cancel all changes.</string>
+
+    <string name="instructions_set_polygon_markers_title">Set corners of your garden</string>
+    <string name="instructions_set_polygon_markers_text">1. Long click to add a new corner marker (max 10)
+                                                        \n2. Drag to move corner marker
+                                                        \n3. Tick button to confirm, cross to cancel all changes.
+                                                        \nNote: Garden will be created by joining the corners in order.</string>
+
+    <string name="garden_color_default">999999</string>
+    <string name="preference_garden_color_key">garden_color_key</string>
+    <string name="settings_garden_color_title">Garden color</string>
+
+    <string name="preference_file_key_base">sunflower_preferences</string>
+
+    <string name="settings">Settings</string>
+
+    <string name="alpha_label">Transparency: %1$d</string>
+    <string name="hue_label">Hue: %1$d</string>
+    <string name="total">TOTAL</string>
+    <string name="to_water">TO WATER</string>
+    <string name="to_harvest">TO HARVEST</string>
+    <string name="stop_music">Stop music</string>
+    <string name="start_music">Start music</string>
+
+
+    <string-array
+        name="background_music_songs_strings">
+        <item>Australia 1</item>
+        <item>Australia 2</item>
+        <item>Australia 3</item>
+        <item>Australia 4</item>
+        <item>Australia 5</item>
+    </string-array>
+
+    <string-array
+        name="background_music_songs_values">
+        <item>australia_1</item>
+        <item>australia_2</item>
+        <item>australia_3</item>
+        <item>australia_4</item>
+        <item>australia_5</item>
+    </string-array>
+
+    <string name="background_music_song_key">australia_1</string>
+    <string name="background_music_song_default">australia_1</string>
+
+    <string name="background_music_on_off_key">background_music_on_off_key</string>
+    <string name="background_music_on_off_default">true</string>
+
+    <string name="background_music_volume_default">100</string>
+    <string name="background_music_volume_key">background_music_volume_key</string>
+    <string name="background_music_song_title">Background Music Song</string>
+    <string name="background_music_volume_title">Background Music Volume</string>
+
+    android:defaultValue="@string/garden_hue_default"
+    android:key="@string/preference_garden_hue_key"
+    android:selectAllOnFocus="true"
+    android:singleLine="true"
+    android:title="@string/settings_garden_hue_title" />
+
+
+</resources>

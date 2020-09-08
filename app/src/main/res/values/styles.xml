@@ -1,0 +1,77 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+
+<!--    <style name="AppTheme.SunflowerVersionOne" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <style name="AppTheme.SunflowerVersionOne" parent="Theme.AppCompat.Light.NoActionBar">
+<!--        <item name="windowActionBar">true</item>-->
+<!--        <item name="windowNoTitle">false</item>-->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorLink">@color/textColorLink</item>
+        <item name="android:textColorLinkInverse">@color/textColorLinkInverse</item>
+<!--        not all options that are self defined in color.xml exist-->
+<!--        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>-->
+<!--        <item name="colorPrimaryText">@color/colorPrimaryText</item>-->
+<!--        <item name="colorSecondaryText">@color/colorSecondaryText</item>-->
+<!--        <item name="colorIcons">@color/colorIcons</item>-->
+<!--        <item name="colorDivider">@color/colorDivider</item>-->
+<!--        -->
+
+<!--        <item name="colorTertiaryText">@color/colorTertiaryText</item>-->
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+<!--    <style name="Theme.MyFancyTheme" parent="android:Theme.Holo">-->
+<!--        <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>-->
+<!--    </style>-->
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/colorTertiaryText</item>
+    </style>
+
+    <!-- Define your custom dialog theme here extending from base -->
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Define color properties as desired -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">#000</item>
+        <item name="android:textColorHighlight">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorPrimaryDark</item>
+        <!-- Define window properties as desired -->
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/colorWater</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+    <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
+        <!-- Text Size -->
+        <item name="android:textSize">@dimen/font_size_16</item>
+        <!-- Query Text Color -->
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+        <!-- Hint Color -->
+        <item name="android:textColorHint">@color/colorSecondaryText</item>
+        <!-- Icon Color -->
+        <item name="android:tint">@color/colorPrimaryText</item>
+    </style>
+
+
+
+</resources>

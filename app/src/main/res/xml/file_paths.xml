@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path name="my_images" path="Android/data/com.example.sunflower_copy/files/Pictures" />
+<!--        <external-path-->
+<!--            name="external_files"-->
+<!--            path="." />-->
+        <root-path
+            name="external_files"
+            path="/storage/" />
+</paths>
