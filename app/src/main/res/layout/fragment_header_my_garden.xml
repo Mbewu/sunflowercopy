@@ -15,8 +15,8 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
-        android:padding="16dp"
+        android:background="@android:color/white"
+        android:padding="@dimen/padding_normal"
         app:columnCount="2"
         app:rowCount="2">
 
@@ -33,9 +33,9 @@
                 android:id="@+id/total_plants_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:textAlignment="center"
-                android:textSize="40sp"
+                android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
                 tools:text="5" />
 
@@ -43,11 +43,11 @@
                 android:id="@+id/total_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:text="@string/total"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -64,9 +64,9 @@
                 android:id="@+id/growing_plants_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:textAlignment="center"
-                android:textSize="40sp"
+                android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
                 tools:text="5" />
 
@@ -74,11 +74,11 @@
                 android:id="@+id/growing_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:text="@string/growing"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -95,9 +95,9 @@
                 android:id="@+id/water_plants_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:textAlignment="center"
-                android:textSize="40sp"
+                android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
                 tools:text="2" />
 
@@ -105,11 +105,11 @@
                 android:id="@+id/water_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:text="@string/to_water"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -126,9 +126,9 @@
                 android:id="@+id/harvest_plants_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:textAlignment="center"
-                android:textSize="40sp"
+                android:textSize="@dimen/text_size_extra_large"
                 android:textStyle="bold"
                 tools:text="3" />
 
@@ -136,11 +136,11 @@
                 android:id="@+id/harvest_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:padding="@dimen/text_padding_small"
                 android:text="@string/to_harvest"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
         </LinearLayout>
 

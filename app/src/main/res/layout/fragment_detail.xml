@@ -19,16 +19,12 @@
         tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            android:elevation="5dp"
-            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
             app:titleTextColor="@android:color/black"
-            app:navigationIcon="@drawable/ic_detail_back"/>
+            app:navigationIcon="@drawable/ic_back_circle"
+            style="@style/ToolbarStyle" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -43,22 +39,24 @@
                 <ImageView
                     android:id="@+id/main_photo_image"
                     android:layout_width="0dp"
-                    android:layout_height="266dp"
+                    android:layout_height="@dimen/plant_detail_image_height"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@string/plant_detail_image_content_description" />
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:paddingLeft="16dp"
-                    android:paddingBottom="@dimen/text_padding"
-                    android:textColor="#de000000"
-                    android:textSize="39sp"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:paddingStart="@dimen/text_padding_medium"
+                    android:paddingEnd="@dimen/text_padding_medium"
+                    android:paddingBottom="@dimen/text_padding_extra_small"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_size_extra_large"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/main_photo_image"
                     tools:text="Plant Name" />
@@ -67,25 +65,26 @@
                     android:id="@+id/plant_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="@dimen/text_padding"
-                    android:textSize="20sp"
+                    android:paddingStart="@dimen/text_padding_medium"
+                    android:paddingEnd="@dimen/text_padding_medium"
+                    android:paddingTop="@dimen/text_padding_extra_small"
+                    android:textSize="@dimen/text_size_medium"
                     android:textStyle="italic"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    app:layout_constraintTop_toBottomOf="@id/title"
                     tools:text="Latin Name" />
 
                 <TextView
                     android:id="@+id/plant_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#de000000"
-                    android:textSize="16sp"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/text_size_normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/plant_name"
                     tools:text="Description of plant."
-                    android:padding="16dp" />
+                    android:padding="@dimen/text_padding_medium" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,36 +96,14 @@
             android:layout_gravity="bottom|end">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:visibility="gone"
-                app:borderWidth="0dp"
-                android:tint="@color/colorTertiaryText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/fab"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:id="@+id/add_plant_fab"
                 android:backgroundTint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                android:tint="@color/colorTertiaryText"
-                app:layout_constraintEnd_toStartOf="@id/fab2"
+                app:borderWidth="@dimen/dimen_fab_border_0"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:srcCompat="@android:drawable/ic_input_add"
+                style="@style/FabStyle" />
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -33,8 +33,9 @@
             tools:context=".MainActivity"
             android:id="@+id/frame_layout"
             android:clickable="true"
-            android:foreground="@drawable/item_background"
-            android:focusable="true">
+            android:foreground="@drawable/item_background_selector"
+            android:focusable="true"
+            tools:ignore="UnusedAttribute">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -44,14 +45,14 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="#ffffff"
-                    android:paddingStart="20dp"
-                    android:paddingTop="@dimen/text_padding"
-                    android:paddingBottom="@dimen/text_padding"
+                    android:background="@android:color/white"
+                    android:paddingStart="@dimen/text_padding_medium"
+                    android:paddingTop="@dimen/text_padding_extra_small"
+                    android:paddingEnd="@dimen/text_padding_medium"
+                    android:paddingBottom="@dimen/text_padding_extra_small"
                     android:text="@{viewModel.plantNameAndId}"
                     android:textAlignment="textStart"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,42 +62,45 @@
 
                 <ImageView
                     android:id="@+id/ready_to_water"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
                     app:layout_constraintBottom_toBottomOf="@id/title"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintHorizontal_bias="0.9"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toTopOf="@id/title"
                     app:layout_constraintVertical_bias="0.5"
-                    app:srcCompat="@mipmap/water_notification_border_round"
-                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_water_border"
+                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/ready_to_water_icon_content_description" />
 
                 <ImageView
                     android:id="@+id/ready_to_harvest"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
                     app:layout_constraintBottom_toBottomOf="@id/title"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintHorizontal_bias="0.9"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toTopOf="@id/title"
                     app:layout_constraintVertical_bias="0.5"
-                    app:srcCompat="@mipmap/harvest_notification_border_round"
-                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_harvest_border"
+                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/ready_to_harvest_icon_content_description" />
 
                 <ImageView
                     android:id="@+id/growing"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
                     app:layout_constraintBottom_toBottomOf="@id/title"
                     app:layout_constraintEnd_toEndOf="@id/title"
                     app:layout_constraintHorizontal_bias="0.9"
                     app:layout_constraintStart_toStartOf="@id/title"
                     app:layout_constraintTop_toTopOf="@id/title"
                     app:layout_constraintVertical_bias="0.5"
-                    app:srcCompat="@mipmap/growing_notification_border_round"
-                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_growing_border"
+                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/growing_icon_content_description" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -106,7 +110,8 @@
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/frame" />
+            android:background="@drawable/item_frame"
+            tools:ignore="ContentDescription" />
 
     </FrameLayout>
 

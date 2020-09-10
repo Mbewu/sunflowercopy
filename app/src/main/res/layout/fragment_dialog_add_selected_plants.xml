@@ -7,10 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/holo_red_dark"
-        android:padding="@dimen/dimen_12">
+        android:padding="@dimen/padding_normal">
 
         <LinearLayout
-            android:id="@+id/dialog_title_layout_add_selected"
+            android:id="@+id/title_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
@@ -20,66 +20,62 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/dialog_image_add_selected"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:foregroundTint="#FFFFFF"
-                android:padding="5dp"
-                android:text="Warning"
+                android:id="@+id/title_image"
+                android:layout_width="@dimen/dialog_icon_width"
+                android:layout_height="@dimen/dialog_icon_height"
+                android:foregroundTint="@android:color/white"
+                android:padding="@dimen/padding_small"
+                android:text="@string/warning"
                 android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/font_size_16"
-                android:tint="#FFFFFF"
+                android:textSize="@dimen/text_size_normal"
+                android:tint="@android:color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_warning_24" />
+                app:srcCompat="@drawable/ic_warning" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/dialog_title_add_selected"
+                android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
-                android:padding="5dp"
-                android:text="Warning"
+                android:padding="@dimen/text_padding_small"
+                android:text="@string/warning"
                 android:textColor="@color/colorTertiaryText"
-                android:textSize="30sp"
-                app:layout_constraintStart_toEndOf="@+id/dialog_image_add_selected"
+                android:textSize="@dimen/text_size_dialog_title"
+                app:layout_constraintStart_toEndOf="@+id/title_image"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dialog_message_add_selected"
+            android:id="@+id/message_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Add plants from your garden?"
+            android:padding="@dimen/text_padding_small"
+            android:text="@string/dialog_add_plants_message"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/font_size_16"
+            android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_title_layout_add_selected" />
+            app:layout_constraintTop_toBottomOf="@+id/title_layout" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPositiveRemove"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:id="@+id/button_positive"
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/label_yes"
             android:textColor="@color/colorTertiaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_message_add_selected" />
+            app:layout_constraintTop_toBottomOf="@+id/message_text"
+            style="@style/DialogButtonStyle" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNegativeRemove"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
-            android:padding="5dp"
+            android:id="@+id/button_negative"
+            android:padding="@dimen/padding_small"
             android:text="@string/label_no"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnPositiveRemove"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_message_add_selected" />
+            app:layout_constraintEnd_toStartOf="@id/button_positive"
+            app:layout_constraintTop_toBottomOf="@+id/message_text"
+            style="@style/DialogButtonStyle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

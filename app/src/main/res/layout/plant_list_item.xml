@@ -26,20 +26,21 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorTertiaryText"
+            android:background="@android:color/white"
             android:orientation="vertical"
             tools:context=".MainActivity"
             android:id="@+id/frame_layout"
             android:clickable="true"
-            android:foreground="@drawable/item_background"
-            android:focusable="true">
+            android:foreground="@drawable/item_background_selector"
+            android:focusable="true"
+            tools:ignore="UnusedAttribute">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/mars_image"
+                    android:id="@+id/plant_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
@@ -57,25 +58,25 @@
                     android:id="@+id/text_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#FFFFFF"
+                    android:background="@android:color/white"
                     android:orientation="vertical"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="@dimen/padding_normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mars_image"
+                    app:layout_constraintTop_toBottomOf="@id/plant_image"
                     tools:context=".MainActivity">
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:paddingTop="@dimen/text_padding"
-                        android:paddingBottom="@dimen/text_padding"
+                        android:background="@android:color/white"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.plantNameAndId}"
                         android:textAlignment="center"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/text_size_normal"
                         app:layout_constraintBottom_toTopOf="@id/plant_name"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -86,15 +87,15 @@
                         android:id="@+id/plant_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:paddingTop="@dimen/text_padding"
-                        android:paddingBottom="@dimen/text_padding"
+                        android:background="@android:color/white"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{@string/latin_plant_name_insert(viewModel.latinName)}"
                         android:textAlignment="center"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_small"
                         android:textStyle="italic"
-                        app:layout_constraintBottom_toTopOf="@+id/planted_time"
-                        app:layout_constraintTop_toBottomOf="@+id/title"
+                        app:layout_constraintBottom_toTopOf="@id/planted_time"
+                        app:layout_constraintTop_toBottomOf="@id/title"
                         tools:text="(Latin Plant Name)" />
 
                     <!--            we have more information is the plant has been planted-->
@@ -103,56 +104,59 @@
                         android:id="@+id/planted_time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#ffffff"
-                        android:paddingTop="@dimen/text_padding"
-                        android:paddingBottom="@dimen/text_padding"
+                        android:background="@android:color/white"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{@string/time_planted_insert(viewModel.plantedTimeString)}"
                         android:textAlignment="center"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_small"
                         android:visibility="@{viewModel.planted ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/plant_name"
+                        app:layout_constraintTop_toBottomOf="@id/plant_name"
                         tools:text="planted_time" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/ready_to_water"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
-                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
+                    app:layout_constraintBottom_toBottomOf="@id/plant_image"
+                    app:layout_constraintEnd_toEndOf="@id/plant_image"
                     app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toStartOf="@id/mars_image"
-                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintStart_toStartOf="@id/plant_image"
+                    app:layout_constraintTop_toTopOf="@id/plant_image"
                     app:layout_constraintVertical_bias="0.1"
-                    app:srcCompat="@mipmap/water_notification_border_round"
-                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_water_border"
+                    android:visibility="@{viewModel.readyToWater ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/ready_to_water_icon_content_description" />
 
                 <ImageView
                     android:id="@+id/ready_to_harvest"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
-                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
+                    app:layout_constraintBottom_toBottomOf="@id/plant_image"
+                    app:layout_constraintEnd_toEndOf="@id/plant_image"
                     app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toStartOf="@id/mars_image"
-                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintStart_toStartOf="@id/plant_image"
+                    app:layout_constraintTop_toTopOf="@id/plant_image"
                     app:layout_constraintVertical_bias="0.1"
-                    app:srcCompat="@mipmap/harvest_notification_border_round"
-                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_harvest_border"
+                    android:visibility="@{viewModel.readyToHarvest ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/ready_to_harvest_icon_content_description" />
 
                 <ImageView
                     android:id="@+id/growing"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@id/mars_image"
-                    app:layout_constraintEnd_toEndOf="@id/mars_image"
+                    android:layout_width="@dimen/plant_list_icon_width"
+                    android:layout_height="@dimen/plant_list_icon_height"
+                    app:layout_constraintBottom_toBottomOf="@id/plant_image"
+                    app:layout_constraintEnd_toEndOf="@id/plant_image"
                     app:layout_constraintHorizontal_bias="0.9"
-                    app:layout_constraintStart_toStartOf="@id/mars_image"
-                    app:layout_constraintTop_toTopOf="@+id/mars_image"
+                    app:layout_constraintStart_toStartOf="@id/plant_image"
+                    app:layout_constraintTop_toTopOf="@id/plant_image"
                     app:layout_constraintVertical_bias="0.1"
-                    app:srcCompat="@mipmap/growing_notification_border_round"
-                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}" />
+                    app:srcCompat="@drawable/notification_growing_border"
+                    android:visibility="@{viewModel.growing ? View.VISIBLE : View.GONE}"
+                    android:contentDescription="@string/growing_icon_content_description" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -162,7 +166,8 @@
             android:id="@+id/frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/frame" />
+            android:background="@drawable/item_frame"
+            tools:ignore="ContentDescription" />
 
     </FrameLayout>
 

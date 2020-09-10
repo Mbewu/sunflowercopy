@@ -35,15 +35,15 @@ class AddSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInformat
 
         val view = inflater.inflate(R.layout.fragment_dialog_add_selected_plants, container, false)
 
-        val title = view.findViewById<TextView>(R.id.dialog_title_add_selected)
+        val title = view.findViewById<TextView>(R.id.title_text)
         title.text = getString(R.string.warning)
         val numberOfPlants = selectedPlantList.size
-        val message = view.findViewById<TextView>(R.id.dialog_message_add_selected)
+        val message = view.findViewById<TextView>(R.id.message_text)
         Timber.i("numberOfPlants = ".plus(numberOfPlants))
         message.text = getString(R.string.dialog_text_add_selected_plants, numberOfPlants)
-        val yesButton = view.findViewById<Button>(R.id.btnPositiveRemove)
+        val yesButton = view.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)
-        val noButton = view.findViewById<Button>(R.id.btnNegativeRemove)
+        val noButton = view.findViewById<Button>(R.id.button_negative)
         noButton.text = getString(R.string.label_no)
 
 

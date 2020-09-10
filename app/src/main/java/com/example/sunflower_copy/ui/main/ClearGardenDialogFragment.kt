@@ -10,10 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.domain.PlantInformation2
-import com.example.sunflower_copy.planted.PlantedViewModelFactory
 import timber.log.Timber
-import java.util.*
 
 
 class ClearGardenDialogFragment() : DialogFragment() {
@@ -37,13 +34,13 @@ class ClearGardenDialogFragment() : DialogFragment() {
 
         val v = inflater.inflate(R.layout.fragment_dialog_clear_garden, container, false)
 
-        val title = v.findViewById<TextView>(R.id.dialog_title_clear_garden)
+        val title = v.findViewById<TextView>(R.id.title_text)
         title.text = getString(R.string.warning)
-        val message = v.findViewById<TextView>(R.id.dialog_message_clear_garden)
+        val message = v.findViewById<TextView>(R.id.message_text)
         message.text = getString(R.string.clear_garden_dialog_message)
-        val yesButton = v.findViewById<Button>(R.id.btnPositiveRemove)
+        val yesButton = v.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)
-        val noButton = v.findViewById<Button>(R.id.btnNegativeRemove)
+        val noButton = v.findViewById<Button>(R.id.button_negative)
         noButton.text = getString(R.string.label_no)
 
         yesButton.setOnClickListener() {

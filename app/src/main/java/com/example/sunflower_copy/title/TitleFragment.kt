@@ -83,23 +83,23 @@ class TitleFragment : Fragment() {
             R.layout.fragment_title,container,false)
 
         Timber.i("what are we doing here?")
-        binding.startButton.setOnClickListener { view : View ->
+        binding.buttonStart.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_viewPagerFragment)
         }
-        binding.authButton.text = getString(R.string.login)
+        binding.buttonAuth.text = getString(R.string.login)
 
         // set sunflower animation immediately
         sunflowerImage = binding.titleImage
         animateSunflower()
 
-        binding.stopMusicButton.setOnClickListener {
+        binding.buttonStopMusic.setOnClickListener {
 //            val playerIntent = Intent(requireActivity(), BackgroundMusicService::class.java)
 //            requireActivity().stopService(playerIntent)
 
             backgroundMusicService.pauseMusic()
         }
 
-        binding.startMusicButton.setOnClickListener {
+        binding.buttonStartMusic.setOnClickListener {
 //            val playerIntent = Intent(requireActivity(), BackgroundMusicService::class.java)
 //            requireActivity().startService(playerIntent)
 
@@ -125,7 +125,7 @@ class TitleFragment : Fragment() {
 
         Timber.i("what are we doing here?6")
 
-        binding.authButton.setOnClickListener { launchSignInFlow() }
+        binding.buttonAuth.setOnClickListener { launchSignInFlow() }
 
     }
 
@@ -158,8 +158,8 @@ class TitleFragment : Fragment() {
             Timber.i("what are we doing here?")
             when (authenticationState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
-                    binding.authButton.text = getString(R.string.logout)
-                    binding.authButton.setOnClickListener {
+                    binding.buttonAuth.text = getString(R.string.logout)
+                    binding.buttonAuth.setOnClickListener {
                         // TODO implement logging out user in next step
                         AuthUI.getInstance().signOut(requireContext())
                     }
@@ -169,8 +169,8 @@ class TitleFragment : Fragment() {
                 }
                 else -> {
                     // TODO 3. Lastly, if there is no logged-in user...
-                    binding.authButton.text = getString(R.string.login)
-                    binding.authButton.setOnClickListener { launchSignInFlow() }
+                    binding.buttonAuth.text = getString(R.string.login)
+                    binding.buttonAuth.setOnClickListener { launchSignInFlow() }
 
                     // change the shared preferences file
                 }

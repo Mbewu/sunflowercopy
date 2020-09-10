@@ -11,9 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.domain.PlantInformation2
-import com.example.sunflower_copy.planted.PlantedViewModelFactory
 import timber.log.Timber
-import java.util.*
 
 class RemoveSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInformation2>) : DialogFragment() {
 
@@ -37,15 +35,15 @@ class RemoveSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInfor
 
         val view = inflater.inflate(R.layout.fragment_dialog_clear_garden, container, false)
 
-        val title = view.findViewById<TextView>(R.id.dialog_title_clear_garden)
+        val title = view.findViewById<TextView>(R.id.title_text)
         title.text = getString(R.string.warning)
         val numberOfPlants = selectedPlantList.size
-        val message = view.findViewById<TextView>(R.id.dialog_message_clear_garden)
+        val message = view.findViewById<TextView>(R.id.message_text)
         Timber.i("numberOfPlants = ".plus(numberOfPlants))
         message.text = getString(R.string.dialog_text_remove_selected_plants, numberOfPlants)
-        val yesButton = view.findViewById<Button>(R.id.btnPositiveRemove)
+        val yesButton = view.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)
-        val noButton = view.findViewById<Button>(R.id.btnNegativeRemove)
+        val noButton = view.findViewById<Button>(R.id.button_negative)
         noButton.text = getString(R.string.label_no)
 
 

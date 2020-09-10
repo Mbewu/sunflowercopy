@@ -12,7 +12,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:padding="12dp"
+            android:padding="@dimen/padding_normal"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/plant_list_search"
             app:layout_constraintHorizontal_bias="1.0"
@@ -42,8 +42,8 @@
             android:id="@+id/plant_list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="@color/colorPrimaryDark"
             android:textCursorDrawable="@null"
             android:theme="@style/AppSearchView"
             app:iconifiedByDefault="false"
@@ -64,15 +64,8 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_delete_selection"
-            app:borderWidth="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/fab_margin"
-            android:layout_marginTop="@dimen/fab_margin"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
+            app:borderWidth="@dimen/dimen_fab_border_0"
             android:backgroundTint="@android:color/holo_red_dark"
-            android:tint="@color/colorTertiaryText"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,7 +73,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            style="@style/FabStyle"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

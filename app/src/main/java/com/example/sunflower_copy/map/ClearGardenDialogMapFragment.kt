@@ -37,17 +37,17 @@ class ClearGardenDialogMapFragment() : DialogFragment() {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dialog_clear_garden, container, false)
 
-        binding.dialogTitleClearGarden.text = getString(R.string.warning)
-        binding.dialogMessageClearGarden.text = getString(R.string.clear_garden_dialog_message)
-        binding.btnPositiveRemove.text = getString(R.string.label_yes)
-        binding.btnNegativeRemove.text = getString(R.string.label_no)
+        binding.titleText.text = getString(R.string.warning)
+        binding.messageText.text = getString(R.string.clear_garden_dialog_message)
+        binding.buttonPositive.text = getString(R.string.label_yes)
+        binding.buttonNegative.text = getString(R.string.label_no)
 
-        binding.btnPositiveRemove.setOnClickListener() {
+        binding.buttonPositive.setOnClickListener() {
             viewModel.clearGarden()
             dismiss()
         }
 
-        binding.btnNegativeRemove.setOnClickListener{
+        binding.buttonNegative.setOnClickListener{
             dismiss()
         }
 

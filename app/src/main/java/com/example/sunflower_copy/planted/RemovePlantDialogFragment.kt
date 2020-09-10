@@ -1,7 +1,5 @@
 package com.example.sunflower_copy.planted
 
-import android.R.attr.button
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.detail.DetailViewModel
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.ui.main.PageViewModel
 import timber.log.Timber
@@ -50,13 +47,13 @@ class RemovePlantDialogFragment(selectedPlantInput: PlantInformation2) : DialogF
 
         val v = inflater.inflate(R.layout.fragment_dialog_remove_plant, container, false)
 
-        val message = v.findViewById<TextView>(R.id.dialogMessageRemove)
+        val message = v.findViewById<TextView>(R.id.message)
         val plantName = viewModel.selectedPlant.value?.name?.toLowerCase(Locale.ROOT)
         Timber.i("selectedPlant = ".plus(plantName))
         message.text = getString(R.string.dialog_text_remove_plant, plantName)
-        val yesButton = v.findViewById<Button>(R.id.btnPositiveRemove)
+        val yesButton = v.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)
-        val noButton = v.findViewById<Button>(R.id.btnNegativeRemove)
+        val noButton = v.findViewById<Button>(R.id.button_negative)
         noButton.text = getString(R.string.label_no)
 
         yesButton.setOnClickListener() {

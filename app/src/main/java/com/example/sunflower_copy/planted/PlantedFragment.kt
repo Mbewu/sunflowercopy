@@ -151,14 +151,14 @@ class PlantedFragment : Fragment() {
 
 
         // observer for floating action button to take a picture
-        binding.cameraFab.setOnClickListener {
+        binding.fabCamera.setOnClickListener {
 
             Timber.i("taking picture after click")
             dispatchTakePictureIntent()
         }
 
         // observer for floating action button to go to the map
-        binding.mapsFab.setOnClickListener {
+        binding.fabMaps.setOnClickListener {
 
             // set the navigateToPlantOnMap event
             sharedViewModel.navigateToPlantOnMap.value = selectedPlant
@@ -172,7 +172,7 @@ class PlantedFragment : Fragment() {
 
 
         // observer for floating action button to plant
-        binding.removeFab.setOnClickListener {
+        binding.fabRemove.setOnClickListener {
 
             val removePlantDialogFragment: DialogFragment = RemovePlantDialogFragment(selectedPlant)
             val fm: FragmentManager = requireActivity().supportFragmentManager
@@ -262,8 +262,8 @@ class PlantedFragment : Fragment() {
                 binding.readyToWater.visibility = View.GONE
 
                 binding.readyToHarvest.visibility = View.VISIBLE
-                binding.harvestFab.visibility = View.VISIBLE
-                binding.waterFab.visibility = View.GONE
+                binding.fabHarvest.visibility = View.VISIBLE
+                binding.fabWater.visibility = View.GONE
 
             }   // doesn't really matter because we're leaving this plant behind
 //            else {

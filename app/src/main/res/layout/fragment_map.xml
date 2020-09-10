@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
@@ -24,11 +24,11 @@
 
         <LinearLayout
             android:id="@+id/instructions_layout"
-            android:layout_width="200dp"
+            android:layout_width="@dimen/instructions_layout_width"
             android:layout_height="wrap_content"
-            android:background="@color/colorIcons"
+            android:background="@android:color/white"
             android:orientation="vertical"
-            android:padding="8dp"
+            android:padding="@dimen/padding_small"
             android:translationZ="10dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,11 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:drawableEnd="@drawable/ic_drop_down"
                 android:focusable="true"
                 android:text="@string/place_plant_on_the_map"
                 android:textStyle="bold"
-                app:drawableTint="@color/colorSecondaryText" />
+                app:drawableTint="@color/colorSecondaryText"
+                app:drawableEndCompat="@drawable/ic_drop_down" />
 
             <TextView
                 android:id="@+id/instructions_text"
@@ -60,7 +60,7 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/constraint_layout_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -72,24 +72,22 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/holo_red_dark"
-                android:tint="@color/colorTertiaryText"
                 android:visibility="invisible"
-                app:borderWidth="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close_24px"
-                tools:visibility="visible" />
+                app:srcCompat="@drawable/ic_close"
+                tools:visibility="visible"
+                app:borderWidth="@dimen/dimen_fab_border_0"
+                style="@style/FabStyle"/>
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:text="@string/button"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/button_move"
@@ -101,7 +99,7 @@
                 android:id="@+id/button_move"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Move"
+                android:text="@string/move"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fab_confirm"
@@ -111,26 +109,24 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/primary_dark"
-                android:tint="@color/colorTertiaryText"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:visibility="invisible"
-                app:borderWidth="0dp"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/button_move"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_check_24px"
-                tools:visibility="visible" />
+                app:srcCompat="@drawable/ic_check"
+                tools:visibility="visible"
+                style="@style/FabStyle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
-            android:id="@+id/polygonColorBar"
+            android:id="@+id/polygon_color_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintBottom_toBottomOf="@+id/constraint_layout_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,30 +135,30 @@
             android:gravity="center_vertical"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:padding="@dimen/text_padding"
+            android:padding="@dimen/padding_extra_small"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/hueText"
-                android:text="Hue"
+                android:id="@+id/hue_text"
+                android:text="@string/hue"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content" />
 
             <SeekBar
-                android:id="@+id/fillHueSeekBar"
+                android:id="@+id/fill_hue_seek_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="360"
                 android:progress="180"
                 android:visibility="visible" />
             <TextView
-                android:id="@+id/alphaText"
-                android:text="Transparency"
+                android:id="@+id/alpha_text"
+                android:text="@string/transparency"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content" />
 
             <SeekBar
-                android:id="@+id/fillAlphaSeekBar"
+                android:id="@+id/fill_alpha_seek_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="255"
@@ -170,27 +166,5 @@
                 android:visibility="visible" />
 
         </LinearLayout>
-<!--        <SeekBar-->
-<!--            android:id="@+id/fill_alpha_seek_bar"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.448"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.884" />-->
-
-        <!--        <Button-->
-<!--            android:id="@+id/button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Button"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.94" />-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

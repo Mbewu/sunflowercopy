@@ -6,42 +6,38 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_12">
+        android:padding="@dimen/padding_normal">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dialogMessageRemove"
+            android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="Remove plant from your garden?"
+            android:text="@string/dialog_remove_plant_message"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/font_size_16"
+            android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPositiveRemove"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:id="@+id/button_positive"
             android:backgroundTint="@android:color/holo_red_dark"
             android:text="@string/label_yes"
             android:textColor="@color/colorTertiaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialogMessageRemove" />
+            app:layout_constraintTop_toBottomOf="@id/message"
+            style="@style/DialogButtonStyle" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNegativeRemove"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
-            android:padding="5dp"
+            android:id="@+id/button_negative"
+            android:padding="@dimen/padding_small"
             android:text="@string/label_no"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnPositiveRemove"
-            app:layout_constraintTop_toBottomOf="@+id/dialogMessageRemove" />
+            app:layout_constraintEnd_toStartOf="@id/button_positive"
+            app:layout_constraintTop_toBottomOf="@id/message"
+            style="@style/DialogButtonStyle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

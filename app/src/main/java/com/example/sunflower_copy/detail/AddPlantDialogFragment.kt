@@ -38,16 +38,16 @@ class AddPlantDialogFragment : DialogFragment()  {
         val plantName = viewModel.selectedPlant.value?.name
         Timber.i("plant name = ".plus(viewModel.selectedPlant.value?.name))
         binding.dialogMessage.text = getString(R.string.dialog_text_add_plant, plantName)
-        binding.btnPositive.text = getString(R.string.label_yes)
-        binding.btnNegative.text = getString(R.string.label_no)
+        binding.buttonPositive.text = getString(R.string.label_yes)
+        binding.buttonNegative.text = getString(R.string.label_no)
 
-        binding.btnPositive.setOnClickListener {
+        binding.buttonPositive.setOnClickListener {
             viewModel.navigateToMap(true)
             sharedViewModel.plantOnMap(viewModel.selectedPlant.value!!)
             dismiss()
         }
 
-        binding.btnNegative.setOnClickListener {
+        binding.buttonNegative.setOnClickListener {
             dismiss()
         }
 

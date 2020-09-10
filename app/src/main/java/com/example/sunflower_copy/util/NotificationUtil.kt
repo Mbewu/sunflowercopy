@@ -48,15 +48,15 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     val sunflowerImage = when (notificationType) {
         PlantNotificationType.GROWING ->
             BitmapFactory.decodeResource(applicationContext.resources,
-            R.mipmap.growing_notification_round)
+            R.drawable.notification_growing)
 
         PlantNotificationType.READY_TO_HARVEST ->
             BitmapFactory.decodeResource(applicationContext.resources,
-            R.mipmap.harvest_notification_round)
+            R.drawable.notification_harvest)
 
         PlantNotificationType.READY_TO_WATER ->
             BitmapFactory.decodeResource(applicationContext.resources,
-            R.mipmap.water_notification_round)
+            R.drawable.notification_water)
     }
 
     // TODO: Step 1.2 get an instance of NotificationCompat.Builder

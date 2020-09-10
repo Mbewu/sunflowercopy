@@ -63,7 +63,7 @@
     </style>
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
         <!-- Text Size -->
-        <item name="android:textSize">@dimen/font_size_16</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
         <!-- Query Text Color -->
         <item name="android:textColorPrimary">@color/colorPrimaryText</item>
         <!-- Hint Color -->
@@ -72,6 +72,28 @@
         <item name="android:tint">@color/colorPrimaryText</item>
     </style>
 
+    <style name="ToolbarStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:elevation">@dimen/toolbar_elevation</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/fab_margin</item>
+        <item name="android:layout_marginEnd">@dimen/fab_margin</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
+        <item name="android:tint">@android:color/white</item>
+    </style>
+
+    <style name="DialogButtonStyle">
+        <item name="android:layout_width">@dimen/dialog_button_width</item>
+        <item name="android:layout_height">@dimen/dialog_button_height</item>
+        <item name="android:layout_marginTop">@dimen/margin_normal</item>
+    </style>
 
 
 </resources>

@@ -19,16 +19,12 @@
         tools:context=".planted.PlantedViewModel">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            android:elevation="5dp"
-            android:minHeight="?attr/actionBarSize"
+            android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:title=" "
             app:titleTextColor="@android:color/black"
-            app:navigationIcon="@drawable/ic_detail_back"/>
+            app:navigationIcon="@drawable/ic_back_circle"
+            style="@style/ToolbarStyle" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -42,73 +38,80 @@
                 <ImageView
                     android:id="@+id/main_photo_image"
                     android:layout_width="match_parent"
-                    android:layout_height="266dp"
+                    android:layout_height="@dimen/plant_detail_image_height"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@string/planted_image_content_description" />
 
                 <LinearLayout
                     android:id="@+id/plant_info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/time_remaining_layout"
-                    app:layout_constraintTop_toBottomOf="@+id/main_photo_image">
+                    app:layout_constraintBottom_toTopOf="@id/time_remaining_layout"
+                    app:layout_constraintTop_toBottomOf="@id/main_photo_image">
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:paddingStart="16dp"
-                        android:paddingBottom="@dimen/text_padding"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@string/plant_information"
-                        android:textColor="#de000000"
-                        android:textSize="24sp" />
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_medium" />
                     <TextView
                         android:id="@+id/plant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:textSize="12sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Plant Name: Apple" />
 
                     <TextView
                         android:id="@+id/plant_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:textSize="12sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Plant ID: #24" />
                     <TextView
                         android:id="@+id/watering_interval"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:textSize="12sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Watering interval: 30 sec" />
 
                     <TextView
                         android:id="@+id/maturation_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:textSize="12sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Maturation time: 5 min" />
 
                     <TextView
                         android:id="@+id/planted_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:textSize="12sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Time planted: Aug 21, 2020 at 08:23" />
 
 
@@ -117,20 +120,22 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.plantLocationString}"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Location: (51.234, -1.235)" />
 
                     <TextView
                         android:id="@+id/waterings_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{@string/waterings_remaining_colon(viewModel.wateringsRemaining)}"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_small"
                         tools:text="Waterings remaining: 4" />
 
                 </LinearLayout>
@@ -143,7 +148,7 @@
                     android:animateLayoutChanges="true"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/dimen_16"
+                    android:padding="@dimen/padding_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/plant_info_layout">
@@ -152,15 +157,16 @@
                         android:id="@+id/time_until_next_watering"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/time_until_next_watering"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_small"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toTopOf="@+id/time_remaining"
+                        app:layout_constraintBottom_toTopOf="@id/time_remaining"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/time_remaining_layout"
+                        app:layout_constraintTop_toTopOf="@id/time_remaining_layout"
                         tools:layout_editor_absoluteX="121dp"
                         tools:layout_editor_absoluteY="460dp" />
 
@@ -168,15 +174,16 @@
                         android:id="@+id/time_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.timeRemainingString}"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/text_size_large"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/time_remaining_layout"
+                        app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/time_until_next_watering"
+                        app:layout_constraintTop_toBottomOf="@id/time_until_next_watering"
                         tools:text="01:43"
                         tools:visibility="visible" />
 
@@ -184,132 +191,140 @@
                         android:id="@+id/ready_to_water"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/ready_to_water"
                         android:textColor="@color/colorWater"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/text_size_large"
                         android:textStyle="bold"
                         android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="@+id/time_remaining_layout"
+                        app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/time_remaining_layout" />
+                        app:layout_constraintTop_toTopOf="@id/time_remaining_layout" />
 
                     <TextView
                         android:id="@+id/ready_to_harvest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/ready_to_harvest"
                         android:textColor="@color/colorAccent"
-                        android:textSize="32sp"
+                        android:textSize="@dimen/text_size_large"
                         android:textStyle="bold"
                         android:visibility="gone"
-                        app:layout_constraintBottom_toBottomOf="@+id/time_remaining_layout"
+                        app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/time_remaining_layout"
+                        app:layout_constraintTop_toTopOf="@id/time_remaining_layout"
                         tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <LinearLayout
-                    android:id="@+id/mostRecentImageLayout"
+                    android:id="@+id/most_recent_image_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="start"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/padding_normal">
 
                     <TextView
-                        android:id="@+id/mostRecentImageTitle"
+                        android:id="@+id/most_recent_image_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Most recent images:"
-                        android:textColor="#de000000"
-                        android:textSize="16sp" />
+                        android:text="@string/most_recent_images_title"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal" />
 
 
                     <LinearLayout
-                        android:id="@+id/mostRecentImages"
+                        android:id="@+id/most_recent_images"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
-                        android:paddingTop="16dp"
+                        android:paddingTop="@dimen/padding_normal"
                         android:orientation="horizontal">
                         <ImageView
-                            android:id="@+id/mostRecentImage1"
+                            android:id="@+id/most_recent_image_1"
                             android:clickable="true"
                             android:focusable="true"
-                            android:layout_width="80dp"
+                            android:layout_width="@dimen/most_recent_image_width"
                             android:layout_height="wrap_content"
-                            android:padding="4dp"
+                            android:padding="@dimen/padding_small"
                             android:scaleType="fitStart"
-                            tools:srcCompat="@tools:sample/avatars"/>
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:contentDescription="@string/most_recent_image_1_content_description" />
 
                         <ImageView
-                            android:id="@+id/mostRecentImage2"
+                            android:id="@+id/most_recent_image_2"
                             android:clickable="true"
                             android:focusable="true"
-                            android:layout_width="80dp"
+                            android:layout_width="@dimen/most_recent_image_width"
                             android:layout_height="wrap_content"
-                            android:padding="4dp"
+                            android:padding="@dimen/padding_small"
                             android:scaleType="fitStart"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:contentDescription="@string/most_recent_image_2_content_description" />
                         <ImageView
-                            android:id="@+id/mostRecentImage3"
+                            android:id="@+id/most_recent_image_3"
                             android:clickable="true"
                             android:focusable="true"
-                            android:layout_width="80dp"
+                            android:layout_width="@dimen/most_recent_image_width"
                             android:layout_height="wrap_content"
-                            android:padding="4dp"
+                            android:padding="@dimen/padding_small"
                             android:scaleType="fitStart"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:contentDescription="@string/most_recent_image_3_content_description"  />
                         <ImageView
-                            android:id="@+id/mostRecentImage4"
+                            android:id="@+id/most_recent_image_4"
                             android:clickable="true"
                             android:focusable="true"
-                            android:layout_width="80dp"
+                            android:layout_width="@dimen/most_recent_image_width"
                             android:layout_height="wrap_content"
-                            android:padding="4dp"
+                            android:padding="@dimen/padding_small"
                             android:scaleType="fitStart"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            tools:srcCompat="@tools:sample/avatars"
+                            android:contentDescription="@string/most_recent_image_4_content_description" />
                     </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="100dp"
+                    android:paddingBottom="@dimen/fab_bottom_padding"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/plant_description_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:paddingBottom="@dimen/text_padding"
-                        android:text="Description:"
-                        android:textColor="#de000000"
-                        android:textSize="16sp"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
+                        android:text="@string/plant_description_title"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/text_size_normal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/time_remaining_layout" />
+                        app:layout_constraintTop_toBottomOf="@id/time_remaining_layout" />
 
                     <TextView
                         android:id="@+id/plant_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="16dp"
-                        android:paddingTop="@dimen/text_padding"
-                        android:paddingBottom="@dimen/text_padding"
+                        android:paddingStart="@dimen/text_padding_medium"
+                        android:paddingEnd="@dimen/text_padding_medium"
+                        android:paddingTop="@dimen/text_padding_extra_small"
+                        android:paddingBottom="@dimen/text_padding_extra_small"
                         android:textColor="@color/colorSecondaryText"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/text_size_small"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/plant_description_title"
+                        app:layout_constraintTop_toBottomOf="@id/plant_description_title"
                         tools:text="Description of plant." />
 
                 </LinearLayout>
@@ -326,85 +341,60 @@
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/camera_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/fab_camera"
                 android:layout_marginStart="@dimen/fab_margin"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
-                app:borderWidth="0dp"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:backgroundTint="@color/textColorLink"
-                android:tint="@color/colorTertiaryText"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/maps_fab"
+                app:layout_constraintStart_toEndOf="@id/fab_maps"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_camera" />
+                app:srcCompat="@android:drawable/ic_menu_camera"
+                style="@style/FabStyle" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/maps_fab"
-                app:borderWidth="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:id="@+id/fab_maps"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:tint="@color/colorTertiaryText"
                 android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@id/camera_fab"
-                app:layout_constraintStart_toEndOf="@id/water_fab"
+                app:layout_constraintEnd_toStartOf="@id/fab_camera"
+                app:layout_constraintStart_toEndOf="@id/fab_water"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/map_icon_opaque" />
+                app:srcCompat="@drawable/ic_map"
+                style="@style/FabStyle" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/remove_fab"
-                app:borderWidth="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:id="@+id/fab_remove"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:backgroundTint="@android:color/holo_red_dark"
-                android:tint="@color/colorTertiaryText"
-                app:layout_constraintEnd_toStartOf="@id/maps_fab"
-                app:layout_constraintStart_toEndOf="@id/water_fab"
+                app:layout_constraintEnd_toStartOf="@id/fab_maps"
+                app:layout_constraintStart_toEndOf="@id/fab_water"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_delete" />
+                app:srcCompat="@android:drawable/ic_menu_delete"
+                style="@style/FabStyle" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/water_fab"
-                app:borderWidth="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:id="@+id/fab_water"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:backgroundTint="@color/colorWater"
                 android:onClick="@{() -> viewModel.waterPlant()}"
-                android:tint="@color/colorTertiaryText"
-                app:layout_constraintEnd_toStartOf="@id/remove_fab"
+                app:layout_constraintEnd_toStartOf="@id/fab_remove"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_water" />
+                app:srcCompat="@drawable/ic_water"
+                style="@style/FabStyle" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/harvest_fab"
-                app:borderWidth="0dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/fab_margin"
-                android:layout_marginEnd="@dimen/fab_margin"
-                android:layout_marginBottom="@dimen/fab_margin"
+                android:id="@+id/fab_harvest"
+                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:onClick="@{() -> viewModel.harvestPlant()}"
                 android:backgroundTint="@color/colorAccent"
-                android:tint="@color/colorTertiaryText"
                 android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@id/remove_fab"
+                app:layout_constraintEnd_toStartOf="@id/fab_remove"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_leaf" />
+                app:srcCompat="@drawable/ic_leaf"
+                style="@style/FabStyle" />
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

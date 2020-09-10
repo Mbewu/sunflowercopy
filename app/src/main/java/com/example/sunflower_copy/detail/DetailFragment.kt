@@ -71,7 +71,7 @@ class DetailFragment : Fragment() {
 
 
         // observer for floating action button to plant
-        binding.fab.setOnClickListener {
+        binding.addPlantFab.setOnClickListener {
 
             val addPlantDialogFragment: DialogFragment = AddPlantDialogFragment()
             val fm: FragmentManager = requireActivity().supportFragmentManager

@@ -17,7 +17,8 @@
                 android:id="@+id/plant_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="@string/info_window_image_content_description" />
 
             <LinearLayout
                 android:id="@+id/text_layout"
@@ -30,76 +31,84 @@
                     android:id="@+id/plant_name_and_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff000000"
-                    android:textSize="10sp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/map_text_size_small"
                     android:textStyle="bold"
-                    tools:text="Apple" />
+                    tools:text="Apple"
+                    tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/planted_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff7f7f7f"
-                    android:textSize="8sp"
-                    tools:text="Planted time: Mon 22 Aug, 2020 at 10:00" />
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/map_text_size_extra_small"
+                    tools:text="Planted time: Mon 22 Aug, 2020 at 10:00"
+                    tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/waterings_remaining"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff7f7f7f"
-                    android:textSize="8sp"
-                    tools:text="Waterings remaining: #24" />
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/map_text_size_extra_small"
+                    tools:text="Waterings remaining: #24"
+                    tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff7f7f7f"
-                    android:textSize="8sp"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/map_text_size_extra_small"
                     android:textStyle="bold"
-                    tools:text="Status: Ready to water" />
+                    tools:text="Status: Ready to water"
+                    tools:ignore="SmallSp" />
 
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff7f7f7f"
-                    android:textSize="8sp"
-                    tools:text="Location: (51.72024, -1.23458)" />
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/map_text_size_extra_small"
+                    tools:text="Location: (51.72024, -1.23458)"
+                    tools:ignore="SmallSp" />
             </LinearLayout>
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/water_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:padding="4dp"
+            android:layout_width="@dimen/map_info_window_icon_width"
+            android:layout_height="@dimen/map_info_window_icon_height"
+            android:padding="@dimen/padding_small"
             android:layout_gravity="top|end"
             android:layout_weight="1"
             android:visibility="visible"
-            app:srcCompat="@mipmap/water_notification_round" />
+            app:srcCompat="@drawable/notification_water"
+            android:contentDescription="@string/ready_to_water_icon_content_description" />
 
         <ImageView
             android:id="@+id/harvest_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:padding="4dp"
+            android:layout_width="@dimen/map_info_window_icon_width"
+            android:layout_height="@dimen/map_info_window_icon_height"
+            android:padding="@dimen/padding_small"
             android:layout_gravity="top|end"
             android:layout_weight="1"
             android:visibility="invisible"
-            app:srcCompat="@mipmap/harvest_notification_round" />
+            app:srcCompat="@drawable/notification_harvest"
+            android:contentDescription="@string/ready_to_harvest_icon_content_description" />
 
         <ImageView
             android:id="@+id/growing_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:padding="4dp"
+            android:layout_width="@dimen/map_info_window_icon_width"
+            android:layout_height="@dimen/map_info_window_icon_height"
+            android:padding="@dimen/padding_small"
             android:layout_gravity="top|end"
             android:layout_weight="1"
             android:visibility="invisible"
-            app:srcCompat="@mipmap/growing_notification_round" />
+            app:srcCompat="@drawable/notification_growing"
+            android:contentDescription="@string/growing_icon_content_description" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

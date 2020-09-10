@@ -6,41 +6,37 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dimen_12">
+        android:padding="@dimen/padding_normal">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dialogMessage"
+            android:id="@+id/dialog_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Add plant to your garden?"
+            android:padding="@dimen/text_padding_small"
+            android:text="@string/dialog_add_plant_message"
             android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/font_size_16"
+            android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPositive"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:id="@+id/button_positive"
             android:text="@string/label_yes"
             android:textColor="@color/colorTertiaryText"
             android:backgroundTint="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialogMessage" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+            style="@style/DialogButtonStyle" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNegative"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="@dimen/dimen_48"
-            android:layout_marginTop="@dimen/dimen_16"
+            android:id="@+id/button_negative"
             android:text="@string/label_no"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnPositive"
-            app:layout_constraintTop_toBottomOf="@+id/dialogMessage" />
+            app:layout_constraintEnd_toStartOf="@id/button_positive"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_message"
+            style="@style/DialogButtonStyle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
