@@ -8,15 +8,23 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.domain.PlantInformation2
 import timber.log.Timber
 
 class RemoveSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInformation2>) : DialogFragment() {
 
-    private lateinit var viewModel: PageViewModel
+    //private lateinit var viewModel: PageViewModel
 
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
     private val selectedPlantList = selectedPlantListInput
 
     //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +39,7 @@ class RemoveSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInfor
         Timber.i("IN DIALOG create view")
         Timber.i("in detail6")
 
-        viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
+        //viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
 
         val view = inflater.inflate(R.layout.fragment_dialog_clear_garden, container, false)
 

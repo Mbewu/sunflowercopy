@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.util.convertLongToDateString
-import com.example.sunflower_copy.database.getGardenDatabase
 import com.example.sunflower_copy.domain.PlantInformation
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.receiver.AlarmReceiver
@@ -35,13 +34,14 @@ import timber.log.Timber
 // makes app a variable or references
 class PlantedViewModel(
     plantInformation: PlantInformation2,
-    private val app: Application
+    private val app: Application,
+    private val gardenRepository: GardenRepository
 ) : AndroidViewModel(app) {
 
 
 
     // repository of garden plants
-    private val gardenRepository = GardenRepository(app,getGardenDatabase(app))
+    //private val gardenRepository = GardenRepository(app,getGardenDatabase(app))
 
     // The internal MutableLiveData for the selected property
     private var _selectedPlant = MutableLiveData<PlantInformation2>()

@@ -8,17 +8,27 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.ui.main.PageViewModel
+import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import timber.log.Timber
 import java.util.*
 
 
 class RemovePlantDialogFragment(selectedPlantInput: PlantInformation2) : DialogFragment() {
 
-    private lateinit var viewModel: PageViewModel
+    //private lateinit var viewModel: PageViewModel
+
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
 
     private val selectedPlant = selectedPlantInput
 
@@ -36,14 +46,14 @@ class RemovePlantDialogFragment(selectedPlantInput: PlantInformation2) : DialogF
 
         val application = requireNotNull(activity).application
         Timber.i("in detail7")
-        val viewModelFactory = PlantedViewModelFactory(selectedPlant, application)
+        //val viewModelFactory = PlantedViewModelFactory(selectedPlant, application)
         Timber.i("in detail7")
 
         //viewModel = ViewModelProvider(viewModelStore, viewModelFactory).get(PlantedViewModel::class.java)
         //viewModel = ViewModelProvider(requireArguments()).get(PlantedViewModel::class.java)
         //viewModel = ViewModelProvider(requireActivity()).get(PlantedViewModel::class.java)
 
-        viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
+        //viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
 
         val v = inflater.inflate(R.layout.fragment_dialog_remove_plant, container, false)
 

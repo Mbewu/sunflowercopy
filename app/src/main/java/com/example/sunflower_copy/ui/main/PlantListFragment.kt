@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentPlantListBinding
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.util.hideKeyboard
@@ -30,8 +29,14 @@ import timber.log.Timber
 class PlantListFragment : Fragment() {
 
     private lateinit var binding: FragmentPlantListBinding
-    private lateinit var pageViewModel: PageViewModel
-    private lateinit var pageViewModelFactory: PageViewModelFactory
+//    private lateinit var pageViewModel: PageViewModel
+//    private lateinit var pageViewModelFactory: PageViewModelFactory
+
+    private val pageViewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
     private lateinit var adapter: PlantGridSearchAdapter
     private lateinit var tracker: SelectionTracker<PlantInformation2>
 
@@ -41,16 +46,18 @@ class PlantListFragment : Fragment() {
         Timber.i("plantlist before pageviewmodel0")
         val application = requireNotNull(activity).application
         Timber.i("plantlist before pageviewmodel")
-        pageViewModelFactory = PageViewModelFactory(application)
+        //pageViewModelFactory = PageViewModelFactory(application)
         Timber.i("plantlist before pageviewmodel")
 
 //        pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java).apply {
 //            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
 //        }
         // set pageviewmodel attached to the activity, same object forever
-        pageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
+//        pageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java).apply {
+//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+//        }
+
+        pageViewModel.setIndex(arguments?.getInt(PlantListFragment.ARG_SECTION_NUMBER) ?: 1)
 
         Timber.i("plantlist after pageviewmodel1")
     }
@@ -60,16 +67,16 @@ class PlantListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // inflate using binding to correct layout
-        binding = FragmentPlantListBinding.inflate(inflater)
+        binding = FragmentPlantListBinding.inflate(inflater).apply {
+            // set viewModel
+            viewModel = pageViewModel
+        }
 
         Timber.i("what are you doing?")
         //container?.let { activity?.let { it1 -> setupUI(it, it1) } }
 
         // set lifecyle owner for coroutines
         binding.lifecycleOwner = this
-
-        // set viewModel
-        binding.viewModel = pageViewModel
 
         Log.i("PlantListFragment", "hello1")
         setAdapter()

@@ -11,13 +11,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDetailBinding
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.ui.main.PageViewModel
@@ -28,8 +27,14 @@ import com.google.android.material.snackbar.Snackbar
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    private lateinit var viewModel: PageViewModel
-    private lateinit var viewModelFactory: PageViewModelFactory
+//    private lateinit var viewModel: PageViewModel
+//    private lateinit var viewModelFactory: PageViewModelFactory
+
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
     private lateinit var selectedPlant: PlantInformation2
 
 
@@ -41,8 +46,8 @@ class DetailFragment : Fragment() {
         binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        viewModelFactory = PageViewModelFactory(application)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
+        //viewModelFactory = PageViewModelFactory(application)
+        //viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
 
         // detail view doesn't actually use selected plant, so we could get away with it..
         selectedPlant = DetailFragmentArgs.fromBundle(requireArguments()).selectedPlant

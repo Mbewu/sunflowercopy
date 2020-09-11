@@ -19,28 +19,6 @@ import java.text.SimpleDateFormat
 
 var GLOBAL_PLANT_ID = 0
 
-enum class PlantColor(val color: Int) {
-    APPLE(0),
-    BEET(20),
-    CILANTRO(40),
-    TOMATO(60),
-    AVOCADO(80),
-    PEAR(100),
-    EGGPLANT(120),
-    GRAPE(140),
-    MANGO(160),
-    ORANGE(180),
-    SUNFLOWER(200),
-    WATERMELON(220),
-    HIBISCUS(240),
-    PINK_AND_WHITE_LADYS_SLIPPER(260),
-    ROCKY_MOUNTAIN_COLUMBINE(280),
-    YULAN_MAGNOLIA(300),
-    BOUGAINVILLEA(320)
-}
-
-enum class PlantNotificationType { READY_TO_WATER, READY_TO_HARVEST, GROWING }
-
 fun getPlantColor(plantName: String): Float {
 
     return when(plantName) {
@@ -80,23 +58,6 @@ fun convertLongToDateString(systemTime: Long): String {
         .format(systemTime).toString()
 }
 
-/**
- * Converts milliseconds to formatted mm:ss
- *
- * @param value, time in milliseconds.
- */
-fun convertLongToElapsedTimeString(value: Long): String {
-    val seconds = value / 1000
-    if (seconds < 60) return seconds.toString() else return DateUtils.formatElapsedTime(seconds)
-}
-
-
-@SuppressLint("SimpleDateFormat")
-fun convertLongToTimeString(systemTime: Long): String {
-    return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-        .format(systemTime).toString()
-}
-
 fun hideKeyboard(activity: Activity) {
     val inputManager: InputMethodManager = activity
         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -105,11 +66,12 @@ fun hideKeyboard(activity: Activity) {
     val currentFocusedView: View? = activity.currentFocus
     if (currentFocusedView != null) {
         inputManager.hideSoftInputFromWindow(
-            currentFocusedView.getWindowToken(),
+            currentFocusedView.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
 }
+
 fun View.hideKeyboard() {
     val inputMethodManager = context!!.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)

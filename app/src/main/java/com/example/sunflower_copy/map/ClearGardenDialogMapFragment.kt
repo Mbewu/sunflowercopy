@@ -9,8 +9,10 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDialogAddPlantBinding
 import com.example.sunflower_copy.databinding.FragmentDialogClearGardenBinding
 import com.example.sunflower_copy.domain.PlantInformation2
@@ -24,6 +26,10 @@ class ClearGardenDialogMapFragment() : DialogFragment() {
 
     private lateinit var viewModel: MapViewModel
 
+//    private val viewModel by viewModels<MapViewModel> {
+//        MapViewModelFactory(requireActivity().application,
+//            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+//    }
 
     private lateinit var binding: FragmentDialogClearGardenBinding
 

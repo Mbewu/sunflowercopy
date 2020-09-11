@@ -15,8 +15,6 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.database.getDatabase
-import com.example.sunflower_copy.database.getGardenDatabase
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.receiver.AlarmReceiver
 import com.example.sunflower_copy.repository.GardenRepository
@@ -38,16 +36,16 @@ enum class PlantApiStatus { LOADING, ERROR, DONE }
 enum class PlantNotificationType { READY_TO_WATER, READY_TO_HARVEST, GROWING }
 
 
-class PageViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val appContext = getApplication<Application>().applicationContext
+class PageViewModel(application: Application,
+                    private val plantRepository: PlantRepository,
+                    private val gardenRepository: GardenRepository) : AndroidViewModel(application) {
 
     private val app = getApplication<Application>()
 
 
     // repositories and plants and garden plants
-    private val plantRepository = PlantRepository(getDatabase(application), application)
-    private val gardenRepository = GardenRepository(application, getGardenDatabase(application))
+//    private val plantRepository = PlantRepository(getDatabase(application), application)
+//    private val gardenRepository = GardenRepository(application, getGardenDatabase(application))
 
     private val _navigateToMap = MutableLiveData<Event<Boolean>>()
     val navigateToMap : LiveData<Event<Boolean>>

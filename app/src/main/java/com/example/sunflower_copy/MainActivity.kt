@@ -71,12 +71,16 @@ class MainActivity : AppCompatActivity() {
 
 
         // Bind to BackgroundMusicService and start
+        startBackgroundMusicService()
+
+    }
+
+    private fun startBackgroundMusicService() {
         Timber.i("before starting background music service")
         val intent = Intent(this, BackgroundMusicService::class.java)
         startService(intent)
         bindService(intent, connection, Context.BIND_AUTO_CREATE)
         Timber.i("after starting background music service")
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

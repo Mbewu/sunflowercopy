@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.domain.PlantInformation
 import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.repository.GardenRepository
 
 
 /**
@@ -13,7 +14,8 @@ import com.example.sunflower_copy.domain.PlantInformation2
  */
 class PlantedViewModelFactory(
     private val plantInformation: PlantInformation2,
-    private val application: Application) : ViewModelProvider.Factory {
+    private val application: Application,
+    private val gardenRepository: GardenRepository) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
@@ -21,7 +23,7 @@ class PlantedViewModelFactory(
         if (modelClass.isAssignableFrom(PlantedViewModel::class.java)) {
 
             Log.i("PlantedViewModelFactory", "in detail1")
-            return PlantedViewModel(plantInformation, application) as T
+            return PlantedViewModel(plantInformation, application,gardenRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
 

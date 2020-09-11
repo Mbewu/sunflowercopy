@@ -29,6 +29,7 @@ class BackgroundMusicService : Service() {
     var maxVolume = 100 // 0 - 100 normal scale
     var length = 0
     private val defaultSong = R.raw.peaceful_music_australia_1
+    var currentSong: Int? = null
 
     var binder: IBinder = LocalBinder()
 
@@ -64,6 +65,7 @@ class BackgroundMusicService : Service() {
         if (mediaPlayer!= null) {
             mediaPlayer!!.setLooping(true)
             mediaPlayer!!.setVolume(volume, volume)
+            currentSong = songResource
         }
 
         mediaPlayer!!.start()
@@ -73,10 +75,14 @@ class BackgroundMusicService : Service() {
 
         // map string to song resource
         val songResource = getSongResource(songResourceString)
-        mediaPlayer?.stop()
-        mediaPlayer?.release()
-        mediaPlayer = null
-        startMusic(songResource)
+        if(songResource != currentSong) {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
+            startMusic(songResource)
+        } else {
+            mediaPlayer!!.start()
+        }
     }
 
     fun changeVolume(inputVolume: Int = 100) {

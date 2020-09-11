@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.*
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentMyGardenBinding
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.util.hideKeyboard
@@ -28,8 +27,16 @@ import timber.log.Timber
 class MyGardenFragment : Fragment() {
 
     private lateinit var binding: FragmentMyGardenBinding
-    private lateinit var pageViewModel: PageViewModel
-    private lateinit var pageViewModelFactory: PageViewModelFactory
+//    private lateinit var pageViewModel: PageViewModel
+//    private lateinit var pageViewModelFactory: PageViewModelFactory
+
+
+    private val pageViewModel by activityViewModels<PageViewModel>() {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
+
     private lateinit var adapter: PlantGridSearchAdapter
     private lateinit var tracker: SelectionTracker<PlantInformation2>
 
@@ -45,15 +52,17 @@ class MyGardenFragment : Fragment() {
 
         Timber.i("mygarden before pageviewmodel")
         val application = requireNotNull(activity).application
-        pageViewModelFactory = PageViewModelFactory(application)
+        //pageViewModelFactory = PageViewModelFactory(application)
 //        pageViewModel = ViewModelProviders.of(this).get(PageViewModel::class.java).apply {
 //            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
 //        }
 
         // the viewmodel attached to the activity
-        pageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
+//        pageViewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java).apply {
+//            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
+//        }
+        // still need to set the index
+        pageViewModel.setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
         Timber.i("mygarden after pageviewmodel")
     }
 
@@ -62,7 +71,10 @@ class MyGardenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // inflate using binding to correct layout
-        binding = FragmentMyGardenBinding.inflate(inflater)
+        binding = FragmentMyGardenBinding.inflate(inflater).apply {
+            // set viewModel
+            viewModel = pageViewModel
+        }
 
 
         //container?.let { activity?.let { it1 -> setupUI(it, it1) } }
@@ -70,8 +82,6 @@ class MyGardenFragment : Fragment() {
         // set lifecyle owner for coroutines
         binding.lifecycleOwner = this
 
-        // set viewModel
-        binding.viewModel = pageViewModel
 
         setAdapter()
 

@@ -8,18 +8,27 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDialogAddPlantBinding
 import com.example.sunflower_copy.ui.main.PageViewModel
+import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import timber.log.Timber
 
 
 class AddPlantDialogFragment : DialogFragment()  {
 
     private lateinit var binding: FragmentDialogAddPlantBinding
-    private lateinit var viewModel: PageViewModel
+    //private lateinit var viewModel: PageViewModel
+
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -29,7 +38,7 @@ class AddPlantDialogFragment : DialogFragment()  {
     savedInstanceState: Bundle?
 ): View? {
 
-        viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
+        //viewModel = ViewModelProvider(requireActivity()).get(PageViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dialog_add_plant,
             container,false
         )
@@ -43,6 +52,11 @@ class AddPlantDialogFragment : DialogFragment()  {
 
         binding.buttonPositive.setOnClickListener {
             viewModel.navigateToMap(true)
+            if(viewModel.selectedPlant.value == null) {
+                Timber.i("selected plant is null")
+            } else {
+                Timber.i("selected plant is NOT null")
+            }
             sharedViewModel.plantOnMap(viewModel.selectedPlant.value!!)
             dismiss()
         }

@@ -3,25 +3,31 @@ package com.example.sunflower_copy.ui.main
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentViewPagerBinding
 import com.example.sunflower_copy.util.hideKeyboard
 import com.example.sunflower_copy.util.setupUI
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-private lateinit var viewModel: PageViewModel
-private lateinit var viewModelFactory: PageViewModelFactory
 
 class ViewPagerFragment : Fragment() {
 
+    //private lateinit var viewModel: PageViewModel
+
+    // moved inside, not sure why it was outside
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
+    //private lateinit var viewModelFactory: PageViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +49,8 @@ class ViewPagerFragment : Fragment() {
 
         // get the view pager to remove all the plants from the garden
         val application = requireNotNull(activity).application
-        viewModelFactory = PageViewModelFactory(application)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
+        //viewModelFactory = PageViewModelFactory(application)
+        //viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
 
         setObservers()
 

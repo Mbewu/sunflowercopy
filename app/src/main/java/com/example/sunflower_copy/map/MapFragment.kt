@@ -9,10 +9,7 @@ import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getColor
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -20,12 +17,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.CustomInfoContentsBinding
 import com.example.sunflower_copy.databinding.FragmentMapBinding
 import com.example.sunflower_copy.databinding.MapPlantViewBinding
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.title.LoginViewModel
 import com.example.sunflower_copy.title.LoginViewModelFactory
+import com.example.sunflower_copy.ui.main.PageViewModel
+import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import com.example.sunflower_copy.util.bindImageMaps
 import com.example.sunflower_copy.util.convertLongToDateString
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -44,8 +44,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
 
     private lateinit var binding: FragmentMapBinding
-    private lateinit var viewModel: MapViewModel
-    private lateinit var viewModelFactory: MapViewModelFactory
+//    private lateinit var viewModel: MapViewModel
+//    private lateinit var viewModelFactory: MapViewModelFactory
+
+    private val viewModel by viewModels<MapViewModel> {
+        MapViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val loginViewModel: LoginViewModel by activityViewModels {
         LoginViewModelFactory(requireActivity().application)
@@ -71,9 +77,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding = FragmentMapBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        viewModelFactory = MapViewModelFactory(application)
-        viewModel =
-            ViewModelProvider(requireActivity(), viewModelFactory).get(MapViewModel::class.java)
+//        viewModelFactory = MapViewModelFactory(application)
+//        viewModel =
+//            ViewModelProvider(requireActivity(), viewModelFactory).get(MapViewModel::class.java)
         binding.viewModel = viewModel
 
         // a lot of stuff is in onMapReady

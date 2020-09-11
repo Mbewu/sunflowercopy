@@ -16,8 +16,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.database.getGardenDatabase
-import com.example.sunflower_copy.database.getGardenLayoutDatabase
 import com.example.sunflower_copy.domain.GardenVertex
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.receiver.AlarmReceiver
@@ -36,7 +34,8 @@ import timber.log.Timber
 import java.util.*
 
 
-class MapViewModel(application: Application) : AndroidViewModel(application)  {
+class MapViewModel(application: Application,
+                    private val gardenRepository: GardenRepository) : AndroidViewModel(application)  {
 
     private val app = getApplication<Application>()
 
@@ -48,10 +47,10 @@ class MapViewModel(application: Application) : AndroidViewModel(application)  {
     )
 
     // repositories garden plants
-    private val gardenRepository = GardenRepository(
-        application, getGardenDatabase(application),
-        getGardenLayoutDatabase(application)
-    )
+//    private val gardenRepository = GardenRepository(
+//        application, getGardenDatabase(application),
+//        getGardenLayoutDatabase(application)
+//    )
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values

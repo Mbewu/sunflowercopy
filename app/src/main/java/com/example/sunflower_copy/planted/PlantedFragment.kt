@@ -27,15 +27,13 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
+import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentPlantedBinding
 import com.example.sunflower_copy.domain.PlantInformation2
 import com.example.sunflower_copy.ui.main.PageViewModel
@@ -64,8 +62,15 @@ class PlantedFragment : Fragment() {
 //    private lateinit var viewModel: PlantedViewModel
 //    private lateinit var viewModelFactory: PlantedViewModelFactory
 
-    private lateinit var viewModel: PageViewModel
-    private lateinit var viewModelFactory: PageViewModelFactory
+//    private lateinit var viewModel: PageViewModel
+//    private lateinit var viewModelFactory: PageViewModelFactory
+
+
+    private val viewModel by activityViewModels<PageViewModel> {
+        PageViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).plantRepository,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
     private lateinit var selectedPlant: PlantInformation2
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -85,8 +90,8 @@ class PlantedFragment : Fragment() {
             false
         )
 
-        viewModelFactory = PageViewModelFactory(application)
-        viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
+        //viewModelFactory = PageViewModelFactory(application)
+        //viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
         selectedPlant = PlantedFragmentArgs.fromBundle(requireArguments()).selectedPlant
 
         binding.lifecycleOwner = this
