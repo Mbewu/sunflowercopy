@@ -13,10 +13,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import timber.log.Timber
 
-class AddSelectedPlantsDialogFragment(selectedPlantListInput: List<PlantInformation2>) : DialogFragment() {
+class AddSelectedPlantsDialogFragment(selectedPlantListInput: List<Plant>) : DialogFragment() {
 
     //private lateinit var viewModel: PageViewModel
 

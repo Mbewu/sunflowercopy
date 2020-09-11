@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="selectedPlant"
-            app:argType="com.example.sunflower_copy.domain.PlantInformation2" />
+            app:argType="com.example.sunflower_copy.domain.Plant" />
         <action
             android:id="@+id/action_detailFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
@@ -48,7 +48,7 @@
         tools:layout="@layout/fragment_planted">
         <argument
             android:name="selectedPlant"
-            app:argType="com.example.sunflower_copy.domain.PlantInformation2" />
+            app:argType="com.example.sunflower_copy.domain.Plant" />
         <action
             android:id="@+id/action_plantedFragment_to_mapFragment"
             app:destination="@id/mapFragment" />

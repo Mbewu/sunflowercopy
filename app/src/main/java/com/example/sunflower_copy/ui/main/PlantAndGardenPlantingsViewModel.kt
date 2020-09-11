@@ -2,12 +2,12 @@ package com.example.sunflower_copy.ui.main
 
 import android.os.SystemClock
 import com.example.sunflower_copy.util.convertLongToDateString
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PlantAndGardenPlantingsViewModel(plantInformation2: PlantInformation2) {
-    private val plant = plantInformation2
+class PlantAndGardenPlantingsViewModel(Plant: Plant) {
+    private val plant = Plant
 //    private val gardenPlanting = plantings.gardenPlantings[0]
 //
 //    val waterDateString: String = dateFormat.format(gardenPlanting.lastWateringDate.time)

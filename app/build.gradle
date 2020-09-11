@@ -61,7 +61,6 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "androidx.gridlayout:gridlayout:$gridLayoutVersion"
     testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "androidx.test.ext:junit:$androidXTestExtKotlinRunnerVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
     // Navigation
@@ -98,6 +97,7 @@ dependencies {
 
     // Room dependency
     implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
 
@@ -140,6 +140,14 @@ dependencies {
     implementation "androidx.test:core:$androidXTestCoreVersion"
 
     implementation "androidx.fragment:fragment-ktx:1.1.0"
+
+    androidTestImplementation "androidx.test:rules:$rulesVersion"
+    androidTestImplementation "androidx.test.ext:junit:$extJUnitVersion"
+    androidTestImplementation "androidx.test:runner:$runnerVersion"
+
+
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
+    androidTestImplementation "androidx.work:work-testing:$workVersion"
 
 }
 

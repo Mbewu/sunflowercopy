@@ -9,6 +9,7 @@ import android.os.IBinder
 import com.example.sunflower_copy.R
 import timber.log.Timber
 import kotlin.math.ln
+import kotlin.properties.Delegates
 
 fun getSongResource(songResourceString: String): Int {
 
@@ -26,8 +27,8 @@ class BackgroundMusicService : Service() {
     var mediaPlayer: MediaPlayer? = null
     var audioManager: AudioManager? = null
     private var volume = 1f // log scaled
-    var maxVolume = 100 // 0 - 100 normal scale
-    var length = 0
+    private val maxVolume = 100 // 0 - 100 normal scale
+    private var length = 0
     private val defaultSong = R.raw.peaceful_music_australia_1
     var currentSong: Int? = null
 
@@ -48,6 +49,7 @@ class BackgroundMusicService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Timber.i("starting BackgroundMusicService service")
         //startMusic(defaultSong)
+        createMusicPlayer(defaultSong)  // we want to create the music player so it's there
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -56,7 +58,7 @@ class BackgroundMusicService : Service() {
         super.onCreate()
     }
 
-    private fun startMusic(songResource: Int) {
+    private fun createMusicPlayer(songResource: Int) {
         mediaPlayer = MediaPlayer.create(
             this,
             songResource
@@ -67,20 +69,29 @@ class BackgroundMusicService : Service() {
             mediaPlayer!!.setVolume(volume, volume)
             currentSong = songResource
         }
-
-        mediaPlayer!!.start()
     }
 
-    fun changeMusic(songResourceString: String) {
+    // we expect only one of these, assume string first
+    fun changeMusic(songResourceString: String = "", songResourceInt: Int = -1) {
 
+        var songResource = defaultSong
         // map string to song resource
-        val songResource = getSongResource(songResourceString)
-        if(songResource != currentSong) {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = null
-            startMusic(songResource)
+        if(songResourceString != "") {
+            songResource = getSongResource(songResourceString)
+        } else if (songResourceInt != -1) {
+            songResource = songResourceInt
+        }
+
+        if (mediaPlayer!= null) {
+            if (songResource != currentSong) {
+                nullifyMediaPlayer()
+                createMusicPlayer(songResource)
+                mediaPlayer!!.start()
+            } else {
+                mediaPlayer!!.start()
+            }
         } else {
+            createMusicPlayer(songResource)
             mediaPlayer!!.start()
         }
     }
@@ -99,7 +110,7 @@ class BackgroundMusicService : Service() {
 
     fun pauseMusic() {
         if(mediaPlayer != null) {
-            if (mediaPlayer!!.isPlaying()) {
+            if (mediaPlayer!!.isPlaying) {
                 mediaPlayer!!.pause()
                 length = mediaPlayer!!.getCurrentPosition()
             }
@@ -108,20 +119,33 @@ class BackgroundMusicService : Service() {
 
     fun resumeMusic() {
         if(mediaPlayer != null) {
-            if (mediaPlayer!!.isPlaying() === false) {
+            if (!mediaPlayer!!.isPlaying) {
                 mediaPlayer!!.seekTo(length)
                 mediaPlayer!!.start()
             }
         } else {
-            startMusic(defaultSong)
+            createMusicPlayer(defaultSong)
+            mediaPlayer!!.start()
         }
     }
 
 
+    fun startMusic() {
+        if(mediaPlayer != null) {
+            mediaPlayer!!.start()
+        } else {
+            createMusicPlayer(defaultSong)
+            mediaPlayer!!.start()
+        }
+    }
+
+    private fun nullifyMediaPlayer() {
+        mediaPlayer?.apply { stop() }?.apply { release() }
+        mediaPlayer = null
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer!!.stop()
-        mediaPlayer!!.release()
-        mediaPlayer = null
+        nullifyMediaPlayer()
     }
 }

@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.example.sunflower_copy.MainActivity
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.sendNotification
 import com.example.sunflower_copy.ui.main.PlantNotificationType
 import timber.log.Timber

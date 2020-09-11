@@ -21,7 +21,7 @@ import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.CustomInfoContentsBinding
 import com.example.sunflower_copy.databinding.FragmentMapBinding
 import com.example.sunflower_copy.databinding.MapPlantViewBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.title.LoginViewModel
 import com.example.sunflower_copy.title.LoginViewModelFactory
 import com.example.sunflower_copy.ui.main.PageViewModel
@@ -219,9 +219,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
 
             override fun getInfoContents(marker: Marker): View {
-                if (marker.tag is PlantInformation2) {
+                if (marker.tag is Plant) {
                     val binding = MapPlantViewBinding.inflate(layoutInflater)
-                    val plant: PlantInformation2 = marker.tag as PlantInformation2
+                    val plant: Plant = marker.tag as Plant
 
                     binding.plantNameAndId.text = getString(
                         R.string.plant_name_and_id,
@@ -288,9 +288,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // let's put our marker clickListener here because it should always be active
         map.setOnInfoWindowClickListener()
         { marker ->
-            if (marker.tag is PlantInformation2) {
+            if (marker.tag is Plant) {
                 // navigate to the appropriate planted page
-                val selectedPlant: PlantInformation2 = marker.tag as PlantInformation2
+                val selectedPlant: Plant = marker.tag as Plant
                 Timber.d("selectedPlant = ".plus(selectedPlant))
                 Timber.d("selectedPlant.id = ".plus(selectedPlant.id))
                 this.findNavController()

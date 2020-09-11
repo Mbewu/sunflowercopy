@@ -13,14 +13,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import timber.log.Timber
 import java.util.*
 
 
-class RemovePlantDialogFragment(selectedPlantInput: PlantInformation2) : DialogFragment() {
+class RemovePlantDialogFragment(selectedPlantInput: Plant) : DialogFragment() {
 
     //private lateinit var viewModel: PageViewModel
 

@@ -15,7 +15,7 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.receiver.AlarmReceiver
 import com.example.sunflower_copy.repository.GardenRepository
 import com.example.sunflower_copy.repository.PlantRepository
@@ -58,23 +58,23 @@ class PageViewModel(application: Application,
     // with new values
     private val _plants2 = plantRepository.plants
     // The external LiveData interface to the property is immutable, so only this class can modify
-    val plants2: LiveData<List<PlantInformation2>>
+    val plants2: LiveData<List<Plant>>
         get() = _plants2
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values
-    private val _plantedPlants: LiveData<List<PlantInformation2>> = gardenRepository.plantedPlants
-    val plantedPlants: LiveData<List<PlantInformation2>>
+    private val _plantedPlants: LiveData<List<Plant>> = gardenRepository.plantedPlants
+    val plantedPlants: LiveData<List<Plant>>
         get() = _plantedPlants
 
 
-    private var _selectedPlant = MutableLiveData<PlantInformation2>()
+    private var _selectedPlant = MutableLiveData<Plant>()
     // The external LiveData for the SelectedProperty
-    val selectedPlant: LiveData<PlantInformation2?>
+    val selectedPlant: LiveData<Plant?>
         get() = _selectedPlant
 
     // this is to set the selectedPlant when we are in a detail view
-    fun setSelectedPlant(plantInformation: PlantInformation2) {
+    fun setSelectedPlant(plantInformation: Plant) {
         _selectedPlant.value = plantInformation
     }
 
@@ -109,20 +109,20 @@ class PageViewModel(application: Application,
     }
 
     // LiveData to handle navigation to the selected property
-    private val _navigateToSelectedPlant= MutableLiveData<PlantInformation2>()
-    val navigateToSelectedPlant: LiveData<PlantInformation2>
+    private val _navigateToSelectedPlant= MutableLiveData<Plant>()
+    val navigateToSelectedPlant: LiveData<Plant>
         get() = _navigateToSelectedPlant
 
     // LiveData to handle navigation to the selected property
-    private val _navigateToSelectedGardenPlant= MutableLiveData<PlantInformation2>()
-    val navigateToSelectedGardenPlant: LiveData<PlantInformation2>
+    private val _navigateToSelectedGardenPlant= MutableLiveData<Plant>()
+    val navigateToSelectedGardenPlant: LiveData<Plant>
         get() = _navigateToSelectedGardenPlant
 
 
 
     // LiveData to handle which and whether plant has been added
-    private var _plantAdded = MutableLiveData<PlantInformation2>()
-    val plantAdded: LiveData<PlantInformation2>
+    private var _plantAdded = MutableLiveData<Plant>()
+    val plantAdded: LiveData<Plant>
         get() = _plantAdded
 
     // LiveData to handle which and whether plant has been added
@@ -152,7 +152,7 @@ class PageViewModel(application: Application,
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
     init {
-        Log.i("PageViewModel", "0")
+        Timber.i( "0")
 
         Timber.i("yeah so")
         // initialise the plant list
@@ -174,7 +174,7 @@ class PageViewModel(application: Application,
      */
     fun getPlantInformation() {
 
-        Log.i("PageViewModel", "1")
+        Timber.i("1")
         viewModelScope.launch {
             try {
                 plantRepository.refreshPlants()
@@ -184,9 +184,9 @@ class PageViewModel(application: Application,
             }
 
             // okay now we want to try and read the json file
-            Log.i("PageViewModel", "6")
+            Timber.i("6")
         }
-        Log.i("PageViewModel", "6")
+        Timber.i( "6")
     }
 
 
@@ -194,7 +194,7 @@ class PageViewModel(application: Application,
      * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
      * @param marsProperty The [MarsProperty] that was clicked on.
      */
-    fun displayPlantDetails(plantInformation: PlantInformation2) {
+    fun displayPlantDetails(plantInformation: Plant) {
         _navigateToSelectedPlant.value = plantInformation
         Timber.i(" plantedPlants.size = ".plus(Transformations.map(_plantedPlants) { it.size }.value.toString()))
         //Transformations.map(plantedPlants) { it.size }
@@ -204,7 +204,7 @@ class PageViewModel(application: Application,
      * When the property is clicked, set the [_navigateToSelectedProperty] [MutableLiveData]
      * @param marsProperty The [MarsProperty] that was clicked on.
      */
-    fun displayGardenPlantDetails(plantInformation: PlantInformation2) {
+    fun displayGardenPlantDetails(plantInformation: Plant) {
         _navigateToSelectedGardenPlant.value = plantInformation
         Timber.i(" plantedPlants.size = ".plus(Transformations.map(_plantedPlants) { it.size }.value.toString()))
         //Transformations.map(plantedPlants) { it.size }
@@ -214,13 +214,11 @@ class PageViewModel(application: Application,
      * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
      */
     fun displayPlantDetailsComplete() {
-        Log.i(
-            "PageViewModel", "navigate before is null = "
+        Timber.i( "navigate before is null = "
                 .plus((_navigateToSelectedPlant.value == null).toString())
         )
         _navigateToSelectedPlant.value = null
-        Log.i(
-            "PageViewModel", "navigate after is null = "
+        Timber.i("navigate after is null = "
                 .plus((_navigateToSelectedPlant.value == null).toString())
         )
     }
@@ -229,13 +227,11 @@ class PageViewModel(application: Application,
      * After the navigation has taken place, make sure navigateToSelectedProperty is set to null
      */
     fun displayGardenPlantDetailsComplete() {
-        Log.i(
-            "PageViewModel", "navigate before is null = "
+        Timber.i( "navigate before is null = "
                 .plus((_navigateToSelectedPlant.value == null).toString())
         )
         _navigateToSelectedGardenPlant.value = null
-        Log.i(
-            "PageViewModel", "navigate after is null = "
+        Timber.i("navigate after is null = "
                 .plus((_navigateToSelectedPlant.value == null).toString())
         )
     }
@@ -245,7 +241,7 @@ class PageViewModel(application: Application,
     // DETAIL VIEW STUFF
 
     // should be selected plant I guess
-    fun addPlantToGarden(plantToAdd: PlantInformation2) {
+    fun addPlantToGarden(plantToAdd: Plant) {
         Timber.i("before planting")
         viewModelScope.launch {
             Timber.i("before planting plantedTime = ".plus(_selectedPlant.value?.plantedTime))
@@ -259,7 +255,7 @@ class PageViewModel(application: Application,
 
 
     // should be selected plant I guess
-    fun addPlantsToGarden(plantsToAdd: List<PlantInformation2>) {
+    fun addPlantsToGarden(plantsToAdd: List<Plant>) {
         Timber.i("before planting")
         viewModelScope.launch {
             Timber.i("before planting plantedTime = ".plus(_selectedPlant.value?.plantedTime))
@@ -466,10 +462,8 @@ class PageViewModel(application: Application,
 
         Timber.i("updating plant")
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                gardenRepository.updatePlantInGarden(_selectedPlant.value!!)
-                Timber.i("done updating plant")
-            }
+            gardenRepository.updatePlantInGarden(_selectedPlant.value!!)
+            Timber.i("done updating plant")
         }
         Timber.i("after updating plant")
     }
@@ -633,12 +627,11 @@ class PageViewModel(application: Application,
     }
 
     // save the time at which the alarm should go off
-    private suspend fun saveTime(triggerTime: Long) =
-        withContext(Dispatchers.IO) {
-            //prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply();
-            _selectedPlant.value?.triggerTime = triggerTime;
-            updateSelectedPlant()
-        }
+    private fun saveTime(triggerTime: Long) {
+        //prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply();
+        _selectedPlant.value?.triggerTime = triggerTime;
+        updateSelectedPlant()
+    }
 
     private fun loadTime(): Long {
 //        withContext(Dispatchers.IO) {
@@ -718,7 +711,7 @@ class PageViewModel(application: Application,
     }
 
     // function to remove plant from garden
-    fun removePlantFromGarden(plantToRemove: PlantInformation2) {
+    fun removePlantFromGarden(plantToRemove: Plant) {
 
         Timber.i("removing plant before")
         viewModelScope.launch {
@@ -733,7 +726,7 @@ class PageViewModel(application: Application,
 
 
     // function to remove plant from garden
-    fun removePlantsFromGarden(plantsToRemove: List<PlantInformation2>) {
+    fun removePlantsFromGarden(plantsToRemove: List<Plant>) {
 
         Timber.i("removing plants before")
         viewModelScope.launch {
@@ -816,7 +809,7 @@ class PageViewModel(application: Application,
 
 
     // just a basic looking through the plants tbh
-    fun getPlantFromId(plantId: Int): PlantInformation2? {
+    fun getPlantFromId(plantId: Int): Plant? {
 
         Timber.d("oh god, _plantedPlants.value.size = ".plus(_plantedPlants.value?.size))
 

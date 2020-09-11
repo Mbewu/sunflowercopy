@@ -17,8 +17,7 @@ import com.example.sunflower_copy.R
 import com.example.sunflower_copy.databinding.FragmentHeaderMyGardenBinding
 import com.example.sunflower_copy.databinding.PlantListItemBinding
 import com.example.sunflower_copy.databinding.PlantListItemConciseBinding
-import com.example.sunflower_copy.domain.PlantInformation
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.numPlantsGrowing
 import com.example.sunflower_copy.util.numPlantsToHarvest
 import com.example.sunflower_copy.util.numPlantsToWater
@@ -32,7 +31,7 @@ import kotlin.reflect.jvm.internal.impl.builtins.jvm.JavaToKotlinClassMap
  * data, including computing diffs between lists.
  */
 class PlantGridSearchAdapter(private val context: Context) :
-    ListAdapter<PlantInformation2, RecyclerView.ViewHolder>(DiffCallback), Filterable {
+    ListAdapter<Plant, RecyclerView.ViewHolder>(DiffCallback), Filterable {
 
     var selectionChecker: SelectionChecker? = null
     private val TYPE_HEADER = 0
@@ -40,13 +39,13 @@ class PlantGridSearchAdapter(private val context: Context) :
 
     /**
      * The PlantInformationViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [PlantInformation] information.
+     * GridViewItem, which nicely gives it access to the full [Plant] information.
      */
     class ViewHolder private  constructor(private var binding: PlantListItemBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(plant: PlantInformation2, position: Int, isActivated: Boolean = false) {
-            //binding.plant = plantInformation2
+        fun bind(plant: Plant, position: Int, isActivated: Boolean = false) {
+            //binding.plant = Plant
 
             // stuff for selection
             Timber.i("hi i'm here! so there")
@@ -81,13 +80,13 @@ class PlantGridSearchAdapter(private val context: Context) :
 
     /**
      * The PlantInformationViewHolder constructor takes the binding variable from the associated
-     * GridViewItem, which nicely gives it access to the full [PlantInformation] information.
+     * GridViewItem, which nicely gives it access to the full [Plant] information.
      */
     class ViewHolderConcise private  constructor(private var binding: PlantListItemConciseBinding):
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(plant: PlantInformation2, position: Int, isActivated: Boolean = false) {
-            //binding.plant = plantInformation2
+        fun bind(plant: Plant, position: Int, isActivated: Boolean = false) {
+            //binding.plant = Plant
 
             // stuff for selection
             Timber.i("hi i'm here! so there")
@@ -123,7 +122,7 @@ class PlantGridSearchAdapter(private val context: Context) :
 
         fun bind(numPlantsTotal: Int = 0, numPlantsGrowing: Int = 0,
                  numPlantsToWater: Int = 0, numPlantsToHarvest: Int = 0) {
-            //binding.plant = plantInformation2
+            //binding.plant = Plant
 
             binding.totalPlantsNumber.text = numPlantsTotal.toString()
             binding.growingPlantsNumber.text = numPlantsGrowing.toString()
@@ -161,15 +160,15 @@ class PlantGridSearchAdapter(private val context: Context) :
 
 
     /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [PlantInformation]
+     * Allows the RecyclerView to determine which items have changed when the [List] of [Plant]
      * has been updated.
      */
-    companion object DiffCallback : DiffUtil.ItemCallback<PlantInformation2>() {
-        override fun areItemsTheSame(oldItem: PlantInformation2, newItem: PlantInformation2): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Plant>() {
+        override fun areItemsTheSame(oldItem: Plant, newItem: Plant): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: PlantInformation2, newItem: PlantInformation2): Boolean {
+        override fun areContentsTheSame(oldItem: Plant, newItem: Plant): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -245,17 +244,17 @@ class PlantGridSearchAdapter(private val context: Context) :
 
 
     // get the list we're working with in the filter
-    var plantList: List<PlantInformation2>? = null
-    var plantFilterList: List<PlantInformation2>? = null
+    var plantList: List<Plant>? = null
+    var plantFilterList: List<Plant>? = null
 
 
     // this is used when selecting and sorting i feel
-    override fun submitList(list: List<PlantInformation2>?) {
+    override fun submitList(list: List<Plant>?) {
 
         // add an extra blank plantinformation entry for the header
         // a bit hacky, but we just let it have an id -1
-        val tempList: MutableList<PlantInformation2>? = list?.toMutableList()
-        val headerPlant: PlantInformation2 = PlantInformation2()
+        val tempList: MutableList<Plant>? = list?.toMutableList()
+        val headerPlant: Plant = Plant()
         if (list != null) {
             if (list.isNotEmpty()) {
                 if(list[0].id != -1) {
@@ -279,12 +278,12 @@ class PlantGridSearchAdapter(private val context: Context) :
         //notifyDataSetChanged()
     }
 
-    fun submitNewList(list: List<PlantInformation2>?) {
+    fun submitNewList(list: List<Plant>?) {
 
-        // add an extra blank plantinformation entry for the header
+        // add an extra blank Plant entry for the header
         // a bit hacky, but we just let it have an id -1
-        val tempList: MutableList<PlantInformation2>? = list?.toMutableList()
-        val headerPlant: PlantInformation2 = PlantInformation2()
+        val tempList: MutableList<Plant>? = list?.toMutableList()
+        val headerPlant: Plant = Plant()
         if (list != null) {
             if (list.isNotEmpty()) {
                 if(list[0].id != -1) {
@@ -318,7 +317,7 @@ class PlantGridSearchAdapter(private val context: Context) :
                     plantFilterList = plantList
                 } else {
                     plantList?.let {
-                        val resultList = arrayListOf<PlantInformation2>()
+                        val resultList = arrayListOf<Plant>()
                         for (plant in plantList!!) {
                             if (plant.name.toLowerCase(Locale.ROOT)
                                     .contains(charSearch.toLowerCase(Locale.ROOT))
@@ -339,37 +338,37 @@ class PlantGridSearchAdapter(private val context: Context) :
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 if(plantFilterList != null) {
-                    submitList(results?.values as ArrayList<PlantInformation2>)
+                    submitList(results?.values as ArrayList<Plant>)
                 }
                 else {
-                    submitList(plantList as ArrayList<PlantInformation2>)
+                    submitList(plantList as ArrayList<Plant>)
                 }
                 notifyDataSetChanged()
             }
         }
     }
 
-    fun getPlantItem(position: Int): PlantInformation2 = currentList[position]
+    fun getPlantItem(position: Int): Plant = currentList[position]
 
-    fun getPosition(plant: PlantInformation2): Int = currentList.indexOf(plant)
+    fun getPosition(plant: Plant): Int = currentList.indexOf(plant)
 }
 
 // for selection
 // this basically does the click functionality
 class PlantDetailsLookup(private val recyclerView: RecyclerView) :
-    ItemDetailsLookup<PlantInformation2>() {
+    ItemDetailsLookup<Plant>() {
 
-    object EMPTY_ITEM: ItemDetails<PlantInformation2>() {
+    object EMPTY_ITEM: ItemDetails<Plant>() {
         override fun getPosition(): Int {
             return -1
         }
 
-        override fun getSelectionKey(): PlantInformation2? {
-            return PlantInformation2()
+        override fun getSelectionKey(): Plant? {
+            return Plant()
         }
     }
 
-    override fun getItemDetails(event: MotionEvent): ItemDetails<PlantInformation2>? {
+    override fun getItemDetails(event: MotionEvent): ItemDetails<Plant>? {
         Timber.e("okay we are here")
         val view = recyclerView.findChildViewUnder(event.x, event.y)
         if (view != null) {
@@ -397,26 +396,26 @@ class PlantDetailsLookup(private val recyclerView: RecyclerView) :
 // for selection
 data class PlantDetails(
     private val position: Int,
-    private val plant: PlantInformation2?
-) : ItemDetailsLookup.ItemDetails<PlantInformation2>() {
+    private val plant: Plant?
+) : ItemDetailsLookup.ItemDetails<Plant>() {
 
     override fun getPosition(): Int = position
 
-    override fun getSelectionKey(): PlantInformation2? = plant
+    override fun getSelectionKey(): Plant? = plant
 }
 
 // for selection
 class PlantKeyProvider(
     private val adapter: PlantGridSearchAdapter
-) : ItemKeyProvider<PlantInformation2>(ItemKeyProvider.SCOPE_CACHED) {
-    override fun getKey(position: Int): PlantInformation2? = adapter.getPlantItem(position)
+) : ItemKeyProvider<Plant>(ItemKeyProvider.SCOPE_CACHED) {
+    override fun getKey(position: Int): Plant? = adapter.getPlantItem(position)
 
-    override fun getPosition(key: PlantInformation2): Int = adapter.getPosition(key)
+    override fun getPosition(key: Plant): Int = adapter.getPosition(key)
 }
 
 // for selection
 interface SelectionChecker {
 
-    fun isSelected(plant: PlantInformation2): Boolean
+    fun isSelected(plant: Plant): Boolean
 
 }

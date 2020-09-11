@@ -4,7 +4,7 @@ import android.content.ClipData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.Event
 
 // this view model will be used by all fragments to communicate things
@@ -24,13 +24,13 @@ class SharedViewModel : ViewModel() {
     }
 
 
-    private val _plantOnMap = MutableLiveData<Event<PlantInformation2>>()
+    private val _plantOnMap = MutableLiveData<Event<Plant>>()
 
-    val plantOnMap : LiveData<Event<PlantInformation2>>
+    val plantOnMap : LiveData<Event<Plant>>
         get() = _plantOnMap
 
 
-    fun plantOnMap(plant: PlantInformation2) {
+    fun plantOnMap(plant: Plant) {
         _plantOnMap.value = Event(plant)  // Trigger the event by setting a new Event as a new value
     }
 
@@ -38,7 +38,7 @@ class SharedViewModel : ViewModel() {
     // setup the garden polygon on the map
     // after navigation from title fragment
     // not safe but i think it's work
-    var navigateToPlantOnMap = MutableLiveData<PlantInformation2>()
+    var navigateToPlantOnMap = MutableLiveData<Plant>()
 
 
 

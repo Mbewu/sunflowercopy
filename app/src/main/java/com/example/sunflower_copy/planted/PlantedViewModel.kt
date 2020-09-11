@@ -15,8 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.util.convertLongToDateString
-import com.example.sunflower_copy.domain.PlantInformation
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.receiver.AlarmReceiver
 import com.example.sunflower_copy.repository.GardenRepository
 import com.example.sunflower_copy.util.sendNotification
@@ -29,11 +28,11 @@ import timber.log.Timber
 
 /**
  *  The [ViewModel] associated with the [PlantedFragment], containing information about the selected
- *  [PlantInformation].
+ *  [Plant].
  */
 // makes app a variable or references
 class PlantedViewModel(
-    plantInformation: PlantInformation2,
+    plantInformation: Plant,
     private val app: Application,
     private val gardenRepository: GardenRepository
 ) : AndroidViewModel(app) {
@@ -44,8 +43,8 @@ class PlantedViewModel(
     //private val gardenRepository = GardenRepository(app,getGardenDatabase(app))
 
     // The internal MutableLiveData for the selected property
-    private var _selectedPlant = MutableLiveData<PlantInformation2>()
-    val selectedPlant: LiveData<PlantInformation2>
+    private var _selectedPlant = MutableLiveData<Plant>()
+    val selectedPlant: LiveData<Plant>
         get() = _selectedPlant
 
     // LiveData to handle navigation back to the home screen telling user the plant id that was removed
@@ -81,7 +80,7 @@ class PlantedViewModel(
     }
 
     // function to remove plant from garden
-    fun removePlantFromGarden(plantToRemove: PlantInformation2) {
+    fun removePlantFromGarden(plantToRemove: Plant) {
 
         Timber.i("removing plant before")
         viewModelScope.launch {
@@ -251,10 +250,8 @@ class PlantedViewModel(
 
         Timber.i("updating plant")
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                gardenRepository.updatePlantInGarden(_selectedPlant.value!!)
-                Timber.i("done updating plant")
-            }
+            gardenRepository.updatePlantInGarden(_selectedPlant.value!!)
+            Timber.i("done updating plant")
         }
         Timber.i("after updating plant")
     }
@@ -302,9 +299,7 @@ class PlantedViewModel(
 
             // save the time at which the alarm should end
             // save it to the plant as well
-            viewModelScope.launch {
-                saveTime(triggerTime)
-            }
+            saveTime(triggerTime)
         }
 
         // start the actual timer
@@ -318,6 +313,7 @@ class PlantedViewModel(
     private fun createTimer() {
 
         Timber.i("creating timer")
+        // does this actually need to go inside a coroutine?
         viewModelScope.launch {
             Timber.i("creating timer2")
             // set trigger time from what was set
@@ -363,21 +359,13 @@ class PlantedViewModel(
     }
 
     // save the time at which the alarm should go off
-    private suspend fun saveTime(triggerTime: Long) =
-        withContext(Dispatchers.IO) {
-            prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply();
-            _selectedPlant.value?.triggerTime = triggerTime;
-            updateSelectedPlant()
-        }
+    private fun saveTime(triggerTime: Long) {
+        prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply();
+        _selectedPlant.value?.triggerTime = triggerTime
+        updateSelectedPlant()
+    }
 
-    private suspend fun loadTime(): Long =
-//        withContext(Dispatchers.IO) {
-//            prefs.getLong(TRIGGER_TIME, 0)
-//        }
-        // returns 0 if it's null
-        withContext(Dispatchers.IO) {
-            _selectedPlant.value?.triggerTime ?: 0
-        }
+    private fun loadTime(): Long =  _selectedPlant.value?.triggerTime ?: 0
 
     /**
      * After the user has been told not to overwater, reset to false, so can be triggered again

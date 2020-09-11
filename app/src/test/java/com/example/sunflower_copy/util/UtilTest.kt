@@ -2,7 +2,7 @@ package com.example.sunflower_copy.util
 
 import android.content.Context
 import android.os.SystemClock
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -35,13 +35,13 @@ class UtilTest {
 
 
         // setup some plants
-        val plant1 = PlantInformation2(0,"appelus","apple","it is an apple",0,0,"url")
-        val plant2 = PlantInformation2(1,"appelus","apple","it is an apple",0,0,"url")
-        val plant3 = PlantInformation2(2,"appelus","apple","it is an apple",0,0,"url")
+        val plant1 = Plant(0,"apple")
+        val plant2 = Plant(1,"apple")
+        val plant3 = Plant(2,"apple")
 
         // the plants will all have a triggerTime of zero and so shouldn't be growing
 
-        val plants = listOf<PlantInformation2>(plant1,plant2,plant3)
+        val plants = listOf<Plant>(plant1,plant2,plant3)
 
         val numGrowing = numPlantsGrowing(plants)
 
@@ -64,15 +64,15 @@ class UtilTest {
 
 
         // setup some plants
-        val plant1 = PlantInformation2(0,"appelus","apple","it is an apple",0,0,"url")
-        val plant2 = PlantInformation2(1,"appelus","apple","it is an apple",0,0,"url")
-        val plant3 = PlantInformation2(2,"appelus","apple","it is an apple",0,0,"url")
+        val plant1 = Plant(0,"apple")
+        val plant2 = Plant(1,"apple")
+        val plant3 = Plant(2,"apple")
         plant1.triggerTime = 1
         plant2.triggerTime = 1
         plant3.triggerTime = 1
         // the plants will all have a triggerTime of zero and so shouldn't be growing
 
-        val plants = listOf<PlantInformation2>(plant1,plant2,plant3)
+        val plants = listOf<Plant>(plant1,plant2,plant3)
 
         val numGrowing = numPlantsGrowing(plants)
 
@@ -90,15 +90,15 @@ class UtilTest {
 
 
         // setup some plants
-        val plant1 = PlantInformation2(0,"appelus","apple","it is an apple",0,0,"url")
-        val plant2 = PlantInformation2(1,"appelus","apple","it is an apple",0,0,"url")
-        val plant3 = PlantInformation2(2,"appelus","apple","it is an apple",0,0,"url")
+        val plant1 = Plant(0,"apple")
+        val plant2 = Plant(1,"apple")
+        val plant3 = Plant(2,"apple")
         plant1.triggerTime = 0
         plant2.triggerTime = 1
         plant3.triggerTime = 1
         // the plants will all have a triggerTime of zero and so shouldn't be growing
 
-        val plants = listOf<PlantInformation2>(plant1,plant2,plant3)
+        val plants = listOf<Plant>(plant1,plant2,plant3)
 
         val numGrowing = numPlantsGrowing(plants)
 

@@ -15,7 +15,7 @@
 
         <variable
             name="plant"
-            type="com.example.sunflower_copy.domain.PlantInformation2" />
+            type="com.example.sunflower_copy.domain.Plant" />
     </data>
 
 

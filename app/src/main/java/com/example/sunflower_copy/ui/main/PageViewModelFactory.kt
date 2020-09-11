@@ -5,13 +5,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunflower_copy.detail.DetailViewModel
-import com.example.sunflower_copy.domain.PlantInformation
 import com.example.sunflower_copy.repository.GardenRepository
 import com.example.sunflower_copy.repository.PlantRepository
 import timber.log.Timber
 
 /**
- * Simple ViewModel factory that provides the PlantInformation and context to the ViewModel.
+ * Simple ViewModel factory that provides the Plant and context to the ViewModel.
  */
 class PageViewModelFactory(
     private val application: Application,

@@ -1,5 +1,6 @@
 package com.example.sunflower_copy.title
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.app.Activity
@@ -97,6 +98,7 @@ class TitleFragment : Fragment() {
 //            requireActivity().stopService(playerIntent)
 
             backgroundMusicService.pauseMusic()
+            animateSunflower()
         }
 
         binding.buttonStartMusic.setOnClickListener {
@@ -137,12 +139,12 @@ class TitleFragment : Fragment() {
             val response = IdpResponse.fromResultIntent(data)
             if (resultCode == Activity.RESULT_OK) {
                 // User successfully signed in.
-                Log.i(TAG, "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
+                Timber.i( "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
             } else {
                 // Sign in failed. If response is null, the user canceled the
                 // sign-in flow using the back button. Otherwise, check
                 // the error code and handle the error.
-                Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
+                Timber.i("Sign in unsuccessful ${response?.error?.errorCode}")
             }
         }
     }
@@ -272,15 +274,24 @@ class TitleFragment : Fragment() {
     }
 
     private fun animateSunflower() {
-        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f, 1.8f)
-        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f, 1.8f)
-        val animator = ObjectAnimator.ofPropertyValuesHolder(
+        Timber.i("before animateSunflower")
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 0f, 1f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 0f, 1f)
+        val inflater = ObjectAnimator.ofPropertyValuesHolder(
             sunflowerImage, scaleX, scaleY)
+
+        val rotator = ObjectAnimator.ofFloat(sunflowerImage, View.ROTATION,
+            -360f,0f)
+
+
+        val animator = AnimatorSet()
+        animator.playTogether(inflater,rotator)
         animator.duration = 1000
         //animator.repeatCount = 1
         //animator.repeatMode = ObjectAnimator.REVERSE
         //animator.disableViewDuringAnimation(scaleButton)
         animator.start()
+        Timber.i("after animateSunflower")
 
     }
 

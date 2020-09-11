@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDetailBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import com.example.sunflower_copy.util.bindImage
@@ -35,7 +35,7 @@ class DetailFragment : Fragment() {
             (requireContext().applicationContext as SunflowerApplication).plantRepository,
             (requireContext().applicationContext as SunflowerApplication).gardenRepository)
     }
-    private lateinit var selectedPlant: PlantInformation2
+    private lateinit var selectedPlant: Plant
 
 
     override fun onCreateView(
@@ -115,7 +115,7 @@ class DetailFragment : Fragment() {
     }
 
 
-    private fun setTextViews(selectedPlant: PlantInformation2) {
+    private fun setTextViews(selectedPlant: Plant) {
 
 
         // image

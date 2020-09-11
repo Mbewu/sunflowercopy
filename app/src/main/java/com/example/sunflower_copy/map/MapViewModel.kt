@@ -17,7 +17,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.domain.GardenVertex
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.receiver.AlarmReceiver
 import com.example.sunflower_copy.repository.GardenRepository
 import com.example.sunflower_copy.util.Event
@@ -54,8 +54,8 @@ class MapViewModel(application: Application,
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values
-    private val _plantedPlants: LiveData<List<PlantInformation2>> = gardenRepository.plantedPlants
-    val plantedPlants: LiveData<List<PlantInformation2>>
+    private val _plantedPlants: LiveData<List<Plant>> = gardenRepository.plantedPlants
+    val plantedPlants: LiveData<List<Plant>>
         get() = _plantedPlants
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
@@ -81,8 +81,8 @@ class MapViewModel(application: Application,
 
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values
-    private val _plantAdded = MutableLiveData<Event<PlantInformation2>>()
-    val plantAdded: LiveData<Event<PlantInformation2>>
+    private val _plantAdded = MutableLiveData<Event<Plant>>()
+    val plantAdded: LiveData<Event<Plant>>
         get() = _plantAdded
 
 
@@ -125,7 +125,7 @@ class MapViewModel(application: Application,
     }
 
     // should be selected plant I guess
-    fun addPlantToGarden(plantToAdd: PlantInformation2) {
+    fun addPlantToGarden(plantToAdd: Plant) {
         val location = activeMarker!!.position
         viewModelScope.launch {
             val newPlant = gardenRepository.addPlantToGarden(plantToAdd, location)
@@ -134,12 +134,10 @@ class MapViewModel(application: Application,
     }
 
     // update the plant in repository in case of shut down or something
-    private fun updatePlant(plantToUpdate: PlantInformation2) {
+    private fun updatePlant(plantToUpdate: Plant) {
 
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                gardenRepository.updatePlantInGarden(plantToUpdate)
-            }
+            gardenRepository.updatePlantInGarden(plantToUpdate)
         }
     }
 
@@ -404,7 +402,7 @@ class MapViewModel(application: Application,
     fun cancelMovePlants() {
         // we want to move all the plants back to where they were
         for(marker in markerList) {
-            val plant = marker.tag as PlantInformation2
+            val plant = marker.tag as Plant
             val pos = LatLng(plant.latitude, plant.longitude)
             marker.position = pos
         }
@@ -415,7 +413,7 @@ class MapViewModel(application: Application,
 
         for(marker in markerList) {
             val pos = marker.position
-            val plant = marker.tag as PlantInformation2
+            val plant = marker.tag as Plant
 
             plant.latitude = pos.latitude
             plant.longitude = pos.longitude
@@ -465,7 +463,7 @@ class MapViewModel(application: Application,
     }
 
     // save the activeMarker permanently with plant info
-    fun savePlantMarker(map: GoogleMap, plant: PlantInformation2) {
+    fun savePlantMarker(map: GoogleMap, plant: Plant) {
         if(activeMarker != null) {
 
             // get the position of the active marker

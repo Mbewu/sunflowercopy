@@ -109,14 +109,15 @@ object ServiceLocator {
 
     private fun getDatabase(context: Context): PlantDatabase {
 
-        synchronized(PlantDatabase::class.java) {
-            if (!::INSTANCE_PLANTS.isInitialized) {
-                INSTANCE_PLANTS = Room.databaseBuilder(context.applicationContext,
-                    PlantDatabase::class.java,
-                    "plants").build()
-            }
-        }
-        return INSTANCE_PLANTS
+        return PlantDatabase.getInstance(context.applicationContext)
+//        synchronized(PlantDatabase::class.java) {
+//            if (!::INSTANCE_PLANTS.isInitialized) {
+//                INSTANCE_PLANTS = Room.databaseBuilder(context.applicationContext,
+//                    PlantDatabase::class.java,
+//                    "plants").build()
+//            }
+//        }
+//        return INSTANCE_PLANTS
     }
 
 

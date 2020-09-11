@@ -16,7 +16,7 @@ import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentPlantListBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.hideKeyboard
 import com.example.sunflower_copy.util.setRecyclerViewSpan
 import com.example.sunflower_copy.util.setupUI
@@ -38,7 +38,7 @@ class PlantListFragment : Fragment() {
             (requireContext().applicationContext as SunflowerApplication).gardenRepository)
     }
     private lateinit var adapter: PlantGridSearchAdapter
-    private lateinit var tracker: SelectionTracker<PlantInformation2>
+    private lateinit var tracker: SelectionTracker<Plant>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +78,7 @@ class PlantListFragment : Fragment() {
         // set lifecyle owner for coroutines
         binding.lifecycleOwner = this
 
-        Log.i("PlantListFragment", "hello1")
+        Timber.i("hello1")
         setAdapter()
 
         setSelectionTracker()
@@ -113,7 +113,7 @@ class PlantListFragment : Fragment() {
 //            pageViewModel.displayPlantDetails(it)
 //        })
 
-        Log.i("PlantListFragment", "hello2")
+        Timber.i( "hello2")
         // handled in selection
 //        // set adapter for recyclerView photosGrid
 //        adapter = PlantGridSearchAdapter(PlantGridSearchAdapter.OnClickListener {
@@ -122,7 +122,7 @@ class PlantListFragment : Fragment() {
         adapter = PlantGridSearchAdapter(requireActivity())
 
 
-        Log.i("PlantListFragment", "hello3")
+        Timber.i( "hello3")
         val searchView: SearchView = binding.plantListSearch
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -145,24 +145,24 @@ class PlantListFragment : Fragment() {
         activity?.let { setupUI(parentLayout, it) }
 
 
-        Log.i("PlantListFragment", "hello4")
+        Timber.i( "hello4")
 
 
         binding.photosGridSearch.adapter = adapter
 
-        Log.i("PlantListFragment", "hello5")
+        Timber.i("hello5")
     }
 
 
     private fun setSelectionTracker() {
 
         val recyclerView = binding.photosGridSearch
-        tracker = SelectionTracker.Builder<PlantInformation2>(
+        tracker = SelectionTracker.Builder<Plant>(
             "mySelection2",
             recyclerView,
             PlantKeyProvider(adapter),
             PlantDetailsLookup(recyclerView),
-            StorageStrategy.createParcelableStorage(PlantInformation2::class.java))
+            StorageStrategy.createParcelableStorage(Plant::class.java))
             .withOnItemActivatedListener { item, e ->
                 Log.e("MainActivity", item.toString())
                 // to account for the header
@@ -177,7 +177,7 @@ class PlantListFragment : Fragment() {
 
         //adapter.tracker = tracker
         adapter.selectionChecker = object : SelectionChecker {
-            override fun isSelected(plant: PlantInformation2): Boolean =
+            override fun isSelected(plant: Plant): Boolean =
                 tracker.isSelected(plant)
         }
 
@@ -204,7 +204,7 @@ class PlantListFragment : Fragment() {
         // for another navigation event.
         pageViewModel.navigateToSelectedPlant.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                Log.i("PlantListFragment", "hello1")
+                Timber.i("hello1")
                 //hide keyboard
                 activity?.let { it1 -> hideKeyboard(it1) }
 
@@ -216,15 +216,15 @@ class PlantListFragment : Fragment() {
                 )
                 // Tell the ViewModel we've made the navigate call to prevent multiple navigation
 
-                Log.i("PlantListFragment", "2")
+                Timber.i("2")
                 pageViewModel.displayPlantDetailsComplete()
-                Log.i("PlantListFragment", "hello3")
+                Timber.i("hello3")
             }
         })
 
 
         tracker.addObserver(
-            object : SelectionTracker.SelectionObserver<PlantInformation2>() {
+            object : SelectionTracker.SelectionObserver<Plant>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
                     val items = tracker.selection.size()

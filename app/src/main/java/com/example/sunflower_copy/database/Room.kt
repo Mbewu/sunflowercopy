@@ -1,49 +1,58 @@
 package com.example.sunflower_copy.database
 
 import android.content.Context
+import android.icu.text.CaseMap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
 
 @Dao
 interface PlantDao {
-    @Query("select * from databaseplant")
-    fun getPlants(): LiveData<List<DatabasePlant>>
+    @get:Query("select * from databaseplant")
+    val getPlants: LiveData<List<DatabasePlant>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll( plants: List<DatabasePlant>)
+    suspend fun insertAll( plants: List<DatabasePlant>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert( plants: List<DatabasePlant>)
+    suspend fun insert( plants: List<DatabasePlant>)
+
+    @Query("DELETE FROM databaseplant")
+    suspend fun clear()
 }
 
 
 
-@Database(entities = [DatabasePlant::class], version = 1)
-abstract class PlantDatabase: RoomDatabase() {
-    abstract val plantDao: PlantDao
-}
-
+//@Database(entities = [DatabasePlant::class], version = 1)
+//abstract class PlantDatabase: RoomDatabase() {
+//    abstract val plantDao: PlantDao
+//}
 
 
 
 @Dao
 interface GardenDao {
-    @Query("select * from databasegarden")
-    fun getPlants(): LiveData<List<DatabaseGarden>>
+//    @Query("select * from databasegarden")
+//    suspend fun getPlants(): LiveData<List<DatabaseGarden>>
+
+    @get:Query("select * from databasegarden")
+    val getPlants: LiveData<List<DatabaseGarden>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert( plants: DatabaseGarden)
+    suspend fun insert( plants: DatabaseGarden)
 
     @Update
-    fun update( plants: DatabaseGarden)
+    suspend fun update( plants: DatabaseGarden)
 
     // we return as an Int and not a LiveData<Int> so that we can access it in the code
     @Query("select id from databasegarden order by id desc limit 1")
-    fun getLargestId(): Int
+    suspend fun getLargestId(): Int
 
     @Delete
-    fun delete( plants: DatabaseGarden)
+    suspend fun delete( plants: DatabaseGarden)
+
+    @Query("DELETE FROM databasegarden")
+    suspend fun clear()
 
 }
 
@@ -63,20 +72,20 @@ abstract class GardenDatabase: RoomDatabase() {
 
 @Dao
 interface GardenLayoutDao {
-    @Query("select * from databasegardenlayout")
-    fun getGardenVertices(): LiveData<List<DatabaseGardenLayout>>
+    @get:Query("select * from databasegardenlayout")
+    val getGardenVertices: LiveData<List<DatabaseGardenLayout>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert( vertex: DatabaseGardenLayout)
+    suspend fun insert( vertex: DatabaseGardenLayout)
 
     @Update
-    fun update( vertex: DatabaseGardenLayout)
+    suspend fun update( vertex: DatabaseGardenLayout)
 
     @Delete
-    fun delete( vertex: DatabaseGardenLayout)
+    suspend fun delete( vertex: DatabaseGardenLayout)
 
     @Query("DELETE FROM databasegardenlayout")
-    fun clear()
+    suspend fun clear()
 
 }
 

@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.sunflower_copy.database.*
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.wrapEspressoIdlingResource
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -24,14 +24,10 @@ class PlantRepository(private val database: PlantDatabase,
 
     private val appContext = application
 
-    val plants: LiveData<List<PlantInformation2>> = Transformations.map(database.plantDao.getPlants()) {
+    val plants: LiveData<List<Plant>> = Transformations.map(database.plantDao().getPlants) {
         it.asDomainModel()
     }
 
-
-    val plantedPlants: LiveData<List<PlantInformation2>> = Transformations.map(database.plantDao.getPlants()) {
-        it.asDomainModel()
-    }
 
     /**
      * Refresh the videos stored in the offline cache.
@@ -43,51 +39,47 @@ class PlantRepository(private val database: PlantDatabase,
      */
     suspend fun refreshPlants() {
 
-        wrapEspressoIdlingResource {
-            withContext(ioDispatcher) {
-                appContext.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
-                    JsonReader(inputStream.reader()).use { jsonReader ->
-                        val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
-                        val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
-
-                        Timber.i("Number of plants found = ".plus(plantList.size.toString()))
-
-                        //val database = getDatabase(appContext)
-                        Timber.i("PageViewModel")
-                        database.plantDao.insertAll(plantList)
-
-                        //database.plantDao.getPlants()
-                        Timber.i("9")
-                    }
-                    Log.i("PageViewModel", "10")
-
-                }
-            }
-        }
+//        wrapEspressoIdlingResource {
+//            appContext.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
+//                JsonReader(inputStream.reader()).use { jsonReader ->
+//                    val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
+//                    val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
+//
+//                    Timber.i("Number of plants found = ".plus(plantList.size.toString()))
+//
+//                    //val database = getDatabase(appContext)
+//                    Timber.i("PageViewModel")
+//                    database.plantDao().insertAll(plantList)
+//
+//                    //database.plantDao.getPlants()
+//                    Timber.i("9")
+//                }
+//                Timber.i("10")
+//
+//            }
+//        }
     }
 
 
     suspend fun addPlantToGarden() {
 
         wrapEspressoIdlingResource {
-            withContext(ioDispatcher) {
-                appContext.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
-                    JsonReader(inputStream.reader()).use { jsonReader ->
-                        val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
-                        val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
+            appContext.assets.open(PLANT_DATA_FILENAME).use { inputStream ->
+                JsonReader(inputStream.reader()).use { jsonReader ->
+                    val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
+                    val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
 
-                        Timber.i("Number of plants found = ".plus(plantList.size.toString()))
+                    Timber.i("Number of plants found = ".plus(plantList.size.toString()))
 
-                        //val database = getDatabase(appContext)
-                        Timber.i("PageViewModel")
-                        database.plantDao.insertAll(plantList)
+                    //val database = getDatabase(appContext)
+                    Timber.i("PageViewModel")
+                    database.plantDao().insertAll(plantList)
 
-                        //database.plantDao.getPlants()
-                        Timber.i("9")
-                    }
-                    Log.i("PageViewModel", "10")
-
+                    //database.plantDao.getPlants()
+                    Timber.i("9")
                 }
+                Timber.i("10")
+
             }
         }
     }
@@ -95,9 +87,7 @@ class PlantRepository(private val database: PlantDatabase,
     suspend fun clearPlants() {
 
         wrapEspressoIdlingResource {
-            withContext(ioDispatcher) {
-                database.clearAllTables()
-            }
+            database.plantDao().clear()
         }
     }
 

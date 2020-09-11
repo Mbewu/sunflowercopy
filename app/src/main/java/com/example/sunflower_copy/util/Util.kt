@@ -12,7 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import timber.log.Timber
 import java.text.SimpleDateFormat
 
@@ -162,7 +162,7 @@ object ParcelableUtil {
 
 
 
-fun numPlantsGrowing(plants: List<PlantInformation2>): Int {
+fun numPlantsGrowing(plants: List<Plant>): Int {
     var numPlants = 0
     // loop over and count the number of plants to water
     for (plant in plants) {
@@ -173,7 +173,7 @@ fun numPlantsGrowing(plants: List<PlantInformation2>): Int {
     return numPlants
 }
 
-fun numPlantsToWater(plants: List<PlantInformation2>): Int {
+fun numPlantsToWater(plants: List<Plant>): Int {
     var numPlants = 0
     // loop over and count the number of plants to water
     for (plant in plants) {
@@ -184,7 +184,7 @@ fun numPlantsToWater(plants: List<PlantInformation2>): Int {
     return numPlants
 }
 
-fun numPlantsToHarvest(plants: List<PlantInformation2>): Int {
+fun numPlantsToHarvest(plants: List<Plant>): Int {
     var numPlants = 0
     // loop over and count the number of plants to water
     for (plant in plants) {

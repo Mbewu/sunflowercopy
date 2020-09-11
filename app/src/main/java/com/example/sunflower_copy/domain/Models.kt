@@ -15,14 +15,14 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class PlantInformation2(
+data class Plant(
     @PrimaryKey @ColumnInfo(name = "id") var id: Int,
-    val latinName: String,
     val name: String,
-    val description: String,
-    val growZoneNumber: Int,
-    val wateringInterval: Int,
-    val imageUrl: String,
+    val latinName: String = "",
+    val description: String = "",
+    val growZoneNumber: Int = 0,
+    val wateringInterval: Int = 0,
+    val imageUrl: String = "",
     var plantedTime: Long = 0,
     var wateringsDone: Int = 0,
     var triggerTime: Long = 0,
@@ -50,10 +50,10 @@ data class PlantInformation2(
 
     // copy constructor with new global plant id
     // hmm, not sure it should copy everything like waterings and stuff, but okay
-    constructor(copy: PlantInformation2) :
+    constructor(copy: Plant) :
             this(++GLOBAL_PLANT_ID,
-                copy.latinName,
                 copy.name,
+                copy.latinName,
                 copy.description,
                 copy.growZoneNumber,
                 copy.wateringInterval,
@@ -80,14 +80,6 @@ data class PlantInformation2(
 
 
 }
-
-
-@Parcelize
-data class PlantInformation(
-    val id: String,
-    @Json(name = "img_src") val imgSrcUrl: String,
-    val type: String,
-    val price: Double) : Parcelable
 
 @Parcelize
 data class GardenVertex(

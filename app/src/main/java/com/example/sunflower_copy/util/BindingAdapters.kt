@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.sunflower_copy.R
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.ui.main.PlantApiStatus
 import com.example.sunflower_copy.ui.main.PlantGridSearchAdapter
 import com.google.android.gms.maps.model.Marker
@@ -27,7 +27,7 @@ import java.lang.Exception
 // * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
 // */
 //@BindingAdapter("listData")
-//fun bindRecyclerView(recyclerView: RecyclerView, data: List<PlantInformation2>?) {
+//fun bindRecyclerView(recyclerView: RecyclerView, data: List<Plant>?) {
 //    val adapter = recyclerView.adapter as PlantGridAdapter
 //    adapter.submitList(data)
 //}
@@ -40,7 +40,7 @@ var previousImageUrl: String? = null
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
  */
 @BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<PlantInformation2>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<Plant>?) {
     val adapter = recyclerView.adapter as PlantGridSearchAdapter
     adapter.submitList(data)
 }

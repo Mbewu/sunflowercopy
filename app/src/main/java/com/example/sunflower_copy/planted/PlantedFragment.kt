@@ -35,7 +35,7 @@ import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentPlantedBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import com.example.sunflower_copy.util.bindImage
@@ -71,7 +71,7 @@ class PlantedFragment : Fragment() {
             (requireContext().applicationContext as SunflowerApplication).plantRepository,
             (requireContext().applicationContext as SunflowerApplication).gardenRepository)
     }
-    private lateinit var selectedPlant: PlantInformation2
+    private lateinit var selectedPlant: Plant
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -108,7 +108,7 @@ class PlantedFragment : Fragment() {
         // This is used so that the binding can observe LiveData updates
         binding.lifecycleOwner = viewLifecycleOwner
 
-        Log.i("PlantedFragment", "in planted7")
+        Timber.i( "in planted7")
 
         // create channel for notifications
         createChannel(

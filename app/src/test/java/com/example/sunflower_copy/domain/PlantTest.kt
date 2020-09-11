@@ -4,13 +4,13 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
-class PlantInformation2Test {
+class PlantTest {
 
-    private lateinit var plant: PlantInformation2
+    private lateinit var plant: Plant
 
     @Before
     fun setUp() {
-        plant = PlantInformation2(0,"appelus","apple","it is an apple",0,0,"url")
+        plant = Plant(0,"apple")
     }
 
     @Test

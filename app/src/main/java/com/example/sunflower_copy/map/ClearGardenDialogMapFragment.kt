@@ -15,7 +15,7 @@ import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDialogAddPlantBinding
 import com.example.sunflower_copy.databinding.FragmentDialogClearGardenBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.planted.PlantedViewModelFactory
 import com.example.sunflower_copy.ui.main.PageViewModel
 import timber.log.Timber

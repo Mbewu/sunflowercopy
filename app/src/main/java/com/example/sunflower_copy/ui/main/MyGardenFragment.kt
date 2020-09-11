@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.*
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentMyGardenBinding
-import com.example.sunflower_copy.domain.PlantInformation2
+import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.util.hideKeyboard
 import com.example.sunflower_copy.util.setRecyclerViewSpan
 import com.example.sunflower_copy.util.setupUI
@@ -38,7 +38,7 @@ class MyGardenFragment : Fragment() {
     }
 
     private lateinit var adapter: PlantGridSearchAdapter
-    private lateinit var tracker: SelectionTracker<PlantInformation2>
+    private lateinit var tracker: SelectionTracker<Plant>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,12 +144,12 @@ class MyGardenFragment : Fragment() {
     private fun setSelectionTracker() {
 
         val recyclerView = binding.photosGrid
-        tracker = SelectionTracker.Builder<PlantInformation2>(
+        tracker = SelectionTracker.Builder<Plant>(
             "mySelection",
             recyclerView,
             PlantKeyProvider(adapter),
             PlantDetailsLookup(recyclerView),
-            StorageStrategy.createParcelableStorage(PlantInformation2::class.java))
+            StorageStrategy.createParcelableStorage(Plant::class.java))
 //            .withOnItemActivatedListener { item, _ ->
 //                Log.e("MainActivity", item.toString())
 //                return@withOnItemActivatedListener true}
@@ -168,9 +168,9 @@ class MyGardenFragment : Fragment() {
                 }}
                 // makes sure you can select outside the items in the recycler view
             // e.g. header and empty grid slots
-            .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<PlantInformation2>() {
+            .withSelectionPredicate(object : SelectionTracker.SelectionPredicate<Plant>() {
                 override fun canSelectMultiple(): Boolean = true
-                override fun canSetStateForKey(key: PlantInformation2, nextState: Boolean): Boolean =
+                override fun canSetStateForKey(key: Plant, nextState: Boolean): Boolean =
                     key != PlantDetailsLookup.EMPTY_ITEM.selectionKey
 
                 override fun canSetStateAtPosition(position: Int, nextState: Boolean): Boolean =
@@ -182,7 +182,7 @@ class MyGardenFragment : Fragment() {
 
         //adapter.tracker = tracker
         adapter.selectionChecker = object : SelectionChecker {
-            override fun isSelected(plant: PlantInformation2): Boolean =
+            override fun isSelected(plant: Plant): Boolean =
                 tracker.isSelected(plant)
         }
 
@@ -249,7 +249,7 @@ class MyGardenFragment : Fragment() {
 
 
         tracker.addObserver(
-            object : SelectionTracker.SelectionObserver<PlantInformation2>() {
+            object : SelectionTracker.SelectionObserver<Plant>() {
                 override fun onSelectionChanged() {
                     super.onSelectionChanged()
                     val items = tracker.selection.size()
