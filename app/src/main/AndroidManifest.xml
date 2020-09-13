@@ -26,8 +26,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.SunflowerVersionOne">
+            android:windowSoftInputMode="adjustResize">
 
             <meta-data
                 android:name="android.app.searchable"

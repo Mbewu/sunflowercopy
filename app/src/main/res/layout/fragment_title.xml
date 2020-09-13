@@ -21,117 +21,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.TitleFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_constraint"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary">
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/primaryColor">
 
-            <TextView
-                android:id="@+id/title_text"
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name_title"
+            android:textAppearance="?attr/textAppearanceHeadline2" />
+
+
+        <ImageView
+            android:id="@+id/title_image"
+            android:layout_width="@dimen/title_image_width"
+            android:layout_height="@dimen/title_image_height"
+            android:contentDescription="@string/title_image_content_description"
+            android:elevation="10dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/sunflower_color_detailed" />
+
+        <LinearLayout
+            android:id="@+id/buttons_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_auth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="@string/app_name_title"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/text_size_extra_extra_large"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/title_image"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:text="@string/login"
+                style="@style/Widget.Sunflower.Button.Title" />
 
-
-            <ImageView
-                android:id="@+id/title_image"
-                android:layout_width="@dimen/title_image_width"
-                android:layout_height="@dimen/title_image_height"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@id/buttons_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_text"
-                app:srcCompat="@drawable/sunflower_color_detailed"
-                android:contentDescription="@string/title_image_content_description" />
-
-            <LinearLayout
-                android:id="@+id/buttons_layout"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_image">
+                android:text="@string/start"
+                style="@style/Widget.Sunflower.Button.Title" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_auth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:backgroundTint="?attr/colorAccent"
-                    android:paddingStart="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:text="@string/login"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_stop_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_music"
+                style="@style/Widget.Sunflower.Button.Title"  />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:backgroundTint="?attr/colorAccent"
-                    android:paddingStart="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:text="@string/start"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_stop_music"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:backgroundTint="?attr/colorAccent"
-                    android:paddingStart="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:text="@string/stop_music"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button_start_music"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:backgroundTint="?attr/colorAccent"
-                    android:paddingStart="@dimen/padding_normal"
-                    android:paddingEnd="@dimen/padding_normal"
-                    android:text="@string/start_music"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_start_music"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_music"
+                style="@style/Widget.Sunflower.Button.Title" />
+        </LinearLayout>
 
 
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>

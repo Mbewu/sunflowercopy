@@ -8,36 +8,32 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_normal">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="@dimen/text_padding_normal"
             android:text="@string/dialog_remove_plant_message"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_normal"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_positive"
-            android:backgroundTint="@android:color/holo_red_dark"
             android:text="@string/label_yes"
-            android:textColor="@color/colorTertiaryText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/message"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Positive.Warning" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_negative"
-            android:padding="@dimen/padding_small"
             android:text="@string/label_no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_positive"
             app:layout_constraintTop_toBottomOf="@id/message"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Negative" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

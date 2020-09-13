@@ -1,11 +1,24 @@
 <resources>
     <!-- Base application theme. -->
-<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-        <!-- Customize your theme here. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+
+        <item name="colorAccent">@color/secondaryColor</item>
+
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColor</item>
+
+        <item name="android:textColorPrimary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="android:textColorTertiary">@color/tertiaryTextColor</item>
+
+        <item name="colorError">@color/errorColor</item>
+
+        <item name="android:textColorLink">@color/textColorLink</item>
+        <item name="android:textColorLinkInverse">@color/textColorLinkInverse</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -19,82 +32,105 @@
 <!--        <item name="windowActionBar">true</item>-->
 <!--        <item name="windowNoTitle">false</item>-->
     <style name="AppTheme.SunflowerVersionOne" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/green_700</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/amber_500</item>
         <item name="android:textColorLink">@color/textColorLink</item>
         <item name="android:textColorLinkInverse">@color/textColorLinkInverse</item>
-<!--        not all options that are self defined in color.xml exist-->
-<!--        <item name="colorPrimaryLight">@color/colorPrimaryLight</item>-->
-<!--        <item name="colorPrimaryText">@color/colorPrimaryText</item>-->
-<!--        <item name="colorSecondaryText">@color/colorSecondaryText</item>-->
-<!--        <item name="colorIcons">@color/colorIcons</item>-->
-<!--        <item name="colorDivider">@color/colorDivider</item>-->
-<!--        -->
-
-<!--        <item name="colorTertiaryText">@color/colorTertiaryText</item>-->
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-<!--    <style name="Theme.MyFancyTheme" parent="android:Theme.Holo">-->
-<!--        <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>-->
-<!--    </style>-->
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <!-- Customize color of navigation drawer icon and back arrow -->
-        <item name="colorControlNormal">@color/colorTertiaryText</item>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
     </style>
 
-    <!-- Define your custom dialog theme here extending from base -->
-    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
-        <!-- Define color properties as desired -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#000</item>
-        <item name="android:textColorHighlight">@color/colorAccent</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorPrimaryDark</item>
-        <!-- Define window properties as desired -->
-        <item name="android:windowNoTitle">false</item>
-        <item name="android:windowFullscreen">false</item>
-        <item name="android:windowBackground">@color/colorWater</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-    </style>
     <style name="AppSearchView" parent="Widget.AppCompat.SearchView" >
-        <!-- Text Size -->
-        <item name="android:textSize">@dimen/text_size_normal</item>
-        <!-- Query Text Color -->
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <!-- Hint Color -->
-        <item name="android:textColorHint">@color/colorSecondaryText</item>
-        <!-- Icon Color -->
-        <item name="android:tint">@color/colorPrimaryText</item>
+        <item name="elevation">4dp</item>
+
     </style>
 
-    <style name="ToolbarStyle">
+    <style name="Widget.Sunflower.Toolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="title">@string/empty_string</item>
     </style>
 
-    <style name="FabStyle">
+
+    <style name="OverFlowButton" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_options_circle</item>
+    </style>
+
+    <style name="OverFlowButton.Theme" parent="AppTheme">
+        <item name="actionOverflowButtonStyle">@style/OverFlowButton</item>
+    </style>
+
+    <style name="Widget.Sunflower.Toolbar.Map" parent="Widget.Sunflower.Toolbar">
+        <item name="actionOverflowButtonStyle">@style/OverFlowButton</item>
+    </style>
+
+    <style name="Widget.Sunflower.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/fab_margin</item>
         <item name="android:layout_marginEnd">@dimen/fab_margin</item>
         <item name="android:layout_marginBottom">@dimen/fab_margin</item>
-        <item name="android:tint">@android:color/white</item>
+        <item name="borderWidth">@dimen/dimen_fab_border_0</item>
+        <item name="tint">@color/white</item>
+
     </style>
 
-    <style name="DialogButtonStyle">
+
+    <style name="Widget.Sunflower.Button" parent="Widget.MaterialComponents.Button">
+    </style>
+
+    <style name="Widget.Sunflower.Button.Title" parent="Widget.Sunflower.Button">
+        <item name="backgroundTint">?attr/colorAccent</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="Widget.Sunflower.Button.Dialog" parent="Widget.Sunflower.Button">
         <item name="android:layout_width">@dimen/dialog_button_width</item>
         <item name="android:layout_height">@dimen/dialog_button_height</item>
-        <item name="android:layout_marginTop">@dimen/margin_normal</item>
+        <item name="android:layout_margin">@dimen/margin_small</item>
     </style>
+
+    <style name="Widget.Sunflower.Button.Dialog.Positive" parent="Widget.Sunflower.Button.Dialog">
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Sunflower.Button.Dialog.Negative" parent="Widget.Sunflower.Button.Dialog">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+
+    <style name="Widget.Sunflower.Button.Dialog.Positive.Warning" parent="Widget.Sunflower.Button.Dialog">
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="backgroundTint">?attr/colorError</item>
+    </style>
+
+
+    <style name="TextAppearance.Sunflower.Dialog.Title" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+<!--    reimplemented in v23/styles-->
+    <style name="Widgets.Sunflower.Dialog.Title.Warning" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="android:background">?attr/colorError</item>
+        <item name="android:drawableStart">@drawable/ic_warning</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:drawablePadding">@dimen/padding_small</item>
+    </style>
+
+    <style name="TextAppearance.Sunflower.GridHeader.Number" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+
 
 
 </resources>

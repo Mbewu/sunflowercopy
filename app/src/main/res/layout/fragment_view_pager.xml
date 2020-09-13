@@ -23,25 +23,33 @@
                     android:layout_height="wrap_content"
                     android:theme="@style/AppTheme.AppBarOverlay">
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imageView"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="?actionBarSize"-->
-<!--                        android:gravity="center"-->
-<!--                        android:minHeight="?actionBarSize"-->
-<!--                        app:srcCompat="@drawable/sunflower_color_detailed" />-->
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/toolbar_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_scrollFlags="scroll|snap"
+                        app:toolbarId="@id/toolbar">
 
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="?actionBarSize"
+                            android:background="?attr/colorPrimaryDark"
+                            android:gravity="center"
+                            android:minHeight="?actionBarSize"
+                            app:srcCompat="@drawable/sunflower_color_detailed" />
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabs"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         app:tabIconTint="@drawable/tab_icon_color_selector"
-                        app:tabSelectedTextColor="@color/colorPrimaryText"
-                        app:tabTextColor="@color/colorPrimaryText"/>
-
+                        app:tabSelectedTextColor="@color/primaryTextColor"/>
                 </com.google.android.material.appbar.AppBarLayout>
+
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_pager"

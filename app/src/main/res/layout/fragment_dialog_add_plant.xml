@@ -8,35 +8,31 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_normal">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/dialog_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/text_padding_small"
             android:text="@string/dialog_add_plant_message"
-            android:textColor="@color/colorPrimaryText"
-            android:textSize="@dimen/text_size_normal"
+            android:textAppearance="?attr/textAppearanceBody1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_positive"
             android:text="@string/label_yes"
-            android:textColor="@color/colorTertiaryText"
-            android:backgroundTint="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_message"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Positive" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/button_negative"
             android:text="@string/label_no"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_positive"
             app:layout_constraintTop_toBottomOf="@+id/dialog_message"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Negative" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

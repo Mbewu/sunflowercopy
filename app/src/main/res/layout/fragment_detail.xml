@@ -20,91 +20,71 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title=" "
-            app:titleTextColor="@android:color/black"
             app:navigationIcon="@drawable/ic_back_circle"
-            style="@style/ToolbarStyle" />
+            style="@style/Widget.Sunflower.Toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".DetailFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="100dp">
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/fab_bottom_padding">
 
                 <ImageView
                     android:id="@+id/main_photo_image"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/plant_detail_image_height"
+                    android:contentDescription="@string/plant_detail_image_content_description"
                     android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic"
-                    android:contentDescription="@string/plant_detail_image_content_description" />
+                    tools:src="@tools:sample/backgrounds/scenic" />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:paddingStart="@dimen/text_padding_medium"
-                    android:paddingEnd="@dimen/text_padding_medium"
-                    android:paddingBottom="@dimen/text_padding_extra_small"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_extra_large"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/main_photo_image"
-                    tools:text="Plant Name" />
+                    android:layout_margin="@dimen/margin_normal"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/text_padding_extra_small"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
+                        tools:text="Plant Name" />
 
-                <TextView
-                    android:id="@+id/plant_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/text_padding_medium"
-                    android:paddingEnd="@dimen/text_padding_medium"
-                    android:paddingTop="@dimen/text_padding_extra_small"
-                    android:textSize="@dimen/text_size_medium"
-                    android:textStyle="italic"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title"
-                    tools:text="Latin Name" />
+                    <TextView
+                        android:id="@+id/plant_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:padding="@dimen/text_padding_extra_small"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textStyle="italic"
+                        tools:text="Latin Name" />
 
-                <TextView
-                    android:id="@+id/plant_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_normal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/plant_name"
-                    tools:text="Description of plant."
-                    android:padding="@dimen/text_padding_medium" />
+                    <TextView
+                        android:id="@+id/plant_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/text_padding_extra_small"
+                        android:textAppearance="?attr/textAppearanceBody1"
+                        tools:text="Description of plant." />
+                </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
 
         </ScrollView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_plant_fab"
+            style="@style/Widget.Sunflower.FloatingActionButton"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="?attr/colorPrimary"
+            app:srcCompat="@android:drawable/ic_input_add" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_plant_fab"
-                android:backgroundTint="?attr/colorPrimary"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_input_add"
-                style="@style/FabStyle" />
-
-        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -17,6 +17,7 @@
     <dimen name="text_padding_normal">8dp</dimen>
     <dimen name="text_padding_medium">16dp</dimen>
 
+    <dimen name="margin_extra_small">8dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
 
@@ -53,7 +54,7 @@
 
     <dimen name="card_side_margin">12dp</dimen>
     <dimen name="card_bottom_margin">26dp</dimen>
-    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_corner_radius">12dp</dimen>
 
 </resources>

@@ -123,21 +123,23 @@ class BackgroundMusicService : Service() {
                 mediaPlayer!!.seekTo(length)
                 mediaPlayer!!.start()
             }
-        } else {
-            createMusicPlayer(defaultSong)
-            mediaPlayer!!.start()
         }
     }
 
 
     fun startMusic() {
         if(mediaPlayer != null) {
-            mediaPlayer!!.start()
+            resumeMusic()
         } else {
             createMusicPlayer(defaultSong)
             mediaPlayer!!.start()
         }
     }
+
+    fun stopMusic() {
+        nullifyMediaPlayer()
+    }
+
 
     private fun nullifyMediaPlayer() {
         mediaPlayer?.apply { stop() }?.apply { release() }

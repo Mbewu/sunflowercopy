@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -27,6 +28,7 @@ import com.example.sunflower_copy.title.LoginViewModelFactory
 import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import com.example.sunflower_copy.util.bindImageMaps
+import com.example.sunflower_copy.util.convertLongToDateNoTimeString
 import com.example.sunflower_copy.util.convertLongToDateString
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -160,6 +162,18 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
+        // set map padding so that there can be a menu at the top
+        val tv = TypedValue()
+        val actionBarHeight = if (requireActivity().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+            TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+        } else {
+            0
+        }
+        map.setPadding(0,actionBarHeight,0,0)
+
+        // aubergine style
+        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireActivity(), R.raw.map_style_aubergine));
+
         locationPermissionGranted = getLocationPermission(requireActivity())
         lastKnownLocation = updateLocationUI(requireActivity(), map, locationPermissionGranted)
         if(sharedViewModel.navigateToPlantOnMap.value == null) {
@@ -229,8 +243,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         plant.id
                     )
                     binding.plantedTime.text = getString(
-                        R.string.time_planted_colon,
-                        convertLongToDateString(plant.plantedTime)
+                        R.string.date_planted_colon,
+                        convertLongToDateNoTimeString(plant.plantedTime)
                     )
                     binding.wateringsRemaining.text = getString(
                         R.string.waterings_remaining_colon,

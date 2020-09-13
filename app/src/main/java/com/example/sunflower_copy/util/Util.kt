@@ -58,6 +58,12 @@ fun convertLongToDateString(systemTime: Long): String {
         .format(systemTime).toString()
 }
 
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateNoTimeString(systemTime: Long): String {
+    return SimpleDateFormat("MMM dd, yyyy")
+        .format(systemTime).toString()
+}
+
 fun hideKeyboard(activity: Activity) {
     val inputManager: InputMethodManager = activity
         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -236,9 +236,9 @@ class TitleFragment : Fragment() {
 
             backgroundMusicService.changeMusic(backgroundMusicSong!!)
             backgroundMusicService.changeVolume(backgroundMusicVolume)
-            backgroundMusicService.resumeMusic()
+            backgroundMusicService.startMusic()
         } else {
-            backgroundMusicService.pauseMusic()
+            backgroundMusicService.stopMusic()
         }
     }
 

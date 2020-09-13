@@ -13,8 +13,8 @@
             android:id="@+id/title_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,7 @@
                 android:foregroundTint="@android:color/white"
                 android:padding="@dimen/padding_small"
                 android:text="@string/warning"
-                android:textColor="@color/colorPrimaryText"
+                android:textColor="@color/primaryTextColor"
                 android:textSize="@dimen/text_size_normal"
                 android:tint="@android:color/white"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,10 +37,10 @@
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
+                android:backgroundTint="?attr/colorPrimary"
                 android:padding="@dimen/text_padding_small"
                 android:text="@string/warning"
-                android:textColor="@color/colorTertiaryText"
+                android:textColor="@color/tertiaryTextColor"
                 android:textSize="@dimen/text_size_dialog_title"
                 app:layout_constraintStart_toEndOf="@+id/title_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/text_padding_small"
             android:text="@string/dialog_add_plants_message"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primaryTextColor"
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,13 +60,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_positive"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/label_yes"
-            android:textColor="@color/colorTertiaryText"
+            android:textColor="@color/tertiaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/message_text"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Positive" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_negative"
@@ -75,7 +75,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/button_positive"
             app:layout_constraintTop_toBottomOf="@+id/message_text"
-            style="@style/DialogButtonStyle" />
+            style="@style/Widget.Sunflower.Button.Dialog.Negative" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

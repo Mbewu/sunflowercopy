@@ -17,144 +17,105 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
         android:layout_marginEnd="@dimen/card_side_margin"
-        android:layout_marginBottom="@dimen/card_bottom_margin"
-        app:cardElevation="@dimen/card_elevation"
-        app:cardPreventCornerOverlap="false"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
-        <GridLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:padding="@dimen/padding_small"
-            app:columnCount="2"
-            app:rowCount="2">
+            android:layout_height="wrap_content">
 
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/total_plants_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:orientation="vertical">
+                android:padding="@dimen/text_padding_small"
+                android:textAppearance="@style/TextAppearance.Sunflower.GridHeader.Number"
+                app:layout_constraintEnd_toStartOf="@+id/growing_plants_number"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="5" />
 
-                <TextView
-                    android:id="@+id/total_plants_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_size_large"
-                    android:textStyle="bold"
-                    tools:text="5" />
-
-                <TextView
-                    android:id="@+id/total_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:text="@string/total"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_small"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/total_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/growing_plants_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_size_large"
-                    android:textStyle="bold"
-                    tools:text="5" />
-
-                <TextView
-                    android:id="@+id/growing_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:text="@string/growing"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_small"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:padding="@dimen/text_padding_small"
+                android:text="@string/total"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintEnd_toEndOf="@+id/total_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/total_plants_number"
+                app:layout_constraintTop_toBottomOf="@+id/total_plants_number" />
 
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/growing_plants_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
-                android:orientation="vertical">
+                android:padding="@dimen/text_padding_small"
+                android:textAppearance="@style/TextAppearance.Sunflower.GridHeader.Number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/total_plants_number"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="5" />
 
-                <TextView
-                    android:id="@+id/water_plants_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_size_large"
-                    android:textStyle="bold"
-                    tools:text="2" />
-
-                <TextView
-                    android:id="@+id/water_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:text="@string/to_water"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_small"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/growing_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_columnWeight="1"
-                android:orientation="vertical">
+                android:padding="@dimen/text_padding_small"
+                android:text="@string/growing"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintEnd_toEndOf="@+id/growing_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/growing_plants_number"
+                app:layout_constraintTop_toBottomOf="@id/growing_plants_number" />
 
-                <TextView
-                    android:id="@+id/harvest_plants_number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/text_size_large"
-                    android:textStyle="bold"
-                    tools:text="3" />
+            <TextView
+                android:id="@+id/water_plants_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding_small"
+                android:textAppearance="@style/TextAppearance.Sunflower.GridHeader.Number"
+                app:layout_constraintEnd_toEndOf="@+id/total_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/total_plants_number"
+                app:layout_constraintTop_toBottomOf="@id/total_title"
+                tools:text="2" />
+            <TextView
+                android:id="@+id/water_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding_small"
+                android:text="@string/to_water"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/water_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/water_plants_number"
+                app:layout_constraintTop_toBottomOf="@id/water_plants_number"/>
 
-                <TextView
-                    android:id="@+id/harvest_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/text_padding_small"
-                    android:text="@string/to_harvest"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/text_size_small"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
+            <TextView
+                android:id="@+id/harvest_plants_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding_small"
+                android:textAppearance="@style/TextAppearance.Sunflower.GridHeader.Number"
+                app:layout_constraintEnd_toEndOf="@+id/growing_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/growing_plants_number"
+                app:layout_constraintTop_toBottomOf="@id/growing_title"
+                tools:text="3" />
 
-        </GridLayout>
+            <TextView
+                android:id="@+id/harvest_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_padding_small"
+                android:text="@string/to_harvest"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Overline"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/harvest_plants_number"
+                app:layout_constraintStart_toStartOf="@+id/harvest_plants_number"
+                app:layout_constraintTop_toBottomOf="@id/harvest_plants_number" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.example.sunflower_copy.util.MaskedCardView>
+
 </layout>

@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="colorPrimary">#6200EE</color>-->
-<!--    <color name="colorPrimaryDark">#3700B3</color>-->
-<!--    <color name="colorAccent">#03DAC5</color>-->
-    FFC107
-<!--    colors from a green and amber material color schem-->
-<!--    <color name="colorPrimary">#4CAF50</color>-->
-    <color name="colorPrimary">#388E3C</color>
-    <color name="colorPrimaryDark">#388E3C</color>
-    <color name="colorPrimaryLight">#C8E6C9</color>
-<!--  yellow  <color name="colorAccent">#FFEB3B</color>-->
-    <color name="colorAccent">#FFC107</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
+    <color name="green_700">#388E3C</color>
+    <color name="amber_500">#FFC107</color>
+
+    <color name="white">#FFFFFF</color>
+
+    <color name="primaryColor">#388e3c</color>
+    <color name="primaryLightColor">#6abf69</color>
+    <color name="primaryDarkColor">#00600f</color>
+    <color name="secondaryColor">#ffc107</color>
+    <color name="secondaryLightColor">#fff350</color>
+    <color name="secondaryDarkColor">#c79100</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+    <color name="tertiaryTextColor">#FFFFFF</color>
+
+    <color name="errorColor">#cc0000</color>
+
+    <color name="removeColor">#cc0000</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
 
     <color name="colorWater">#5C9AFF</color>
+    <color name="colorCamera">#0645AD</color>
 
-    <color name="colorTertiaryText">#FFFFFF</color>
 
 <!--    from wikipedia-->
     <color name="textColorLink">#0645AD</color>
     <color name="textColorLinkInverse">#0B0080</color>
 
 
-    <color name="colorSelectionHoloLightBlue">#5033b5e5</color>
-    #5033b5e5
+    <color name="colorSelectionHoloLightBlue">#5033b5e5</color> light_blue_400 (29B6F6) with alpha
+
 </resources>

@@ -27,9 +27,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.util.*
 
@@ -260,7 +258,7 @@ class MapViewModel(application: Application,
             //gardenVertex.
             tempGardenPolygonOptions.add(LatLng(gardenVertex.latitude, gardenVertex.longitude))
         }
-        tempGardenPolygonOptions.strokeColor(R.color.colorTertiaryText)
+        tempGardenPolygonOptions.strokeColor(R.color.tertiaryTextColor)
             .fillColor(R.color.colorPrimaryDark)
 
         // just a temporary polygon really added to the map, we can add it back later with its options
@@ -348,7 +346,7 @@ class MapViewModel(application: Application,
             gardenPolygonOptions.add(point)
         }
 
-        gardenPolygonOptions.strokeColor(R.color.colorTertiaryText)
+        gardenPolygonOptions.strokeColor(R.color.tertiaryTextColor)
             .fillColor(fillColorInt)
 
         // just a temporary polygon really added to the map, we can add it back later with its options

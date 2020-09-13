@@ -11,6 +11,5 @@ Updates:
 -> added more defaults to Plant (only id and name needed now)
 -> removed unused files
 -> replaced all Log calls with Timber
-						-
-
-					
+-> changed so that using Room's coroutine functionality suspend functions
+-> changed so that database is only read from file once using a worker

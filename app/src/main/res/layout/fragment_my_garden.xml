@@ -42,8 +42,8 @@
             android:id="@+id/plant_list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:background="@color/colorPrimaryDark"
+            android:background="?attr/colorPrimaryDark"
+            android:elevation="4dp"
             android:textCursorDrawable="@null"
             android:theme="@style/AppSearchView"
             app:iconifiedByDefault="false"
@@ -53,20 +53,11 @@
             app:layout_constraintTop_toBottomOf="@+id/photos_grid"
             app:queryBackground="@null" />
 
-        <ImageView
-            android:id="@+id/status_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_delete_selection"
-            app:borderWidth="@dimen/dimen_fab_border_0"
-            android:backgroundTint="@android:color/holo_red_dark"
-            android:visibility="gone"
+            style="@style/Widget.Sunflower.FloatingActionButton"
+            android:backgroundTint="?attr/colorError"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -74,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@android:drawable/ic_menu_delete"
-            style="@style/FabStyle"/>
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

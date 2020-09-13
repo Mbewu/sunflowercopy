@@ -13,112 +13,93 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            app:navigationIcon="@drawable/ic_back_circle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:theme="@style/OverFlowButton.Theme"
+            style="@style/Widget.Sunflower.Toolbar.Map" />
+
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.example.sunflower_copy.map.MapFragment"
-            tools:layout_editor_absoluteX="-173dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:background="#000000"
+            tools:context="com.example.sunflower_copy.map.MapFragment" />
 
         <LinearLayout
             android:id="@+id/instructions_layout"
             android:layout_width="@dimen/instructions_layout_width"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
+            android:animateLayoutChanges="true"
+            android:background="#FFFFFF"
             android:orientation="vertical"
             android:padding="@dimen/padding_small"
-            android:translationZ="10dp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:visibility="visible"
-            android:animateLayoutChanges="true">
+            tools:visibility="visible">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/instructions_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/place_plant_on_the_map"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:textStyle="bold"
-                app:drawableTint="@color/colorSecondaryText"
-                app:drawableEndCompat="@drawable/ic_drop_down" />
+                app:drawableEndCompat="@drawable/ic_drop_down"
+                app:drawableTint="?android:textColorPrimary"
+                tools:text="Instructions title:" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/instructions_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="@string/planting_on_map_instructions"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:visibility="gone"
+                tools:text="Actual instructions."
                 tools:visibility="visible" />
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_2"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/fab_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.94">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_cancel"
-                android:backgroundTint="@android:color/holo_red_dark"
+                android:backgroundTint="@color/removeColor"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/fab_margin"
                 app:srcCompat="@drawable/ic_close"
                 tools:visibility="visible"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                style="@style/FabStyle"/>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/button_move"
-                app:layout_constraintStart_toEndOf="@id/fab_cancel"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/button_move"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/move"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/fab_confirm"
-                app:layout_constraintStart_toEndOf="@id/button"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible"/>
+                style="@style/Widget.Sunflower.FloatingActionButton"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_confirm"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="?attr/colorPrimary"
                 android:visibility="invisible"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/button_move"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_check"
                 tools:visibility="visible"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -135,14 +116,15 @@
             android:gravity="center_vertical"
             android:visibility="invisible"
             tools:visibility="visible"
-            android:padding="@dimen/padding_extra_small"
+            android:padding="@dimen/padding_small"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/hue_text"
                 android:text="@string/hue"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
+                android:layout_width="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"/>
 
             <SeekBar
                 android:id="@+id/fill_hue_seek_bar"
@@ -151,11 +133,13 @@
                 android:max="360"
                 android:progress="180"
                 android:visibility="visible" />
-            <TextView
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/alpha_text"
                 android:text="@string/transparency"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
+                android:layout_width="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
             <SeekBar
                 android:id="@+id/fill_alpha_seek_bar"

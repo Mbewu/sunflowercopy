@@ -17,6 +17,7 @@
     <string name="plant_name_colon"><![CDATA[Plant name: %1$s <em>(%2$s)</em>]]></string>
     <string name="plant_id_colon">Plant ID: #%1$d</string>
     <string name="time_planted_colon">Time planted: %1$s</string>
+    <string name="date_planted_colon">Date planted: %1$s</string>
     <string name="maturation_time_colon">Maturation time: %1$d minutes %2$d seconds</string>
     <string name="watering_interval_colon">Watering interval: %1$d seconds</string>
     <string name="waterings_remaining_colon">Waterings remaining: %1$d</string>
@@ -46,10 +47,10 @@
     <string name="about">About</string>
     <string name="setup_garden">Setup Garden</string>
 
-    <string name="about_text">Sunflower App is the place where I test out new ideas I have learnt and all that kind of thing.
-        \n\n Future ideas are to have a tick box at the beginning to specify what things we are testing so that the whole app doesn\'t run all the time.
+    <string name="about_text">The Sunflower App is the place where I test out new ideas I have learnt and all that kind of thing.
+        \n\nFuture ideas are to have a tick box at the beginning to specify what things we are testing so that the whole app doesn\'t run all the time.
         But it still could be unfeasible to have everything in one app. We shall see.
-        \n\n Currently, we are working on just getting the whole thing up and running, adding menus and that kind of thing.</string>
+        \n\nCurrently, we are working on just getting the whole thing up and running, adding menus and that kind of thing.</string>
     <string name="time_until_next_watering">Time until next watering:</string>
     <string name="plant_information">Plant information</string>
     <string name="ready_to_harvest">READY TO HARVEST</string>
@@ -157,7 +158,6 @@
     <string name="background_music_volume_key">background_music_volume_key</string>
     <string name="background_music_song_title">Background Music Song</string>
     <string name="background_music_volume_title">Background Music Volume</string>
-    <string name="empty_string"> </string>
     <string name="about_image_content_description">Picture of a sunflower</string>
     <string name="about_title_text">About Sunflower</string>
     <string name="dialog_add_plant_message">Add plant to your garden?</string>
@@ -176,7 +176,6 @@
     <string name="most_recent_image_3_content_description">Most recent image 3</string>
     <string name="most_recent_image_4_content_description">Most recent image 4</string>
     <string name="plant_description_title">Description:</string>
-    <string name="app_name_title">Sunflower</string>
     <string name="info_window_image_content_description">Picture of plant at selected location.</string>
     <string name="ready_to_water_icon_content_description">Ready to water icon.</string>
     <string name="ready_to_harvest_icon_content_description">Ready to harvest icon.</string>
@@ -185,6 +184,8 @@
     <string name="full_screen_of_image_content_description">Full screen of image.</string>
     <string name="title_image_content_description">Picture of a sunflower.</string>
 
+    <string name="app_name_title">Sunflower</string>
+    <string name="empty_string">" "</string>
     android:defaultValue="@string/garden_hue_default"
     android:key="@string/preference_garden_hue_key"
     android:selectAllOnFocus="true"

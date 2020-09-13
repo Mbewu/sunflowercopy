@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/mapFragment"
-        android:icon="@android:drawable/ic_dialog_map"
+        android:icon="@drawable/ic_map"
         android:title="@string/map" />
 
     <item
@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/aboutFragment"
-        android:icon="@drawable/sunflower_color_detailed"
+        android:icon="@drawable/ic_sunflower_bw"
         android:title="@string/about" />
 
 </menu>

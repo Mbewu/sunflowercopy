@@ -43,8 +43,7 @@
             android:id="@+id/plant_list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:background="@color/colorPrimary"
+            android:background="?attr/colorPrimaryDark"
             android:textCursorDrawable="@null"
             android:theme="@style/AppSearchView"
             app:iconifiedByDefault="false"
@@ -54,22 +53,12 @@
             app:layout_constraintTop_toBottomOf="@+id/photos_grid_search"
             app:queryBackground="@null" />
 
-        <ImageView
-            android:id="@+id/status_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/nothing" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_selection"
-            app:borderWidth="@dimen/dimen_fab_border_0"
-            android:layout_marginStart="@dimen/fab_margin"
-            android:backgroundTint="?attr/colorPrimary"
-            android:visibility="gone"
+            style="@style/Widget.Sunflower.FloatingActionButton"
+            android:backgroundTint="?attr/colorSecondary"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -77,7 +66,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@android:drawable/ic_input_add"
-            style="@style/FabStyle" />
+            tools:visibility="visible" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

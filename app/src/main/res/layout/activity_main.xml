@@ -7,18 +7,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title=" "
-                app:titleTextColor="@android:color/black"
-                app:navigationIcon="@drawable/ic_back_circle"
-                style="@style/ToolbarStyle">
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.Sunflower.Toolbar">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -29,7 +27,7 @@
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/navigation"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widgets.Sunflower.Dialog.Title.Warning" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?android:textColorTertiary</item>
+        <item name="android:background">?attr/colorError</item>
+        <item name="android:drawableStart">@drawable/ic_warning</item>
+        <item name="android:drawableTint">?android:textColorTertiary</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:drawablePadding">@dimen/padding_small</item>
+    </style>
+</resources>

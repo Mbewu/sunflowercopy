@@ -21,10 +21,8 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
-            app:title=" "
-            app:titleTextColor="@android:color/black"
             app:navigationIcon="@drawable/ic_back_circle"
-            style="@style/ToolbarStyle" />
+            style="@style/Widget.Sunflower.Toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -33,6 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/fab_bottom_padding"
                 android:orientation="vertical">
 
                 <ImageView
@@ -51,6 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:padding="@dimen/text_padding_medium"
                     app:layout_constraintBottom_toTopOf="@id/time_remaining_layout"
                     app:layout_constraintTop_toBottomOf="@id/main_photo_image">
 
@@ -58,61 +58,47 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_normal"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@string/plant_information"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_medium" />
+                        android:textAppearance="?attr/textAppearanceHeadline4" />
                     <TextView
                         android:id="@+id/plant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Plant Name: Apple" />
+                        tools:text="Plant Name: Apple"
+                        android:textAppearance="?attr/textAppearanceBody2" />
 
                     <TextView
                         android:id="@+id/plant_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Plant ID: #24" />
+                        tools:text="Plant ID: #24"
+                        android:textAppearance="?attr/textAppearanceBody2" />
                     <TextView
                         android:id="@+id/watering_interval"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Watering interval: 30 sec" />
+                        tools:text="Watering interval: 30 sec"
+                        android:textAppearance="?attr/textAppearanceBody2"/>
 
                     <TextView
                         android:id="@+id/maturation_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Maturation time: 5 min" />
+                        tools:text="Maturation time: 5 min"
+                        android:textAppearance="?attr/textAppearanceBody2"/>
 
                     <TextView
                         android:id="@+id/planted_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Time planted: Aug 21, 2020 at 08:23" />
+                        tools:text="Time planted: Aug 21, 2020 at 08:23"
+                        android:textAppearance="?attr/textAppearanceBody2" />
 
 
 
@@ -120,23 +106,19 @@
                         android:id="@+id/location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.plantLocationString}"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Location: (51.234, -1.235)" />
+                        tools:text="Location: (51.234, -1.235)"
+                        android:textAppearance="?attr/textAppearanceBody2" />
 
                     <TextView
                         android:id="@+id/waterings_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{@string/waterings_remaining_colon(viewModel.wateringsRemaining)}"
-                        android:textSize="@dimen/text_size_small"
-                        tools:text="Waterings remaining: 4" />
+                        tools:text="Waterings remaining: 4"
+                        android:textAppearance="?attr/textAppearanceBody2"/>
 
                 </LinearLayout>
 
@@ -157,11 +139,9 @@
                         android:id="@+id/time_until_next_watering"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/time_until_next_watering"
-                        android:textSize="@dimen/text_size_small"
+                        android:textAppearance="?attr/textAppearanceBody2"
                         android:visibility="visible"
                         app:layout_constraintBottom_toTopOf="@id/time_remaining"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -174,11 +154,9 @@
                         android:id="@+id/time_remaining"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.timeRemainingString}"
-                        android:textSize="@dimen/text_size_large"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -191,13 +169,11 @@
                         android:id="@+id/ready_to_water"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/ready_to_water"
                         android:textColor="@color/colorWater"
-                        android:textSize="@dimen/text_size_large"
                         android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -208,13 +184,11 @@
                         android:id="@+id/ready_to_harvest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:text="@string/ready_to_harvest"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_size_large"
+                        android:textColor="?attr/colorAccent"
                         android:textStyle="bold"
+                        android:textAppearance="?attr/textAppearanceHeadline4"
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/time_remaining_layout"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -238,8 +212,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/most_recent_images_title"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_normal" />
+                        android:textAppearance="?attr/textAppearanceBody1" />
 
 
                     <LinearLayout
@@ -295,21 +268,17 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/fab_bottom_padding"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/text_padding_medium"
                     android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/plant_description_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
-                        android:paddingTop="@dimen/text_padding_extra_small"
                         android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@string/plant_description_title"
-                        android:textColor="@color/colorPrimaryText"
-                        android:textSize="@dimen/text_size_normal"
+                        android:textAppearance="?attr/textAppearanceBody1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/time_remaining_layout" />
 
@@ -317,12 +286,9 @@
                         android:id="@+id/plant_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/text_padding_medium"
-                        android:paddingEnd="@dimen/text_padding_medium"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:paddingBottom="@dimen/text_padding_extra_small"
-                        android:textColor="@color/colorSecondaryText"
-                        android:textSize="@dimen/text_size_small"
+                        android:textAppearance="?attr/textAppearanceBody2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/plant_description_title"
                         tools:text="Description of plant." />
@@ -343,58 +309,53 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_camera"
                 android:layout_marginStart="@dimen/fab_margin"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                android:backgroundTint="@color/textColorLink"
+                android:backgroundTint="@color/colorCamera"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fab_maps"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_camera"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_maps"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="?attr/colorPrimary"
                 android:visibility="visible"
                 app:layout_constraintEnd_toStartOf="@id/fab_camera"
                 app:layout_constraintStart_toEndOf="@id/fab_water"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_map"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_remove"
-                app:borderWidth="@dimen/dimen_fab_border_0"
-                android:backgroundTint="@android:color/holo_red_dark"
+                android:backgroundTint="@color/removeColor"
                 app:layout_constraintEnd_toStartOf="@id/fab_maps"
                 app:layout_constraintStart_toEndOf="@id/fab_water"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_delete"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_water"
-                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:backgroundTint="@color/colorWater"
                 android:onClick="@{() -> viewModel.waterPlant()}"
                 app:layout_constraintEnd_toStartOf="@id/fab_remove"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_water"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_harvest"
-                app:borderWidth="@dimen/dimen_fab_border_0"
                 android:onClick="@{() -> viewModel.harvestPlant()}"
-                android:backgroundTint="@color/colorAccent"
+                android:backgroundTint="?attr/colorAccent"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/fab_remove"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_leaf"
-                style="@style/FabStyle" />
+                style="@style/Widget.Sunflower.FloatingActionButton" />
 
         </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

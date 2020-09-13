@@ -12,11 +12,8 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_back_circle"
-            app:title=" "
-            app:titleTextColor="@android:color/black"
-            style="@style/ToolbarStyle" />
+            style="@style/Widget.Sunflower.Toolbar" />
 
 
         <ImageView
@@ -24,10 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars"
             android:contentDescription="@string/full_screen_of_image_content_description" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
