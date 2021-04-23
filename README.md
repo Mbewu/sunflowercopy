@@ -1,6 +1,6 @@
-### sunflowercopy
+# sunflowercopy
 
-Sunflower copy is an android app that I use to investigate features of Android programming that I learn.
+sunflowercopy is an android app that I use to investigate features of Android programming that I learn.
 
 It is based on the sunflower demo provided by google [https://github.com/android/sunflower], initially as a way to test some of my skills. The goal was to recreate the app without looking at the demo code or too much at the app. Then to implement skills learnt in Google codelabs and elsewhere as they are learnt.
 
@@ -8,53 +8,54 @@ Currently looking at neatening things up a bit and including more testing (unit 
 
 It is close to where I view completion and I may start another app with more real-world use soon (basically to track and identify plant observations in a particular area), so stay tuned.
 
-Features:
+## Features:
 
--> add plants from a repository to a garden on a Google map  
--> choose where to plant plant  
--> need to water plants periodically before harvesting  
--> notifications sent when ready to water or harvest or just planted  
--> ability to set up polygon shaped garden overlaid on map
--> different profile with different gardens
--> settings like music on/off, mapstyle etc saved in profile
--> add/remove multiple plants at a time
--> ability to take pictures of individual plants to monitor
+- add plants from a repository to a garden on a Google map
+- choose where to plant plant
+- need to water plants periodically before harvesting
+- notifications sent when ready to water or harvest or just planted
+- ability to set up polygon shaped garden overlaid on map
+- different profile with different gardens
+- settings like music on/off, mapstyle etc saved in profile
+- add/remove multiple plants at a time
+- ability to take pictures of individual plants to monitor
 
-Updates:
+## Updates:
 
-23/04
--> many changes have been made
--> primarily (recently) fixed navigation with the drawerlayout and different styles of toolbar depending on the fragment.
+23/04/2021:
+- many changes have been made
+- primarily (recently) fixed navigation with the drawerlayout and different styles of toolbar depending on the fragment.
 
-07/10
--> speed up build a bit by adding some things to gradle.properties
-30/09
--> changed the themes a little, created a base theme AppThemeBase that AppTheme inherits. In this way AppTheme can inherit attributes that may not be needed to change when you go from day to night.
--> fixed html binding adapter to have links clickable.
--> made info window on map look better in dark mode
+07/10:
+- speed up build a bit by adding some things to gradle.properties
 
-21/09
--> changed garden plant's ids to be auto generated, this meant changing them to Long and a number of other changes propagated through the code. May be some issues.
+30/09:
+- changed the themes a little, created a base theme AppThemeBase that AppTheme inherits. In this way AppTheme can inherit attributes that may not be needed to change when you go from day to night.
+- fixed html binding adapter to have links clickable.
+- made info window on map look better in dark mode
 
-21/09
--> cleaned up code a bit (changed string concatenation style to use interpolation)
--> added a bit more databinding
+21/09:
+- changed garden plant's ids to be auto generated, this meant changing them to Long and a number of other changes propagated through the code. May be some issues.
 
-15/09
--> updated dependencies based on AndroidStudio recommendations
+21/09:
+- cleaned up code a bit (changed string concatenation style to use interpolation)
+- added a bit more databinding
 
-11/09/2020
--> renamed PlantInformation2 to Plant
--> added more defaults to Plant (only id and name needed now)
--> removed unused files
--> replaced all Log calls with Timber
--> changed so that using Room's coroutine functionality suspend functions
--> changed so that database is only read from file once using a worker
+15/09:
+- updated dependencies based on AndroidStudio recommendations
+
+11/09/2020:
+- renamed PlantInformation2 to Plant
+- added more defaults to Plant (only id and name needed now)
+- removed unused files
+- replaced all Log calls with Timber
+- changed so that using Room's coroutine functionality suspend functions
+- changed so that database is only read from file once using a worker
 
 
-Known bugs/feature improvements:
+## Known bugs/feature improvements:
 
-23/04 ->
+23/04:
 - sunflower starts spinning every time you press "stop music".
 - music can't play unless you're logged in.
 - when you log in the first time, it asks you if you want "project-24381741" to be logged into and/or access some stuff. Would be nice to change that name so something better.
