@@ -14,13 +14,14 @@
     <string name="num_available_plants">%1$s plants are available to plant</string>
 
 <!--    fragment_planted-->
-    <string name="plant_name_colon"><![CDATA[Plant name: %1$s <em>(%2$s)</em>]]></string>
-    <string name="plant_id_colon">Plant ID: #%1$d</string>
-    <string name="time_planted_colon">Time planted: %1$s</string>
-    <string name="date_planted_colon">Date planted: %1$s</string>
-    <string name="maturation_time_colon">Maturation time: %1$d minutes %2$d seconds</string>
-    <string name="watering_interval_colon">Watering interval: %1$d seconds</string>
-    <string name="waterings_remaining_colon">Waterings remaining: %1$d</string>
+    <string name="plant_and_latin_name"><![CDATA[%1$s <em>(%2$s)</em>]]></string>
+    <string name="hash_plant_id">Plant ID: #%1$d</string>
+    <string name="time_planted_colon_old">Time planted: %1$s</string>
+    <string name="date_planted_colon_old">Date planted: %1$s</string>
+    <string name="maturation_time_colon_old">Maturation time: %1$d minutes %2$d seconds</string>
+    <string name="watering_interval_colon_old">Watering interval: %1$d seconds</string>
+    <string name="waterings_remaining_colon_old">Waterings remaining: %1$d</string>
+    <string name="waterings_done_colon_old">Waterings done: %1$d</string>
 
 
     <string name="sunflower_notification_channel_id" translatable="false">sunflower_channel</string>
@@ -81,7 +82,7 @@
     <string name="option_get_place">Get place</string>
     <string name="pick_place">Choose a place</string>
 
-    <string name="location_colon">Location: (%1$.3f, %2$.3f)</string>
+    <string name="location_colon_old">Location: (%1$.3f, %2$.3f)</string>
     <string name="plant_name_and_id">%1$s #%2$d</string>
 
 
@@ -130,6 +131,19 @@
     <string name="start_music">Start music</string>
 
 
+    <string name="background_music_on_off_key">background_music_on_off_key</string>
+    <string name="background_music_on_off_default">true</string>
+    <string name="background_music_on_off_title">Background Music</string>
+
+    <string name="background_music_volume_key">background_music_volume_key</string>
+    <string name="background_music_volume_default">25</string>
+    <string name="background_music_volume_title">Background Music Volume</string>
+
+
+    <string name="background_music_song_key">background_music_song_key</string>
+    <string name="background_music_song_default">peaceful_music_australia_1</string>
+    <string name="background_music_song_title">Background Music Song</string>
+
     <string-array
         name="background_music_songs_strings">
         <item>Australia 1</item>
@@ -141,23 +155,37 @@
 
     <string-array
         name="background_music_songs_values">
-        <item>australia_1</item>
-        <item>australia_2</item>
-        <item>australia_3</item>
-        <item>australia_4</item>
-        <item>australia_5</item>
+        <item>peaceful_music_australia_1</item>
+        <item>peaceful_music_australia_2</item>
+        <item>peaceful_music_australia_3</item>
+        <item>peaceful_music_australia_4</item>
+        <item>peaceful_music_australia_5</item>
     </string-array>
 
-    <string name="background_music_song_key">australia_1</string>
-    <string name="background_music_song_default">australia_1</string>
 
-    <string name="background_music_on_off_key">background_music_on_off_key</string>
-    <string name="background_music_on_off_default">true</string>
+    <string name="map_style_key">map_style_key</string>
+    <string name="map_style_default">map_style_default</string>
+    <string name="map_style_title">Map Style</string>
 
-    <string name="background_music_volume_default">100</string>
-    <string name="background_music_volume_key">background_music_volume_key</string>
-    <string name="background_music_song_title">Background Music Song</string>
-    <string name="background_music_volume_title">Background Music Volume</string>
+    <string-array
+        name="map_style_strings">
+        <item>Default</item>
+        <item>Aubergine</item>
+        <item>Dark</item>
+        <item>Night</item>
+    </string-array>
+
+    <string-array
+        name="map_style_values">
+        <item>map_style_default</item>
+        <item>map_style_aubergine</item>
+        <item>map_style_dark</item>
+        <item>map_style_retro</item>
+    </string-array>
+
+
+
+
     <string name="about_image_content_description">Picture of a sunflower</string>
     <string name="about_title_text">About Sunflower</string>
     <string name="dialog_add_plant_message">Add plant to your garden?</string>
@@ -186,11 +214,15 @@
 
     <string name="app_name_title">Sunflower</string>
     <string name="empty_string">" "</string>
-    android:defaultValue="@string/garden_hue_default"
-    android:key="@string/preference_garden_hue_key"
-    android:selectAllOnFocus="true"
-    android:singleLine="true"
-    android:title="@string/settings_garden_hue_title" />
+    <string name="plant_name_label">Plant Name:</string>
+    <string name="plant_id_label">Plant ID:</string>
+    <string name="watering_interval_label">Watering interval:</string>
+    <string name="maturation_time_label">Maturation time:</string>
+    <string name="time_planted_label">Time planted:</string>
+    <string name="location_label">Location:</string>
+    <string name="waterings_remaining_label">Waterings remaining:</string>
+    <string name="waterings_done_label">Waterings done:</string>
+    <string name="waterings_done_string">%1$d</string>
 
 
 </resources>

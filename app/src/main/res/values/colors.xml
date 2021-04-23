@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="green_700">#388E3C</color>
-    <color name="amber_500">#FFC107</color>
+    <color name="sunflower_green_700">#388E3C</color>
+    <color name="sunflower_green_400">#66BB6A</color>
+    <color name="sunflower_green_900">#1B5E20</color>
+    <color name="sunflower_amber_500">#FFC107</color>
+    <color name="sunflower_yellow_400">#FFEE58</color>
+    <color name="sunflower_red_800">#C62828</color>
+    <color name="sunflower_blue_900">#0D47A1</color>
+    <color name="sunflower_indigo_900">#1A237E</color>
 
-    <color name="white">#FFFFFF</color>
+    <color name="sunflower_white">#FFFFFF</color>
+    <color name="sunflower_black">#000000</color>
+
+
+    <color name="sunflower_green_1000">#1a231e</color>
+    <color name="sunflower_green_950">#5a635e</color>
+    <color name="sunflower_gray_50_a600">#99fafafa</color>
+    <color name="sunflower_yellow_200">#FFF59D</color>
+    <color name="sunflower_yellow_100">#FFF9C4</color>
+
+    <color name="sunflower_gray_200">#EEEEEE</color>
+    <color name="sunflower_gray_400">#BDBDBD</color>
+    <color name="sunflower_gray_500">#9E9E9E</color>
 
     <color name="primaryColor">#388e3c</color>
-    <color name="primaryLightColor">#6abf69</color>
-    <color name="primaryDarkColor">#00600f</color>
+    <color name="primaryLightColor">#66BB6A</color>
+    <color name="primaryDarkColor">#1B5E20</color>
     <color name="secondaryColor">#ffc107</color>
-    <color name="secondaryLightColor">#fff350</color>
+    <color name="secondaryLightColor">#FFEE58</color>
     <color name="secondaryDarkColor">#c79100</color>
     <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="tertiaryTextColor">#FFFFFF</color>
 
-    <color name="errorColor">#cc0000</color>
+    <color name="errorColor">#C62828</color>
 
-    <color name="removeColor">#cc0000</color>
+    <color name="removeColor">#C62828</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
 
@@ -26,8 +44,12 @@
 
 
 <!--    from wikipedia-->
-    <color name="textColorLink">#0645AD</color>
-    <color name="textColorLinkInverse">#0B0080</color>
+    <color name="textColorLink">#0D47A1</color>
+    <color name="textColorLinkInverse">#1A237E</color>
+
+
+    <color name="hyperlinkColor">#0000FF</color>
+    <color name="hyperlinkVisitedColor">#800080</color>
 
 
     <color name="colorSelectionHoloLightBlue">#5033b5e5</color> light_blue_400 (29B6F6) with alpha

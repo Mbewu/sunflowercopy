@@ -22,13 +22,13 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
         tools:layout_width="200dp"
         tools:layout_height="300dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
             android:orientation="vertical"
             tools:context=".MainActivity"
             android:id="@+id/frame_layout"
@@ -48,7 +48,7 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/plant_image_description"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{viewModel.imageUrl}"
+                    bind:imageUrl="@{viewModel.imageUrl}"
                     app:layout_constraintBottom_toTopOf="@id/text_layout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -60,10 +60,11 @@
                     android:id="@+id/text_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="@dimen/padding_normal"
+                    android:paddingBottom="@dimen/padding_medium"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -79,39 +80,42 @@
                         android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{viewModel.plantNameAndId}"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        app:layout_constraintBottom_toTopOf="@id/plant_name"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toTopOf="@id/plant_name_label"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="@string/plant_name" />
 
                     <TextView
-                        android:id="@+id/plant_name"
+                        android:id="@+id/plant_name_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{@string/latin_plant_name_insert(viewModel.latinName)}"
                         android:textStyle="italic"
+                        android:textColor="@color/sunflower_black"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        app:layout_constraintBottom_toTopOf="@id/planted_time"
+                        app:layout_constraintBottom_toTopOf="@id/planted_time_label"
                         app:layout_constraintTop_toBottomOf="@id/title"
                         tools:text="(Latin Plant Name)" />
 
                     <!--            we have more information is the plant has been planted-->
 
                     <TextView
-                        android:id="@+id/planted_time"
+                        android:id="@+id/planted_time_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/text_padding_extra_small"
                         android:paddingBottom="@dimen/text_padding_extra_small"
                         android:text="@{@string/time_planted_insert(viewModel.plantedTimeString)}"
                         android:textAlignment="center"
+                        android:textColor="@color/sunflower_black"
                         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                         android:visibility="@{viewModel.planted ? View.VISIBLE : View.GONE}"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/plant_name"
+                        app:layout_constraintTop_toBottomOf="@id/plant_name_label"
                         tools:text="Time plants: September 11, 2020 at 20:20" />
                 </LinearLayout>
 

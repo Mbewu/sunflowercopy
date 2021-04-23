@@ -16,6 +16,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
         tools:context=".MainActivity">
 
         <androidx.appcompat.widget.Toolbar
@@ -52,6 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/text_padding_extra_small"
+                        android:textColor="@color/sunflower_black"
                         android:textAppearance="?attr/textAppearanceHeadline4"
                         tools:text="Plant Name" />
 
@@ -83,7 +85,7 @@
             android:id="@+id/add_plant_fab"
             style="@style/Widget.Sunflower.FloatingActionButton"
             android:layout_gravity="bottom|end"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorPrimaryVariant"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -21,67 +21,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.navigation.TitleFragment">
 
-    <LinearLayout
-        android:id="@+id/title_layout"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:background="@color/primaryColor">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_text"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                style="@style/Widget.Sunflower.Toolbar">
+
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:id="@+id/title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="?attr/colorPrimaryDark">
+
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name_title"
+                    android:textStyle="bold"
+                    android:textColor="?android:textColorTertiary"
+                    android:textAppearance="?attr/textAppearanceHeadline2" />
+
+
+                <ImageView
+                    android:id="@+id/title_image"
+                    android:layout_width="@dimen/title_image_width"
+                    android:layout_height="@dimen/title_image_height"
+                    android:contentDescription="@string/title_image_content_description"
+                    android:elevation="10dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/sunflower_color_detailed" />
+
+                <LinearLayout
+                    android:id="@+id/buttons_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_auth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        style="@style/Widget.Sunflower.Button.Title" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start"
+                        style="@style/Widget.Sunflower.Button.Title" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_stop_music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stop_music"
+                        style="@style/Widget.Sunflower.Button.Title"  />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_start_music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_music"
+                        style="@style/Widget.Sunflower.Button.Title" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name_title"
-            android:textAppearance="?attr/textAppearanceHeadline2" />
-
-
-        <ImageView
-            android:id="@+id/title_image"
-            android:layout_width="@dimen/title_image_width"
-            android:layout_height="@dimen/title_image_height"
-            android:contentDescription="@string/title_image_content_description"
-            android:elevation="10dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/sunflower_color_detailed" />
-
-        <LinearLayout
-            android:id="@+id/buttons_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_auth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                style="@style/Widget.Sunflower.Button.Title" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start"
-                style="@style/Widget.Sunflower.Button.Title" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_stop_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/stop_music"
-                style="@style/Widget.Sunflower.Button.Title"  />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_start_music"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_music"
-                style="@style/Widget.Sunflower.Button.Title" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_drawer_menu" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

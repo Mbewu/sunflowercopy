@@ -13,17 +13,26 @@ import android.os.IBinder
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
 import com.example.sunflower_copy.databinding.FragmentTitleBinding
 import com.example.sunflower_copy.util.BackgroundMusicService
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import timber.log.Timber
 
@@ -60,6 +69,8 @@ class TitleFragment : Fragment() {
     private var bound: Boolean = false;
     private lateinit var backgroundMusicService: BackgroundMusicService
 
+    private lateinit var drawerLayout: DrawerLayout
+
     var connection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
 
@@ -83,7 +94,27 @@ class TitleFragment : Fragment() {
         binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,
             R.layout.fragment_title,container,false)
 
-        Timber.i("what are we doing here?")
+//
+//        val navController = findNavController()
+//        val appBarConfiguration = AppBarConfiguration(navController.graph)
+//
+//        binding.toolbar
+//            .setupWithNavController(navController, appBarConfiguration)
+//
+//        //(activity as AppCompatActivity).supportActionBar?.hide()
+//        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+//
+//
+//
+////        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+////        val navController = navHostFragment.navController
+//        val navController = findNavController()
+//
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//
+//        //NavigationUI.setupWithNavController(binding.navView, navController)
+
+        Timber.i("what are we doing here?YES")
         binding.buttonStart.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_viewPagerFragment)
         }
@@ -114,6 +145,7 @@ class TitleFragment : Fragment() {
         Intent(requireActivity(), BackgroundMusicService::class.java).also { intent ->
             requireActivity().bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
+
         //setHasOptionsMenu(true)
         return binding.root
     }
@@ -125,10 +157,28 @@ class TitleFragment : Fragment() {
         Timber.i("what are we doing here?")
         observeAuthenticationState()
 
-        Timber.i("what are we doing here?6")
+        Timber.i("what are we doing here?boo6")
 
         binding.buttonAuth.setOnClickListener { launchSignInFlow() }
 
+        drawerLayout = binding.drawerLayout
+
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+
+        binding.navView
+            .setupWithNavController(navController)
+        binding.toolbar
+            .setupWithNavController(navController, appBarConfiguration)
+
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val navController = findNavController()
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
 
@@ -191,14 +241,14 @@ class TitleFragment : Fragment() {
 
         })
 
-        Timber.i("what are we doing here?5")
+        Timber.i("what are we doing here?5.2")
     }
 
     // when the login changes, set the background music
     private fun setBackgroundMusic() {
 
         Timber.i("setting background music based on shared preferences")
-        Timber.i("sharedPreferenceFile = ".plus(sharedPreferenceFile))
+        Timber.i("sharedPreferenceFile = $sharedPreferenceFile")
 
         // change the shared preferences file
         // start the music based on the users preferences
@@ -212,24 +262,24 @@ class TitleFragment : Fragment() {
             sharedPreferences.getBoolean(getString(R.string.background_music_on_off_key),
                 backgroundMusicOnOffDefault)
 
-        Timber.i("backgroundMusicOnOff = ".plus(backgroundMusicOnOff))
-        Timber.i("backgroundMusicOnOffDefault = ".plus(backgroundMusicOnOffDefault))
+        Timber.i("backgroundMusicOnOff = $backgroundMusicOnOff")
+        Timber.i("backgroundMusicOnOffDefault = $backgroundMusicOnOffDefault")
         val backgroundMusicVolumeDefault =
             getString(R.string.background_music_volume_default).toInt()
         val backgroundMusicVolume =
             sharedPreferences.getInt(getString(R.string.background_music_volume_key),
                 backgroundMusicVolumeDefault)
 
-        Timber.i("backgroundMusicVolume = ".plus(backgroundMusicVolume))
-        Timber.i("backgroundMusicVolumeDefault = ".plus(backgroundMusicVolumeDefault))
+        Timber.i("backgroundMusicVolume = $backgroundMusicVolume")
+        Timber.i("backgroundMusicVolumeDefault = $backgroundMusicVolumeDefault")
         val backgroundMusicSongDefault =
             getString(R.string.background_music_song_default)
         val backgroundMusicSong =
             sharedPreferences.getString(getString(R.string.background_music_song_key),
                 backgroundMusicSongDefault)
 
-        Timber.i("backgroundMusicSong = ".plus(backgroundMusicSong))
-        Timber.i("backgroundMusicSongDefault = ".plus(backgroundMusicSongDefault))
+        Timber.i("backgroundMusicSong = $backgroundMusicSong")
+        Timber.i("backgroundMusicSongDefault = $backgroundMusicSongDefault")
 
         if(backgroundMusicOnOff) {
             Timber.i("changing")

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "bffd803352c216187d723f1476fb55c2",
+    "identityHash": "85e15fe7accf4a5bd75bb91832b2b56a",
     "entities": [
       {
         "tableName": "databasegarden",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `latinName` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `growZoneNumber` INTEGER NOT NULL, `wateringInterval` INTEGER NOT NULL, `imageUrl` TEXT NOT NULL, `plantedTime` INTEGER NOT NULL, `wateringsDone` INTEGER NOT NULL, `triggerTime` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `latinName` TEXT NOT NULL, `description` TEXT NOT NULL, `growZoneNumber` INTEGER NOT NULL, `wateringInterval` INTEGER NOT NULL, `imageUrl` TEXT NOT NULL, `plantedTime` INTEGER NOT NULL, `wateringsDone` INTEGER NOT NULL, `triggerTime` INTEGER NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `wasGrowing` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,14 +15,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "latinName",
-            "columnName": "latinName",
+            "fieldPath": "name",
+            "columnName": "name",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "latinName",
+            "columnName": "latinName",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -79,13 +79,19 @@
             "columnName": "longitude",
             "affinity": "REAL",
             "notNull": true
+          },
+          {
+            "fieldPath": "wasGrowing",
+            "columnName": "wasGrowing",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -94,7 +100,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bffd803352c216187d723f1476fb55c2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85e15fe7accf4a5bd75bb91832b2b56a')"
     ]
   }
 }

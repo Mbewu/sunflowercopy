@@ -46,8 +46,8 @@ fun List<DatabasePlant>.asDomainModel(): List<Plant> {
  */
 @Entity(tableName = "databasegarden")
 data class DatabaseGarden constructor(
-    @PrimaryKey
-    val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
     val name: String,
     val latinName: String,
     val description: String,
@@ -58,27 +58,38 @@ data class DatabaseGarden constructor(
     val wateringsDone: Int,
     val triggerTime: Long,
     val latitude: Double,
-    val longitude: Double)
+    val longitude: Double,
+    val wasGrowing: Boolean)
 
 /**
  * Map DatabaseVideos to domain entities
  */
 fun List<DatabaseGarden>.asGardenDomainModel(): List<Plant> {
     return map {
-        Plant(
-            id = it.id,
-            name = it.name,
-            latinName = it.latinName,
-            description = it.description,
-            growZoneNumber = it.growZoneNumber,
-            wateringInterval = it.wateringInterval,
-            imageUrl = it.imageUrl,
-            plantedTime = it.plantedTime,
-            wateringsDone = it.wateringsDone,
-            triggerTime = it.triggerTime,
-            latitude = it.latitude,
-            longitude = it.longitude)
+        it.asGardenDomainModel()
     }
+}
+
+
+/**
+ * Map DatabaseVideos to domain entities
+ */
+
+fun DatabaseGarden.asGardenDomainModel(): Plant {
+    return Plant(
+            id = this.id,
+            name = this.name,
+            latinName = this.latinName,
+            description = this.description,
+            growZoneNumber = this.growZoneNumber,
+            wateringInterval = this.wateringInterval,
+            imageUrl = this.imageUrl,
+            plantedTime = this.plantedTime,
+            wateringsDone = this.wateringsDone,
+            triggerTime = this.triggerTime,
+            latitude = this.latitude,
+            longitude = this.longitude,
+            wasGrowing = this.wasGrowing)
 }
 
 /**
@@ -98,7 +109,8 @@ fun Plant.asGardenDatabaseEntity(): DatabaseGarden {
             wateringsDone = this.wateringsDone,
             triggerTime = this.triggerTime,
             latitude = this.latitude,
-            longitude = this.longitude)
+            longitude = this.longitude,
+            wasGrowing = this.wasGrowing)
     }
 
 
@@ -114,7 +126,7 @@ fun Plant.asGardenDatabaseEntity(): DatabaseGarden {
 @Entity(tableName = "databasegardenlayout")
 data class DatabaseGardenLayout constructor(
     @PrimaryKey
-    val id: Int,
+    val id: Long,
     val latitude: Double,
     val longitude: Double)
 

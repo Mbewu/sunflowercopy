@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentDetailBinding
@@ -23,6 +26,7 @@ import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
 import com.example.sunflower_copy.util.bindImage
 import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 class DetailFragment : Fragment() {
 
@@ -71,6 +75,23 @@ class DetailFragment : Fragment() {
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.toolbar
+            .setupWithNavController(navController, appBarConfiguration)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_circle);
+
+    }
+
+
     private fun setObservers() {
 
 
@@ -92,8 +113,7 @@ class DetailFragment : Fragment() {
                 view?.let { view ->
                     Snackbar.make(
                         view,
-                        plantAdded.name.plus(" #").plus(plantAdded.id)
-                            .plus(" added to your garden."),
+                        "${plantAdded.name} #${plantAdded.id} added to your garden.",
                         Snackbar.LENGTH_LONG
                     )
                         .setAction("Action", null).show()

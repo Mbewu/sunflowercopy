@@ -22,9 +22,13 @@ class GardenRepository(application: Application,
                        private val databaseLayout: GardenLayoutDatabase,
                        private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) {
 
-    val plantedPlants: LiveData<List<Plant>> = Transformations.map(database.gardenDao.getPlants) {
+    val plantedPlants: LiveData<List<Plant>> = Transformations.map(database.gardenDao.observePlants) {
         it.asGardenDomainModel()
     }
+
+    fun observePlant(plantId: Long) = Transformations.map(database.gardenDao.observePlant(plantId)) { it.asGardenDomainModel() }   //plantDao() //getPlant(plantId)
+
+    suspend fun getPlant(plantId: Long) = database.gardenDao.getPlant(plantId).asGardenDomainModel()   //plantDao() //getPlant(plantId)
 
     val gardenVertices: LiveData<List<GardenVertex>> =Transformations.map(databaseLayout.gardenLayoutDao.getGardenVertices) {
         it.asGardenLayoutDomainModel()
@@ -39,11 +43,14 @@ class GardenRepository(application: Application,
         // tbh, it should be possible to do without this but yeah...
         Timber.i("before launch")
         val tempScope = CoroutineScope(ioDispatcher)
-        tempScope.launch {
-            Timber.i("before setting global plant id to: ".plus(GLOBAL_PLANT_ID) )
 
-            GLOBAL_PLANT_ID = database.gardenDao.getLargestId()
-            Timber.i("after setting global plant id to: ".plus(GLOBAL_PLANT_ID) )
+        tempScope.launch {
+            Timber.i("before setting global plant id to: $GLOBAL_PLANT_ID" )
+
+
+            //GLOBAL_PLANT_ID = database.gardenDao.getLargestId()
+            //database.gardenDao.clear()
+            Timber.i("after setting global plant id to: $GLOBAL_PLANT_ID" )
 
         }
     }
@@ -78,9 +85,14 @@ class GardenRepository(application: Application,
             newPlant.latitude = lat
             newPlant.longitude = lng
 
+            Timber.i("newPlant.id before = ${newPlant.id}")
+            newPlant.id = 0
+            Timber.i("newPlant.id before2 = ${newPlant.id}")
 
-            database.gardenDao.insert(newPlant.asGardenDatabaseEntity())
+            val newPlantId = database.gardenDao.insert(newPlant.asGardenDatabaseEntity())
 
+            newPlant.id = newPlantId
+            Timber.i("newPlantId = $newPlantId")
             return newPlant
         }
     }
@@ -125,7 +137,7 @@ class GardenRepository(application: Application,
             }
             Timber.i("repo4")
 
-            Timber.i("repo5 num verts = ".plus(databaseLayout.gardenLayoutDao.getGardenVertices.value?.size))
+            Timber.i("repo5 num verts = ${databaseLayout.gardenLayoutDao.getGardenVertices.value?.size}")
 
         }
     }

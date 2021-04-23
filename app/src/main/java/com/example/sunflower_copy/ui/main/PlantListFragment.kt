@@ -166,7 +166,8 @@ class PlantListFragment : Fragment() {
             .withOnItemActivatedListener { item, e ->
                 Log.e("MainActivity", item.toString())
                 // to account for the header
-                if(item.position != 0) {
+                // some issue with the header actually being at position -1 instead on 0
+                if(item.position > 0) {
                     binding.fabAddSelection.visibility = View.GONE
                     pageViewModel.displayPlantDetails(item.selectionKey!!)
                 }
@@ -190,12 +191,12 @@ class PlantListFragment : Fragment() {
         pageViewModel.plants2.observe(viewLifecycleOwner, Observer {
             adapter.submitNewList(pageViewModel.plants2.value)
             Timber.i("hplantlist observer ")
-            Timber.i("hmm plants2.size = ".plus(it.size.toString()))
+            Timber.i("hmm plants2.size = ${it.size}")
         })
 //
 //        val textView: TextView = binding.sectionLabel
 //        pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
-//            textView.text = it.plus(" plantListFragment")
+//            textView.text = "$it plantListFragment"
 //        })
 
 
@@ -264,10 +265,10 @@ class PlantListFragment : Fragment() {
                 //val application = requireNotNull(activity).application
 
                 Toast.makeText(activity,
-                    plantsAdded.toString().plus(" plants added to your garden."),
+                    "$plantsAdded plants added to your garden.",
                     Toast.LENGTH_SHORT).show()
 
-                Timber.i("plants added = ".plus(plantsAdded))
+                Timber.i("plants added = $plantsAdded")
 
                 pageViewModel.plantAddedComplete()
                 Timber.i("hello3")
@@ -278,7 +279,7 @@ class PlantListFragment : Fragment() {
                 tracker.clearSelection()
             }
 
-            Timber.i("hello plantedRemoved after = ".plus(plantsAdded))
+            Timber.i("hello plantedRemoved after = $plantsAdded")
 
         })
 

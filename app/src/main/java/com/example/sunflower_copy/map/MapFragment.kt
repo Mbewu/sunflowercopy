@@ -1,21 +1,26 @@
 package com.example.sunflower_copy.map
 
 import android.app.Activity
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.*
-import android.widget.*
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
 import com.example.sunflower_copy.SunflowerApplication
@@ -23,22 +28,21 @@ import com.example.sunflower_copy.databinding.CustomInfoContentsBinding
 import com.example.sunflower_copy.databinding.FragmentMapBinding
 import com.example.sunflower_copy.databinding.MapPlantViewBinding
 import com.example.sunflower_copy.domain.Plant
+import com.example.sunflower_copy.planted.PlantedFragmentArgs
 import com.example.sunflower_copy.title.LoginViewModel
 import com.example.sunflower_copy.title.LoginViewModelFactory
-import com.example.sunflower_copy.ui.main.PageViewModel
-import com.example.sunflower_copy.ui.main.PageViewModelFactory
-import com.example.sunflower_copy.util.bindImageMaps
+import com.example.sunflower_copy.util.loadInfoWindowImage
 import com.example.sunflower_copy.util.convertLongToDateNoTimeString
-import com.example.sunflower_copy.util.convertLongToDateString
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import timber.log.Timber
-import java.lang.IllegalStateException
 
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -50,8 +54,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //    private lateinit var viewModelFactory: MapViewModelFactory
 
     private val viewModel by viewModels<MapViewModel> {
-        MapViewModelFactory(requireActivity().application,
-            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+        MapViewModelFactory(
+            requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository
+        )
     }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -69,14 +75,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private var lastKnownLocation: Location? = null
 
+    private val args: MapFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val application = requireNotNull(activity).application
+
+        // create ContextThemeWrapper from the original Activity Context with the custom theme
+        val contextThemeWrapper: Context = ContextThemeWrapper(activity, R.style.OverFlowButton_Theme)
+        // clone the inflater using the ContextThemeWrapper
+        val localInflater = inflater.cloneInContext(contextThemeWrapper)
+
         // Inflate the layout for this fragment
-        binding = FragmentMapBinding.inflate(inflater)
+        //binding = FragmentMapBinding.inflate(inflater)
+        binding = FragmentMapBinding.inflate(localInflater)
         binding.lifecycleOwner = this
 
 //        viewModelFactory = MapViewModelFactory(application)
@@ -101,6 +116,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         setHasOptionsMenu(true)
         return binding.root
+
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.toolbar
+            .setupWithNavController(navController, appBarConfiguration)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_circle);
 
     }
 
@@ -164,24 +196,45 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         // set map padding so that there can be a menu at the top
         val tv = TypedValue()
-        val actionBarHeight = if (requireActivity().theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+        val actionBarHeight = if (requireActivity().theme.resolveAttribute(
+                android.R.attr.actionBarSize,
+                tv,
+                true
+            )) {
             TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
         } else {
             0
         }
-        map.setPadding(0,actionBarHeight,0,0)
+        map.setPadding(0, actionBarHeight, 0, 0)
 
         // aubergine style
-        map.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireActivity(), R.raw.map_style_aubergine));
+        viewModel.setMapStyle(map)
 
         locationPermissionGranted = getLocationPermission(requireActivity())
         lastKnownLocation = updateLocationUI(requireActivity(), map, locationPermissionGranted)
-        if(sharedViewModel.navigateToPlantOnMap.value == null) {
+
+
+        // if we have navigated here from
+        Timber.i("MapFrag args.selectedPlantId = ${args.selectedPlantId}")
+        if(args.selectedPlantId > 0) {
+            // need to get the latlng of this plant id
+            // we have two ways of doing this
+            // 1 - loop through the markers and find the one that matches
+            // 2 - get the plant from the repository
+            // we should be able to do these in coroutines
+
+            // 2 ->
+            // no need for it to be a LiveData
+            viewModel.moveCameraToPlant(map,args.selectedPlantId)
+
+        } else {
             getDeviceLocation(
                 requireActivity(), map, fusedLocationProviderClient,
                 locationPermissionGranted, cameraPosition
             )
         }
+
+
         homeLatLng = DEFAULT_LATLNG
         setHomeMarker(map, homeLatLng!!)
 
@@ -206,13 +259,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             loginViewModel.sharedPreferenceFile.observe(
                 viewLifecycleOwner,
                 Observer { sharedPreferenceFile ->
-                     val sharedPrefs = activity?.getSharedPreferences(sharedPreferenceFile, MODE_PRIVATE)
+                    val sharedPrefs = activity?.getSharedPreferences(
+                        sharedPreferenceFile,
+                        MODE_PRIVATE
+                    )
 
                     // update the shared preferences in the viewModel
                     viewModel.setSharedPreferences(sharedPrefs!!)
                 })
         } catch (e: IllegalStateException) {
-            Timber.e(e,"Failed at loading the SharedPreference file")
+            Timber.e(e, "Failed at loading the SharedPreference file")
         }
 
         // do other stuff based on changed authentication state
@@ -224,89 +280,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     // set the window layout, snippet
     private fun setInfoWindowLayout() {
-
-        map.setInfoWindowAdapter(object : GoogleMap.InfoWindowAdapter {
-
-            // Return null here, so that getInfoContents() is called next.
-            override fun getInfoWindow(arg0: Marker): View? {
-                return null
-            }
-
-            override fun getInfoContents(marker: Marker): View {
-                if (marker.tag is Plant) {
-                    val binding = MapPlantViewBinding.inflate(layoutInflater)
-                    val plant: Plant = marker.tag as Plant
-
-                    binding.plantNameAndId.text = getString(
-                        R.string.plant_name_and_id,
-                        plant.name,
-                        plant.id
-                    )
-                    binding.plantedTime.text = getString(
-                        R.string.date_planted_colon,
-                        convertLongToDateNoTimeString(plant.plantedTime)
-                    )
-                    binding.wateringsRemaining.text = getString(
-                        R.string.waterings_remaining_colon,
-                        plant.getWateringsRemaining()
-                    )
-                    binding.location.text = getString(
-                        R.string.location_colon,
-                        plant.latitude, plant.longitude
-                    )
-                    val status = binding.status
-                    val harvestImage = binding.harvestImage
-                    val growingImage = binding.growingImage
-                    val waterImage = binding.waterImage
-                    if (plant.getWateringsRemaining() == 0 && plant.getTimeRemaining() <= 0) {
-                        status.text = getString(R.string.ready_to_harvest)
-                        status.setTextColor(getColor(requireActivity(),R.color.colorAccent))
-                        harvestImage.visibility = View.VISIBLE
-                        growingImage.visibility = View.INVISIBLE
-                        waterImage.visibility = View.INVISIBLE
-                    } else if (plant.getTimeRemaining() > 0 && plant.wateringsDone > 0) {
-                        status.text = getString(R.string.growing)
-                        status.setTextColor(getColor(requireActivity(),R.color.colorPrimaryDark))
-                        harvestImage.visibility = View.INVISIBLE
-                        growingImage.visibility = View.VISIBLE
-                        waterImage.visibility = View.INVISIBLE
-                    } else {
-                        status.text = getString(R.string.ready_to_water)
-                        status.setTextColor(getColor(requireActivity(),R.color.colorWater))
-                        harvestImage.visibility = View.INVISIBLE
-                        growingImage.visibility = View.INVISIBLE
-                        waterImage.visibility = View.VISIBLE
-                    }
-
-                    // image
-                    // give a good value for a least one dimension to get a good sized image,
-                    // here we set the height because that is limited by the text
-                    // Picasso will keep the aspect ratio correct with 0 as one of the parameters
-                    val imageWidth = 0
-                    val imageHeight = 120
-                    bindImageMaps(binding.plantImage, plant.imageUrl, marker, imageWidth, imageHeight)
-                    return binding.root
-                } else { // the home marker
-                    val binding = CustomInfoContentsBinding.inflate(layoutInflater)
-                    binding.title.text = marker.title
-                    binding.snippet.text = marker.snippet
-                    return binding.root
-                }
-            }
-        })
+        map.setInfoWindowAdapter(PlantInfoWindowAdapter(requireActivity()))
     }
 
     // here we need to go over the plants and add their markers
     private fun setInfoWindowClickListener() {
 
         // let's put our marker clickListener here because it should always be active
-        map.setOnInfoWindowClickListener()
-        { marker ->
+        map.setOnInfoWindowClickListener() { marker ->
+
             if (marker.tag is Plant) {
                 // navigate to the appropriate planted page
                 val selectedPlant: Plant = marker.tag as Plant
-                Timber.d("selectedPlant = ".plus(selectedPlant))
-                Timber.d("selectedPlant.id = ".plus(selectedPlant.id))
+                Timber.d("selectedPlant = $selectedPlant")
+                Timber.d("selectedPlant.id = ${selectedPlant.id}")
                 this.findNavController()
                     .navigate(MapFragmentDirections.actionMapFragmentToPlantedFragment(selectedPlant))
             }
@@ -347,21 +334,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         })
 
 
-        sharedViewModel.navigateToPlantOnMap.observe(viewLifecycleOwner, Observer {
-            if(it != null) {
-                // so we just need to get the plant's coordinates and move the camera
-                map.moveCamera(
-                    CameraUpdateFactory.newLatLngZoom(
-                        LatLng(
-                            it.latitude,
-                            it.longitude
-                        ), DEFAULT_ZOOM.toFloat()
-                    )
-                )
-                sharedViewModel.navigateToPlantOnMap.value = null
-            }
-        })
-
 
 
         sharedViewModel.plantOnMap.observe(viewLifecycleOwner, Observer {
@@ -371,7 +343,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                 // we need to make a clickListener that allows the placement of a single temporary marker that is draggable
                 map.setOnMapLongClickListener { latLng ->
-                    viewModel.addDraggableActiveMarker(map,latLng)
+                    viewModel.addDraggableActiveMarker(map, latLng)
                     // deactivate the long click
                     map.setOnMapLongClickListener(null)
                 }
@@ -396,7 +368,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     // send toast
                     Toast.makeText(
                         requireNotNull(activity).application,
-                        plantToAdd.name.plus(" was NOT added to your garden."),
+                        "${plantToAdd.name} was NOT added to your garden.",
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -415,7 +387,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     if (viewModel.isActiveMarkerSet()) {
                         Toast.makeText(
                             requireNotNull(activity).application,
-                            "Please place a marker with a long click to plant ".plus(plantName),
+                            "Please place a marker with a long click to plant $plantName",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
@@ -450,8 +422,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 // send toast
                 Toast.makeText(
                     requireNotNull(activity).application,
-                    plantAdded.name.plus(" #").plus(plantAdded.id)
-                        .plus(" added to your garden on the map."),
+                    "${plantAdded.name} #${plantAdded.id} added to your garden on the map.",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -526,7 +497,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun cancelGardenSetupListener() {
 
-
         // setup listeners to finish the process
         binding.fabCancel.setOnClickListener {
             cancelGardenSetup()
@@ -595,7 +565,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         viewModel.polygonMarkerList.clear()
         map.setOnMapLongClickListener { latLng ->
 
-            viewModel.addVertexToPolygon(map,latLng)
+            viewModel.addVertexToPolygon(map, latLng)
 
             if(viewModel.polygonMarkerList.size == 10) {
                 // tell the user that garden setup has been cancelled
@@ -619,29 +589,30 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding.instructionsTitle.text = getString(R.string.instructions_set_garden_color_title)
         binding.instructionsText.text = getString(R.string.instructions_set_garden_color_text)
 
-        binding.fillAlphaSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.fillAlphaSeekBar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
 
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                binding.alphaText.text = getString(R.string.alpha_label,progress)
+                binding.alphaText.text = getString(R.string.alpha_label, progress)
                 viewModel.setTempGardenPolygonAlpha(progress)
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) { }
-            override fun onStopTrackingTouch(seekBar: SeekBar) { }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
         binding.fillHueSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
 
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
                 // Display the current progress of SeekBar
-                binding.hueText.text = getString(R.string.hue_label,progress)
+                binding.hueText.text = getString(R.string.hue_label, progress)
                 viewModel.setTempGardenPolygonHue(progress)
 
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) { }
-            override fun onStopTrackingTouch(seekBar: SeekBar) { }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
 
     }
@@ -710,8 +681,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
             // when the drag has finished, don'tchange the location of the plant
             override fun onMarkerDragEnd(marker: Marker) {
-                Timber.d("Marker moved to (".plus(marker.position.latitude.toString()).plus(",")
-                    .plus(marker.position.longitude.toString()).plus(")"))
+                //Timber.d("Marker moved to (${marker.position.latitude},${marker.position.longitude})")
+                Timber.d("Hi, Marker moved to ${marker.position}")
             }
 
             // implement extra methods
@@ -731,10 +702,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
     // [START maps_current_place_get_device_location]
-    private fun getDeviceLocation(activity: Activity, map: GoogleMap,
-                          fusedLocationProviderClient: FusedLocationProviderClient,
-                          locationPermissionGranted: Boolean,
-                          cameraPosition: CameraPosition?) {
+    private fun getDeviceLocation(
+        activity: Activity, map: GoogleMap,
+        fusedLocationProviderClient: FusedLocationProviderClient,
+        locationPermissionGranted: Boolean,
+        cameraPosition: CameraPosition?
+    ) {
 
 
         /*

@@ -35,12 +35,6 @@ class SharedViewModel : ViewModel() {
     }
 
 
-    // setup the garden polygon on the map
-    // after navigation from title fragment
-    // not safe but i think it's work
-    var navigateToPlantOnMap = MutableLiveData<Plant>()
-
-
 
 
 

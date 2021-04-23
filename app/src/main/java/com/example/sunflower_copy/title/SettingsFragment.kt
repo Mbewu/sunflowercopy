@@ -4,14 +4,65 @@ import android.content.*
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.*
 import com.example.sunflower_copy.R
+import com.example.sunflower_copy.databinding.FragmentSettingsBinding
+import com.example.sunflower_copy.databinding.FragmentTitleBinding
+import com.example.sunflower_copy.databinding.FragmentViewPagerBinding
 import com.example.sunflower_copy.util.BackgroundMusicService
-import com.example.sunflower_copy.util.Pref
 import timber.log.Timber
+
+class SettingsFragmentContainer : Fragment() {
+
+
+    private lateinit var binding: FragmentSettingsBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        binding = FragmentSettingsBinding.inflate(inflater)
+
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.pref_content, SettingsFragment())
+            .commit()
+
+        //return view
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+//        binding.toolbar
+//            .setupWithNavController(navController, appBarConfiguration)
+
+        binding.toolbar
+            .setupWithNavController(navController, appBarConfiguration)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_circle);
+
+    }
+}
 
 class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
@@ -47,8 +98,8 @@ class SettingsFragment : PreferenceFragmentCompat(),
         super.onCreate(savedInstanceState)
 
         Timber.i("in oncreate")
-
     }
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
@@ -57,13 +108,16 @@ class SettingsFragment : PreferenceFragmentCompat(),
         //sharedPreferencesFile = getString(R.string.preference_file_key_base).plus("_default")
         preferenceManager.sharedPreferencesName = sharedPreferencesFile
 
-        Timber.i("using ".plus(sharedPreferencesFile))
+        Timber.i("using $sharedPreferencesFile")
 
         setPreferencesFromResource(R.xml.settings, rootKey)
         Timber.i("hi?")
-        setInitialPreferences()
+
+        // why bother with this?
+        //setInitialPreferences()
     }
 
+    // this is a seemingly useful and often problematic function
     private fun setInitialPreferences() {
 
 
@@ -126,11 +180,11 @@ class SettingsFragment : PreferenceFragmentCompat(),
             loginViewModel.sharedPreferenceFile.observe(
                 viewLifecycleOwner,
                 Observer { sharedPreferenceFile ->
-                    Timber.i("changing preferences to use file ".plus(sharedPreferenceFile))
+                    Timber.i("changing preferences to use file $sharedPreferenceFile")
                     this.sharedPreferencesFile = sharedPreferenceFile
                     //preferenceManager.sharedPreferencesName = this.sharedPreferencesFile
                     preferenceManager.sharedPreferencesName = sharedPreferencesFile
-                    setInitialPreferences()
+                    //setInitialPreferences()
                 })
         } catch (e: IllegalStateException) {
             Log.e("poop", "failed", e)
@@ -145,7 +199,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
 
         Timber.i("hello, in shared preference listener")
-        Timber.i("preferenceManager.sharedPreferencesName = ".plus(preferenceManager.sharedPreferencesName))
+        Timber.i("preferenceManager.sharedPreferencesName = ${preferenceManager.sharedPreferencesName}")
         when(key) {
             (getString(R.string.background_music_on_off_key)) -> {
                 val backgroundMusicOnOff =
@@ -154,7 +208,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
                         getString(R.string.background_music_on_off_default).toBoolean()
                     )
                 if (backgroundMusicOnOff) {
-                    backgroundMusicService.resumeMusic()
+                    backgroundMusicService.startMusic()
                 } else {
                     backgroundMusicService.pauseMusic()
                 }

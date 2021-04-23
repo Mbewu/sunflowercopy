@@ -80,6 +80,9 @@ class PageViewModel(application: Application,
 
 
 
+
+
+
     private val _index = MutableLiveData<Int>()
     val text: LiveData<String> = Transformations.map(_index) {
         "Hello world from section: $it"
@@ -132,8 +135,8 @@ class PageViewModel(application: Application,
 
 
     // LiveData to handle which and whether plant has been removed
-    private val _plantRemoved = MutableLiveData<Int>()
-    val plantRemoved: LiveData<Int>
+    private val _plantRemoved = MutableLiveData<Long>()
+    val plantRemoved: LiveData<Long>
         get() = _plantRemoved
 
     // LiveData to handle which and whether plant has been removed
@@ -160,7 +163,7 @@ class PageViewModel(application: Application,
 
         // set the global id for adding new plants on
         val plantListSize = _plants2.value?.size
-        Timber.i("yeah so plantListSize = ".plus(plantListSize))
+        Timber.i("yeah so plantListSize = $plantListSize")
 
 
 
@@ -215,11 +218,11 @@ class PageViewModel(application: Application,
      */
     fun displayPlantDetailsComplete() {
         Timber.i( "navigate before is null = "
-                .plus((_navigateToSelectedPlant.value == null).toString())
+                .plus(_navigateToSelectedPlant.value == null)
         )
         _navigateToSelectedPlant.value = null
         Timber.i("navigate after is null = "
-                .plus((_navigateToSelectedPlant.value == null).toString())
+                .plus(_navigateToSelectedPlant.value == null)
         )
     }
 
@@ -228,11 +231,11 @@ class PageViewModel(application: Application,
      */
     fun displayGardenPlantDetailsComplete() {
         Timber.i( "navigate before is null = "
-                .plus((_navigateToSelectedPlant.value == null).toString())
+                .plus(_navigateToSelectedPlant.value == null)
         )
         _navigateToSelectedGardenPlant.value = null
         Timber.i("navigate after is null = "
-                .plus((_navigateToSelectedPlant.value == null).toString())
+                .plus(_navigateToSelectedPlant.value == null)
         )
     }
 
@@ -244,11 +247,11 @@ class PageViewModel(application: Application,
     fun addPlantToGarden(plantToAdd: Plant) {
         Timber.i("before planting")
         viewModelScope.launch {
-            Timber.i("before planting plantedTime = ".plus(_selectedPlant.value?.plantedTime))
-            Timber.i("after planting selectedPlant plantedTime = ".plus(_selectedPlant.value?.plantedTime))
+            Timber.i("before planting plantedTime = ${_selectedPlant.value?.plantedTime}")
+            Timber.i("after planting selectedPlant plantedTime = ${_selectedPlant.value?.plantedTime}")
 
             val newPlant = gardenRepository.addPlantToGarden(plantToAdd)
-            _plantAdded.value = plantToAdd
+            _plantAdded.value = newPlant
         }
         Timber.i("after planting")
     }
@@ -258,7 +261,7 @@ class PageViewModel(application: Application,
     fun addPlantsToGarden(plantsToAdd: List<Plant>) {
         Timber.i("before planting")
         viewModelScope.launch {
-            Timber.i("before planting plantedTime = ".plus(_selectedPlant.value?.plantedTime))
+            Timber.i("before planting plantedTime = ${_selectedPlant.value?.plantedTime}")
             // set time plantedTime and new plant id
             for(plant in plantsToAdd) {
                 Timber.i("hello2")
@@ -336,10 +339,10 @@ class PageViewModel(application: Application,
     val plantDescription = Transformations.map(selectedPlant) { plant ->
         plant?.description
     }
-
-    val plantLocationString: LiveData<String> = Transformations.map(selectedPlant) { plant ->
-        app.getString(R.string.location_colon, plant?.latitude, plant?.longitude)
-    }
+//
+//    val plantLocationString: LiveData<String> = Transformations.map(selectedPlant) { plant ->
+//        app.getString(R.string.location_colon, plant?.latitude, plant?.longitude)
+//    }
     private var _alarmOn = MutableLiveData<Boolean>()
     val isAlarmOn: LiveData<Boolean>
         get() = _alarmOn
@@ -367,24 +370,24 @@ class PageViewModel(application: Application,
         // we need to reset the timer that may have been going from another plant
         resetTimer()
         val triggerTime =  loadTime()
-        Timber.i("1 troggerTime = ".plus(triggerTime))
+        Timber.i("1 triggerTime = $triggerTime")
         _timeRemaining.value =
             (triggerTime - SystemClock.elapsedRealtime()) / second
-        Timber.i("1 _timeRemaining.value = ".plus(_timeRemaining.value))
+        Timber.i("1 _timeRemaining.value = ${_timeRemaining.value}")
         _plantOverWatering.value = false
         _wateringsRemaining.value = _selectedPlant.value?.getWateringsRemaining()
 
         Timber.i("2")
         // check if there is a current timer going on for this plant
         // we use the plantId for the REQUEST_CODE
-        requestCode = _selectedPlant.value?.id ?: -1
+        requestCode = _selectedPlant.value?.id?.toInt() ?: -1
 
-        Timber.i("3, requestCode = ".plus(requestCode))
+        Timber.i("3, requestCode = $requestCode")
         // extra data we want to send in the notification
         val extras = Bundle()
         extras.putString("name", _selectedPlant.value?.name)
 
-        _selectedPlant.value?.id?.let { extras.putInt("id", it) }
+        _selectedPlant.value?.id?.let { extras.putLong("id", it) }
         _selectedPlant.value?.getWateringsRemaining()?.let {
             extras.putInt("wateringsRemaining",
                 it
@@ -434,22 +437,22 @@ class PageViewModel(application: Application,
 
     // function called from click to water plant and start timer
     fun waterPlant() {
-        Timber.i("trying to water plant, timeRemaining = ".plus(_timeRemaining.value))
+        Timber.i("trying to water plant, timeRemaining = ${_timeRemaining.value}")
         if(_timeRemaining.value!! > 0) {
             Timber.i("not watering")
             _plantOverWatering.value = true
         }
         else {
-            Timber.i("waterings done before = ".plus(_selectedPlant.value?.wateringsDone))
-            Timber.i("waterings done before = ".plus(_selectedPlant.value?.getWateringsRemaining()))
-            Timber.i("waterings remaining before = ".plus(_wateringsRemaining.value))
+            Timber.i("waterings done before = ${_selectedPlant.value?.wateringsDone}")
+            Timber.i("waterings done before = ${_selectedPlant.value?.getWateringsRemaining()}")
+            Timber.i("waterings remaining before = ${_wateringsRemaining.value}")
             _selectedPlant.value?.wateringsDone = _selectedPlant.value?.wateringsDone?.plus(1)!!
             // update in database
             updateSelectedPlant()
             _wateringsRemaining.value = _selectedPlant.value?.getWateringsRemaining()
-            Timber.i("waterings done after = ".plus(_selectedPlant.value?.wateringsDone))
-            Timber.i("waterings done after = ".plus(_selectedPlant.value?.getWateringsRemaining()))
-            Timber.i("waterings remaining after = ".plus(_wateringsRemaining.value))
+            Timber.i("waterings done after = ${_selectedPlant.value?.wateringsDone}")
+            Timber.i("waterings done after = ${_selectedPlant.value?.getWateringsRemaining()}")
+            Timber.i("waterings remaining after = ${_wateringsRemaining.value}")
 
             // start a new timer
             startTimer()
@@ -482,7 +485,7 @@ class PageViewModel(application: Application,
             val triggerTime =  SystemClock.elapsedRealtime() + _selectedPlant.value!!.wateringInterval.times(
                 second
             )
-            Timber.i("creating timer2 triggerTime = ".plus(triggerTime))
+            Timber.i("creating timer2 triggerTime = $triggerTime")
 
             // send a notification to say plant is growing
 //            val notificationManager =
@@ -528,7 +531,7 @@ class PageViewModel(application: Application,
         // extra data we want to send in the notification
         val extras = Bundle()
         extras.putString("name", _selectedPlant.value?.name)
-        _selectedPlant.value?.id?.let { extras.putInt("id", it) }
+        _selectedPlant.value?.id?.let { extras.putLong("id", it) }
         _selectedPlant.value?.getWateringsRemaining()?.let {
             extras.putInt("wateringsRemaining",
                 it
@@ -553,8 +556,8 @@ class PageViewModel(application: Application,
             val triggerTime =  loadTime()
             // the timer length needs to be based on the triggerTime in case it is a restart
             val timerLength = triggerTime - SystemClock.elapsedRealtime()
-            Timber.i("creating timer2 triggerTime = ".plus(triggerTime))
-            Timber.i("creating timer2 timerLength = ".plus(timerLength))
+            Timber.i("creating timer2 triggerTime = $triggerTime")
+            Timber.i("creating timer2 timerLength = $timerLength")
 
             // set an alarm to go off at trigger time
             // this is separate from the countdown timer, which is basically just for output
@@ -575,8 +578,8 @@ class PageViewModel(application: Application,
                     //_timeRemaining.value =
                     //    (triggerTime - SystemClock.elapsedRealtime()) / second
                     _timeRemaining.value = millisUntilFinished/second
-                    //Timber.i("_elapsedTime.value = ".plus(_elapsedTime.value))
-                    Timber.i("_timeRemaining.value = ".plus(_timeRemaining.value))
+                    //Timber.i("_elapsedTime.value = ${_elapsedTime.value}")
+                    Timber.i("_timeRemaining.value = ${_timeRemaining.value}")
                 }
 
                 // if we finish before a new plant has been viewed
@@ -590,8 +593,8 @@ class PageViewModel(application: Application,
 //                    _timeRemaining.value =
 //                        (triggerTime - SystemClock.elapsedRealtime()) / second
 //                    //_timeRemaining.value = millisUntilFinished/second
-//                    //Timber.i("_elapsedTime.value = ".plus(_elapsedTime.value))
-//                    Timber.i("_timeRemaining.value = ".plus(_timeRemaining.value))
+//                    //Timber.i("_elapsedTime.value = ${_elapsedTime.value}")
+//                    Timber.i("_timeRemaining.value = ${_timeRemaining.value}")
 //
 //                    // if we have passed the trigger time then reset the clock
 //                    if (_timeRemaining.value!! <= 0) {
@@ -629,7 +632,8 @@ class PageViewModel(application: Application,
     // save the time at which the alarm should go off
     private fun saveTime(triggerTime: Long) {
         //prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply();
-        _selectedPlant.value?.triggerTime = triggerTime;
+        _selectedPlant.value?.triggerTime = triggerTime
+        _selectedPlant.value?.wasGrowing = false
         updateSelectedPlant()
     }
 
@@ -639,7 +643,7 @@ class PageViewModel(application: Application,
 //        }
         // returns 0 if it's null
 
-        Timber.i("triggerTime = ".plus(_selectedPlant.value?.triggerTime))
+        Timber.i("triggerTime = ${_selectedPlant.value?.triggerTime}")
         return _selectedPlant.value?.triggerTime ?: 0
 
 
@@ -659,8 +663,8 @@ class PageViewModel(application: Application,
 
 
     // LiveData to handle harvesting
-    private val _plantHarvested = MutableLiveData<Int>()
-    val plantHarvested: LiveData<Int>
+    private val _plantHarvested = MutableLiveData<Long>()
+    val plantHarvested: LiveData<Long>
         get() = _plantHarvested
 
 
@@ -678,7 +682,7 @@ class PageViewModel(application: Application,
 
         }
 
-        _plantHarvested.value = id
+        _plantHarvested.value = id!!
         _readyToHarvest.value = false
         // remove notifications for this plant
         notificationManager.cancelNotifications(requestCode)
@@ -701,7 +705,7 @@ class PageViewModel(application: Application,
             Timber.i("hello2")
             val id = _selectedPlant.value?.id
             gardenRepository.removePlantFromGarden(_selectedPlant.value!!)
-            _plantRemoved.value = id
+            _plantRemoved.value = id!!
             Timber.i("hello3")
         }
         Timber.i("hello4")
@@ -789,7 +793,7 @@ class PageViewModel(application: Application,
         // we need to create pending intents that match the plants in the list and cancel them separately
         for(plant in plantedPlants.value!!)
         {
-            val requestCode = plant.id
+            val requestCode = plant.id.toInt()
 
             // recreate the correct pending intent
             // might need to have the extras in there as well
@@ -809,9 +813,9 @@ class PageViewModel(application: Application,
 
 
     // just a basic looking through the plants tbh
-    fun getPlantFromId(plantId: Int): Plant? {
+    fun getPlantFromId(plantId: Long): Plant? {
 
-        Timber.d("oh god, _plantedPlants.value.size = ".plus(_plantedPlants.value?.size))
+        Timber.d("oh god, _plantedPlants.value.size = ${_plantedPlants.value?.size}")
 
         // loop over plantedPlants
         for(plant in _plantedPlants.value!!) {

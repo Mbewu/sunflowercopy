@@ -23,6 +23,7 @@ import com.example.sunflower_copy.repository.GardenRepository
 import com.example.sunflower_copy.util.Event
 import com.example.sunflower_copy.util.cancelAllNotifications
 import com.example.sunflower_copy.util.getPlantColor
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
 import com.squareup.picasso.Picasso
@@ -166,7 +167,7 @@ class MapViewModel(application: Application,
         // we need to create pending intents that match the plants in the list and cancel them separately
         for(plant in plantedPlants.value!!)
         {
-            val requestCode = plant.id
+            val requestCode = plant.id.toInt()
 
             // recreate the correct pending intent
             val notifyPendingIntent =
@@ -234,7 +235,7 @@ class MapViewModel(application: Application,
             for ((index, marker) in polygonMarkerList.withIndex()) {
                 gardenVerticesTemp.add(
                     GardenVertex(
-                        index + 1,
+                        (index + 1).toLong(),
                         marker.position.latitude,
                         marker.position.longitude
                     )
@@ -307,7 +308,7 @@ class MapViewModel(application: Application,
             val polygonPoints = polygon.points
             // make a list of the vertices
             for((index, point) in polygonPoints.withIndex()) {
-                polygonVertices.add(GardenVertex(index, point.latitude, point.longitude))
+                polygonVertices.add(GardenVertex(index.toLong(), point.latitude, point.longitude))
             }
 
             viewModelScope.launch {
@@ -497,8 +498,7 @@ class MapViewModel(application: Application,
         // add the active marker
         addDraggableActiveMarker(map,latLng)
         val vertexNumber = polygonMarkerList.size + 1
-        val imgUrl = "https://maps.google.com/mapfiles/kml/paddle/"
-            .plus(vertexNumber).plus(".png")
+        val imgUrl = "https://maps.google.com/mapfiles/kml/paddle/${vertexNumber}.png"
         Picasso.get()
             .load(imgUrl)
             .into(object : Target {
@@ -519,5 +519,36 @@ class MapViewModel(application: Application,
 
         activeMarker?.let { polygonMarkerList.add(it) }
 
+    }
+
+    fun setMapStyle(map: GoogleMap) {
+
+        val mapStyleKey = app.getString(R.string.map_style_key)
+        val mapStyleDefault = app.getString(R.string.map_style_default)
+        val mapStyle = sharedPreferences.getString(mapStyleKey, mapStyleDefault)
+        val mapStyleResourceId = app.resources.getIdentifier(mapStyle,"raw",app.packageName)
+
+
+        map.setMapStyle(
+            MapStyleOptions.loadRawResourceStyle(
+                app,
+                mapStyleResourceId
+            )
+        );
+    }
+
+    // move the camera to the selected plant
+    fun moveCameraToPlant(map: GoogleMap, plantId: Long)  {
+        viewModelScope.launch {
+            val plant = gardenRepository.getPlant(plantId)
+            Timber.i("plant = $plant")
+
+            // so we just need to get the plant's coordinates and move the camera
+            map.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(plant.latitude, plant.longitude), DEFAULT_ZOOM.toFloat()
+                )
+            )
+        }
     }
 }

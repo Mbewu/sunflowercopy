@@ -11,12 +11,15 @@
             android:id="@+id/linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_normal"
+            android:background="?attr/colorSurface" >
 
             <ImageView
                 android:id="@+id/plant_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:paddingEnd="@dimen/padding_normal"
                 tools:srcCompat="@tools:sample/avatars"
                 android:contentDescription="@string/info_window_image_content_description" />
 
@@ -40,14 +43,16 @@
                     android:id="@+id/planted_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/sunflower_black"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     tools:text="Planted time: Mon 22 Aug, 2020 at 10:00"
                     tools:ignore="SmallSp" />
 
                 <TextView
-                    android:id="@+id/waterings_remaining"
+                    android:id="@+id/waterings_done"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/sunflower_black"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     tools:text="Waterings remaining: #24"
                     tools:ignore="SmallSp" />
@@ -56,6 +61,7 @@
                     android:id="@+id/status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/sunflower_black"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textStyle="bold"
                     tools:text="Status: Ready to water"
@@ -65,6 +71,7 @@
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/sunflower_black"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     tools:text="Location: (51.72024, -1.23458)"
                     tools:ignore="SmallSp" />

@@ -16,7 +16,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Plant(
-    @PrimaryKey @ColumnInfo(name = "id") var id: Int,
+    @PrimaryKey @ColumnInfo(name = "id") var id: Long,
     val name: String,
     val latinName: String = "",
     val description: String = "",
@@ -27,7 +27,10 @@ data class Plant(
     var wateringsDone: Int = 0,
     var triggerTime: Long = 0,
     var latitude: Double = .0,
-    var longitude: Double = .0) : Parcelable {
+    var longitude: Double = .0,
+    var wasGrowing: Boolean = false) : Parcelable {
+
+
 
     override fun toString() = name
 
@@ -35,10 +38,19 @@ data class Plant(
 
     fun getWateringsRemaining() = growZoneNumber - wateringsDone
 
-    fun getTimeRemaining() = triggerTime - SystemClock.elapsedRealtime()
+    private fun getTimeRemaining(): Long {
+        val timeRemaining = triggerTime - SystemClock.elapsedRealtime()
+        wasGrowing = (timeRemaining > 0)
+        return timeRemaining
+    }
 
-    // should return true is plant is growing
-    fun isGrowing() = (getTimeRemaining() > 0)
+    // basically, the wasGrowing property tells you what is happening
+    // the last time you called isGrowing, which should be the last time
+    // you checked it to output, so yeah, it should function as long as the repository is updated
+    fun isGrowing(): Boolean {
+        wasGrowing = (getTimeRemaining() > 0)
+        return wasGrowing
+    }
 
     // should return true plant is ready to water
     fun isReadyToWater() = (getTimeRemaining() <= 0)
@@ -51,7 +63,7 @@ data class Plant(
     // copy constructor with new global plant id
     // hmm, not sure it should copy everything like waterings and stuff, but okay
     constructor(copy: Plant) :
-            this(++GLOBAL_PLANT_ID,
+            this(copy.id,
                 copy.name,
                 copy.latinName,
                 copy.description,
@@ -62,7 +74,8 @@ data class Plant(
                 copy.wateringsDone,
                 copy.triggerTime,
                 copy.latitude,
-                copy.longitude)
+                copy.longitude,
+                copy.wasGrowing)
 
     // blank constructor
     constructor() : this(0,
@@ -76,13 +89,14 @@ data class Plant(
         0,
         0,
         .0,
-    .0)
+    .0,
+    false)
 
 
 }
 
 @Parcelize
 data class GardenVertex(
-    @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+    @PrimaryKey @ColumnInfo(name = "id") val id: Long,
     val latitude: Double = .0,
     val longitude: Double = .0) : Parcelable

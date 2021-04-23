@@ -14,11 +14,11 @@ import kotlin.properties.Delegates
 fun getSongResource(songResourceString: String): Int {
 
     return when(songResourceString) {
-        "australia_1" -> R.raw.peaceful_music_australia_1
-        "australia_2" -> R.raw.peaceful_music_australia_2
-        "australia_3" -> R.raw.peaceful_music_australia_3
-        "australia_4" -> R.raw.peaceful_music_australia_4
-        "australia_5" -> R.raw.peaceful_music_australia_5
+        "peacuful_music_australia_1" -> R.raw.peaceful_music_australia_1
+        "peacuful_music_australia_2" -> R.raw.peaceful_music_australia_2
+        "peacuful_music_australia_3" -> R.raw.peaceful_music_australia_3
+        "peacuful_music_australia_4" -> R.raw.peaceful_music_australia_4
+        "peacuful_music_australia_5" -> R.raw.peaceful_music_australia_5
         else -> R.raw.peaceful_music_australia_1
     }
 }
@@ -59,6 +59,8 @@ class BackgroundMusicService : Service() {
     }
 
     private fun createMusicPlayer(songResource: Int) {
+
+        Timber.i("hi songResource = $songResource")
         mediaPlayer = MediaPlayer.create(
             this,
             songResource
@@ -74,10 +76,13 @@ class BackgroundMusicService : Service() {
     // we expect only one of these, assume string first
     fun changeMusic(songResourceString: String = "", songResourceInt: Int = -1) {
 
+
         var songResource = defaultSong
         // map string to song resource
         if(songResourceString != "") {
-            songResource = getSongResource(songResourceString)
+            //songResource = getSongResource(songResourceString)
+            songResource = application.resources.getIdentifier(songResourceString,"raw",application.packageName)
+            Timber.i("songResource = $songResource")
         } else if (songResourceInt != -1) {
             songResource = songResourceInt
         }
@@ -104,7 +109,7 @@ class BackgroundMusicService : Service() {
         }
         val logVolume = 1f - ln((maxVolume - volumeNormal).toDouble()) / ln(maxVolume.toDouble())
         volume = logVolume.toFloat()
-        Timber.i("setting volume to: ".plus(volume))
+        Timber.i("setting volume to: $volume")
         mediaPlayer?.setVolume(volume, volume)
     }
 

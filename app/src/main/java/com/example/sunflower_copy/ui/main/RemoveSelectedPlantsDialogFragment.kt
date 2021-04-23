@@ -47,7 +47,7 @@ class RemoveSelectedPlantsDialogFragment(selectedPlantListInput: List<Plant>) : 
         title.text = getString(R.string.warning)
         val numberOfPlants = selectedPlantList.size
         val message = view.findViewById<TextView>(R.id.message_text)
-        Timber.i("numberOfPlants = ".plus(numberOfPlants))
+        Timber.i("numberOfPlants = $numberOfPlants")
         message.text = getString(R.string.dialog_text_remove_selected_plants, numberOfPlants)
         val yesButton = view.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)

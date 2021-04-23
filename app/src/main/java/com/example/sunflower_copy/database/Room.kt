@@ -8,7 +8,7 @@ import androidx.room.*
 
 @Dao
 interface PlantDao {
-    @get:Query("select * from databaseplant")
+    @get:Query("SELECT * FROM databaseplant")
     val getPlants: LiveData<List<DatabasePlant>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -32,21 +32,35 @@ interface PlantDao {
 
 @Dao
 interface GardenDao {
-//    @Query("select * from databasegarden")
+//    @Query("SELECT * FROM databasegarden")
 //    suspend fun getPlants(): LiveData<List<DatabaseGarden>>
 
-    @get:Query("select * from databasegarden")
-    val getPlants: LiveData<List<DatabaseGarden>>
+    @get:Query("SELECT * FROM databasegarden")
+    val getPlants: List<DatabaseGarden>
+
+//    @Query("SELECT * FROM databasegarden WHERE id = :plantId")
+//    fun getPlant(plantId: Int): LiveData<List<DatabaseGarden>>
+
+    @Query("SELECT * FROM databasegarden WHERE id = :plantId")
+    suspend fun getPlant(plantId: Long): DatabaseGarden
+
+    @get:Query("SELECT * FROM databasegarden")
+    val observePlants: LiveData<List<DatabaseGarden>>
+
+    @Query("SELECT * FROM databasegarden WHERE id = :plantId")
+    fun observePlant(plantId: Long): LiveData<DatabaseGarden>
+
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert( plants: DatabaseGarden)
+    suspend fun insert( plant: DatabaseGarden): Long
 
     @Update
-    suspend fun update( plants: DatabaseGarden)
+    suspend fun update( plant: DatabaseGarden)
 
     // we return as an Int and not a LiveData<Int> so that we can access it in the code
-    @Query("select id from databasegarden order by id desc limit 1")
-    suspend fun getLargestId(): Int
+    @Query("SELECT id FROM databasegarden ORDER BY id DESC LIMIT 1")
+    suspend fun getLargestId(): Long
 
     @Delete
     suspend fun delete( plants: DatabaseGarden)
@@ -72,7 +86,7 @@ abstract class GardenDatabase: RoomDatabase() {
 
 @Dao
 interface GardenLayoutDao {
-    @get:Query("select * from databasegardenlayout")
+    @get:Query("SELECT * FROM databasegardenlayout")
     val getGardenVertices: LiveData<List<DatabaseGardenLayout>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

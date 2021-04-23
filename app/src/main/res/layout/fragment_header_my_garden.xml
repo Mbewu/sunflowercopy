@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_side_margin"
         android:layout_marginEnd="@dimen/card_side_margin"
+        android:clickable="false"
+        android:background="?attr/colorSurface"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Sunflower.Card">
 
         <androidx.constraintlayout.widget.ConstraintLayout

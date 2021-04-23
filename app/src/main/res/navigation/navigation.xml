@@ -37,6 +37,12 @@
         <action
             android:id="@+id/action_viewPagerFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_viewPagerFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -51,7 +57,8 @@
             app:argType="com.example.sunflower_copy.domain.Plant" />
         <action
             android:id="@+id/action_plantedFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment" >
+        </action>
         <action
             android:id="@+id/action_plantedFragment_to_fullscreenImageFragment"
             app:destination="@id/fullscreenImageFragment" />
@@ -64,6 +71,7 @@
         android:id="@+id/plantListFragment"
         android:name="com.example.sunflower_copy.ui.main.PlantListFragment"
         tools:layout="@layout/fragment_plant_list" />
+
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.sunflower_copy.map.MapFragment"
@@ -74,13 +82,17 @@
         <action
             android:id="@+id/action_mapFragment_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
+        <argument
+            android:name="selectedPlantId"
+            app:argType="long"
+            android:defaultValue="-1L" />
     </fragment>
 
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.sunflower_copy.title.SettingsFragment">
-    </fragment>
+        android:name="com.example.sunflower_copy.title.SettingsFragmentContainer"/>
+
     <fragment
         android:id="@+id/fullscreenImageFragment"
         android:name="com.example.sunflower_copy.planted.FullscreenImageFragment">

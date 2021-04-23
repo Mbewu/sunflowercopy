@@ -5,58 +5,56 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-        <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|snap"
+                app:toolbarId="@id/toolbar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navigationIcon="@drawable/ic_back_circle"
+                    style="@style/Widget.Sunflower.Toolbar" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:gravity="center"
+                    android:minHeight="?actionBarSize"
+                    app:srcCompat="@drawable/sunflower_color_detailed" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:tabIconTint="@drawable/tab_icon_color_selector"
+                app:tabSelectedTextColor="?android:textColorTertiary"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MainActivity">
-
-                <com.google.android.material.appbar.AppBarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/AppTheme.AppBarOverlay">
-
-                    <com.google.android.material.appbar.CollapsingToolbarLayout
-                        android:id="@+id/toolbar_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_scrollFlags="scroll|snap"
-                        app:toolbarId="@id/toolbar">
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="match_parent"
-                            android:layout_height="?actionBarSize"
-                            android:background="?attr/colorPrimaryDark"
-                            android:gravity="center"
-                            android:minHeight="?actionBarSize"
-                            app:srcCompat="@drawable/sunflower_color_detailed" />
-
-                    </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tabs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/colorPrimaryDark"
-                        app:tabIconTint="@drawable/tab_icon_color_selector"
-                        app:tabSelectedTextColor="@color/primaryTextColor"/>
-                </com.google.android.material.appbar.AppBarLayout>
-
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

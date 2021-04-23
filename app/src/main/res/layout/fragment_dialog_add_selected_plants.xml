@@ -7,14 +7,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/holo_red_dark"
-        android:padding="@dimen/padding_normal">
+        android:padding="@dimen/padding_medium">
 
         <LinearLayout
             android:id="@+id/title_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="?attr/colorPrimaryVariant"
+            android:backgroundTint="?attr/colorPrimaryVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +37,7 @@
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorPrimaryVariant"
                 android:padding="@dimen/text_padding_small"
                 android:text="@string/warning"
                 android:textColor="@color/tertiaryTextColor"
@@ -60,7 +60,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_positive"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorPrimaryVariant"
             android:text="@string/label_yes"
             android:textColor="@color/tertiaryTextColor"
             app:layout_constraintBottom_toBottomOf="parent"

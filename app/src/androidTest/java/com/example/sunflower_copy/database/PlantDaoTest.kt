@@ -26,7 +26,7 @@ class PlantDaoTest {
     fun createDb() = runBlocking {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         database = Room.inMemoryDatabaseBuilder(context, PlantDatabase::class.java).build()
-        plantDao = database.plantDao
+        plantDao = database.plantDao()
 
         // Insert plants in order A, B, C
         plantDao.insertAll(listOf(plantA, plantB, plantC))
@@ -39,7 +39,7 @@ class PlantDaoTest {
 
     @Test
     fun testGetPlants() {
-        val plantList = getValue(plantDao.getPlants())
+        val plantList = getValue(plantDao.getPlants)
         Assert.assertThat(plantList.size, Matchers.equalTo(3))
 
         // Ensure plant list is sorted by name

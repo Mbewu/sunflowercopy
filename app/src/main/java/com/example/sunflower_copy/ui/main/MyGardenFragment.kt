@@ -155,8 +155,10 @@ class MyGardenFragment : Fragment() {
 //                return@withOnItemActivatedListener true}
             .withOnItemActivatedListener { item, _ ->
                 Timber.e("Hmmm")
-                if(item.position != 0) {
-                    Log.e("MainActivity", item.toString())
+                Timber.i("position = ${item.position}")
+                // some issue with the header actually being at position -1 instead on 0
+                if(item.position > 0) {
+                    Timber.i("position = ${item.position}")
                     // make sure fab is hidden and then go to plant details
                     binding.fabDeleteSelection.visibility = View.GONE
                     pageViewModel.displayGardenPlantDetails(item.selectionKey!!)
@@ -196,7 +198,7 @@ class MyGardenFragment : Fragment() {
         // observer that resubmits the list for the recycleview
         pageViewModel.plantedPlants.observe(viewLifecycleOwner, Observer {
             Timber.i("planted plants observer")
-            Timber.i("hmm plantedPlants.size = ".plus(it.size.toString()))
+            Timber.i("hmm plantedPlants.size = ${it.size}")
             adapter.submitNewList(pageViewModel.plantedPlants.value)
         })
 
@@ -208,7 +210,7 @@ class MyGardenFragment : Fragment() {
 
         //val textView: TextView = binding.sectionLabel
         pageViewModel.plantedPlants.observe(viewLifecycleOwner, Observer {
-            //textView.text = it.size.toString().plus(" plants are in your garden");
+            //textView.text = "${it.size} plants are in your garden";
         })
 
 
@@ -219,7 +221,7 @@ class MyGardenFragment : Fragment() {
 
             Timber.i(
                 "navigate before is null = "
-                    .plus((pageViewModel.navigateToSelectedGardenPlant.value == null).toString())
+                    .plus(pageViewModel.navigateToSelectedGardenPlant.value == null)
             )
             if (null != it) {
                 Timber.i("hello1")
@@ -243,7 +245,7 @@ class MyGardenFragment : Fragment() {
 
             Timber.i(
                 "navigate after is null = "
-                    .plus((pageViewModel.navigateToSelectedGardenPlant.value == null).toString())
+                    .plus(pageViewModel.navigateToSelectedGardenPlant.value == null)
             )
         })
 
@@ -289,10 +291,10 @@ class MyGardenFragment : Fragment() {
                 //val application = requireNotNull(activity).application
 
                 Toast.makeText(activity,
-                    plantsRemoved.toString().plus(" plants removed from your garden."),
+                    "$plantsRemoved plants removed from your garden.",
                     Toast.LENGTH_SHORT).show()
 
-                Timber.i("plants removed = ".plus(plantsRemoved))
+                Timber.i("plants removed = $plantsRemoved")
 
                 pageViewModel.plantRemovalComplete()
                 Timber.i("hello3")
@@ -303,7 +305,7 @@ class MyGardenFragment : Fragment() {
                 tracker.clearSelection()
             }
 
-            Timber.i("hello plantedRemoved after = ".plus(plantsRemoved))
+            Timber.i("hello plantedRemoved after = $plantsRemoved")
 
         })
 

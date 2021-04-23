@@ -29,7 +29,7 @@ class FullscreenImageFragment : Fragment() {
         val path = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
         val imageFile = File("$path/$imageFileName")
 
-        Timber.i("file = ".plus(imageFile))
+        Timber.i("file = $imageFile")
         loadImage(binding.imageView,imageFile)
 
 

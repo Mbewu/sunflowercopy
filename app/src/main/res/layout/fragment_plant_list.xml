@@ -15,7 +15,7 @@
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorPrimaryVariant"
         android:clickable="true"
         android:focusable="true">
 
@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:padding="@dimen/padding_normal"
+            android:padding="@dimen/padding_medium"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/plant_list_search"
             app:layout_constraintHorizontal_bias="1.0"
@@ -43,9 +43,10 @@
             android:id="@+id/plant_list_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
+            android:background="?attr/colorPrimary"
             android:textCursorDrawable="@null"
             android:theme="@style/AppSearchView"
+            android:textColor="@color/sunflower_white"
             app:iconifiedByDefault="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -57,7 +58,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_selection"
             style="@style/Widget.Sunflower.FloatingActionButton"
-            android:backgroundTint="?attr/colorSecondary"
+            android:backgroundTint="@color/sunflower_green_700"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

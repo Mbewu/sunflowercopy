@@ -140,7 +140,7 @@ class PlantGridSearchAdapter(private val context: Context) :
                 val layoutInflater = LayoutInflater.from(parent.context)
 //                val view = layoutInflater.inflate(R.layout.fragment_header_my_garden, parent, false)
 //                val headerText = view.findViewById<TextView>(R.id.section_label)
-//                headerText.text = numPlants.toString().plus(" plants are in your list.")
+//                headerText.text = "$numPlants plants are in your list."
 //                return HeaderViewHolder(view)
                 val binding = FragmentHeaderMyGardenBinding.inflate(layoutInflater)
                 return HeaderViewHolder(binding)
@@ -195,7 +195,7 @@ class PlantGridSearchAdapter(private val context: Context) :
         when (holder) {
             // only this one to bind
             is ViewHolder -> {
-                Timber.i("plant view hello pos = ".plus(position))
+                Timber.i("plant view hello pos = $position")
                 val selectedPlant = getItem(position)
                 // not sure about this clicklistener
                 //holder.itemView.setOnClickListener { onClickListener.onClick(selectedPlant) }
@@ -207,7 +207,7 @@ class PlantGridSearchAdapter(private val context: Context) :
             }
             // only this one to bind
             is ViewHolderConcise -> {
-                Timber.i("plant view hello pos = ".plus(position))
+                Timber.i("plant view hello pos = $position")
                 val selectedPlant = getItem(position)
                 // not sure about this clicklistener
                 //holder.itemView.setOnClickListener { onClickListener.onClick(selectedPlant) }
@@ -218,7 +218,7 @@ class PlantGridSearchAdapter(private val context: Context) :
                 )
             }
             is HeaderViewHolder -> {
-                Timber.i("header view hello pos = ".plus(position))
+                Timber.i("header view hello pos = $position")
                 //selectionChecker?.isSelected(selectedPlant)
                 // remove the clicklistener
                 //holder.itemView.setOnClickListener(null)
@@ -257,7 +257,7 @@ class PlantGridSearchAdapter(private val context: Context) :
         val headerPlant: Plant = Plant()
         if (list != null) {
             if (list.isNotEmpty()) {
-                if(list[0].id != -1) {
+                if(list[0].id != -1L) {
                     headerPlant.id = -1
                     tempList?.add(0, headerPlant)
                 }
@@ -272,7 +272,7 @@ class PlantGridSearchAdapter(private val context: Context) :
         }
 
         if (tempList != null) {
-            Timber.i("submitting list with size = ".plus(tempList.size))
+            Timber.i("submitting list with size = ${tempList.size}")
         }
         super.submitList(tempList)
         //notifyDataSetChanged()
@@ -286,12 +286,12 @@ class PlantGridSearchAdapter(private val context: Context) :
         val headerPlant: Plant = Plant()
         if (list != null) {
             if (list.isNotEmpty()) {
-                if(list[0].id != -1) {
+                if(list[0].id != -1L) {
                     headerPlant.id = -1
                     tempList?.add(0, headerPlant)
                 }
             } else {
-                headerPlant.id = -1
+                headerPlant.id = -1L
                 tempList?.add(0, headerPlant)
             }
         }
@@ -300,7 +300,7 @@ class PlantGridSearchAdapter(private val context: Context) :
         plantList = tempList
 
         if (tempList != null) {
-            Timber.i("submitting list with size = ".plus(tempList.size))
+            Timber.i("submitting list with size = ${tempList.size}")
         }
         super.submitList(tempList)
         notifyDataSetChanged()
@@ -329,7 +329,7 @@ class PlantGridSearchAdapter(private val context: Context) :
                     }
                 }
 
-                Timber.i("listsize in filter = ".plus(currentList.size))
+                Timber.i("listsize in filter = ${currentList.size}")
                 val filterResults = FilterResults()
                 filterResults.values = plantFilterList
                 return filterResults

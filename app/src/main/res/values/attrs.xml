@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <attr name="colorCamera" format="color" />
+    <attr name="colorHarvest" format="color" />
+    <attr name="colorWater" format="color" />
+    <attr name="colorMaps" format="color" />
+    <attr name="colorRemove" format="color" />
+</resources>

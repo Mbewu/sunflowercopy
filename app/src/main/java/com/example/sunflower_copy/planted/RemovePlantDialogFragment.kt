@@ -59,7 +59,7 @@ class RemovePlantDialogFragment(selectedPlantInput: Plant) : DialogFragment() {
 
         val message = v.findViewById<TextView>(R.id.message)
         val plantName = viewModel.selectedPlant.value?.name?.toLowerCase(Locale.ROOT)
-        Timber.i("selectedPlant = ".plus(plantName))
+        Timber.i("selectedPlant = $plantName")
         message.text = getString(R.string.dialog_text_remove_plant, plantName)
         val yesButton = v.findViewById<Button>(R.id.button_positive)
         yesButton.text = getString(R.string.label_yes)

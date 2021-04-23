@@ -1,11 +1,14 @@
 package com.example.sunflower_copy.util
 
 import android.text.format.DateUtils
+import android.text.method.LinkMovementMethod
+import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,24 +25,65 @@ import java.io.File
 import java.lang.Exception
 
 
-//
-///**
-// * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
-// */
-//@BindingAdapter("listData")
-//fun bindRecyclerView(recyclerView: RecyclerView, data: List<Plant>?) {
-//    val adapter = recyclerView.adapter as PlantGridAdapter
-//    adapter.submitList(data)
-//}
 
-var previousImageUrl: String? = null
+/**
+ * Binding adapter that handles the output of html text, e.g. italics and links
+ */
+@BindingAdapter("bind:htmlText")
+fun bindHtmlText(textView: TextView, text: String?) {
+    text?.let{
+        // set the text and convert it to html
+        textView.text = HtmlCompat.fromHtml(
+            it,
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+
+        // let it have links
+        Linkify.addLinks(textView, Linkify.WEB_URLS)
+        textView.movementMethod = LinkMovementMethod.getInstance()
+    }
+}
+
+
+
+/**
+ * Binding adapter that handles the output of duration texts e.g. 1 min 20 sec
+ */
+@BindingAdapter("bind:durationText")
+fun bindDurationText(textView: TextView, duration: Int?) {
+    if (duration != null) {
+        textView.text = convertIntSecondsToString(duration)
+    }
+}
+
+
+/**
+ * Binding adapter that handles the output of time and date e.g. 20 September 2021 at 10:30
+ */
+@BindingAdapter("bind:timeDateText")
+fun bindTimeDateText(textView: TextView, time: Long?) {
+    if (time != null) {
+        textView.text = convertLongToDateString(time)
+    }
+}
+
+
+/**
+ * Binding adapter that handles the output of locations
+ */
+@BindingAdapter(value = ["bind:latitudeText","bind:longitudeText"], requireAll = true)
+fun bindLocationText(textView: TextView, latitude: Double?, longitude: Double?) {
+    if (latitude != null && longitude != null) {
+        textView.text = convertLatLngToString(latitude,longitude)
+    }
+}
 
 
 
 /**
  * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
  */
-@BindingAdapter("listData")
+@BindingAdapter("bind:listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Plant>?) {
     val adapter = recyclerView.adapter as PlantGridSearchAdapter
     adapter.submitList(data)
@@ -50,7 +94,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Plant>?) {
 /**
  * Uses the Glide library to load an image by URL into an [ImageView]
  */
-@BindingAdapter("imageUrl")
+@BindingAdapter("bind:imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
@@ -73,99 +117,5 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         }
     }
 
-
 }
 
-class MarkerCallback internal constructor(marker: Marker?) :
-    Callback {
-    var marker: Marker? = null
-    override fun onError(e: Exception?) {
-        Log.e(javaClass.simpleName, "Error loading thumbnail!")
-    }
-
-    override fun onSuccess() {
-        Timber.i("hello, in onSuccess1")
-        if (marker != null && marker!!.isInfoWindowShown) {
-            Timber.i("hello, in onSuccess2")
-            marker!!.hideInfoWindow()
-            marker!!.showInfoWindow()
-        }
-    }
-
-    init {
-        Timber.i("hello, in init")
-        this.marker = marker
-    }
-}
-
-
-
-/**
- * Uses the Glide library to load an image by URL into an [ImageView]
- */
-//@BindingAdapter("imgUrl")
-fun bindImageMaps(imgView: ImageView, imgUrl: String?, marker: Marker, imageWidth: Int, imageHeight: Int) {
-
-    Timber.i("image (width,height) = (".plus(imageWidth).plus(",").plus(imageHeight).plus(")"))
-    imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-        Picasso.get().load(imgUri)
-            //.fit()    // this causes it not to load properly
-            .resize(imageWidth,imageHeight)
-            .centerCrop()
-            .noFade()
-            .placeholder(R.drawable.loading_animation)
-            .error(R.drawable.ic_broken_image)
-            //.into(imgView)
-            .into(imgView, MarkerCallback(marker))
-    }
-
-}
-
-fun loadImage(imgView: ImageView, imgFile: File){
-    Picasso.get().load(imgFile)
-        //.fit()    // this causes it not to load properly
-        //.resize(imageWidth,imageHeight)
-        //.centerCrop()
-        //.noFade()
-        .placeholder(R.drawable.loading_animation)
-        .error(R.drawable.ic_broken_image)
-        //.into(imgView)
-        .into(imgView)
-}
-
-
-/**
- * This binding adapter displays the [MarsApiStatus] of the network request in an image view.  When
- * the request is loading, it displays a loading_animation.  If the request has an error, it
- * displays a broken image to reflect the connection error.  When the request is finished, it
- * hides the image view.
- */
-@BindingAdapter("marsApiStatus")
-fun bindStatus(statusImageView: ImageView, status: PlantApiStatus?) {
-    when (status) {
-        PlantApiStatus.LOADING -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
-        }
-        PlantApiStatus.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_connection_error)
-        }
-        PlantApiStatus.DONE -> {
-            statusImageView.visibility = View.GONE
-        }
-    }
-}
-
-
-/**
- * Converts milliseconds to formatted mm:ss
- *
- * @param value, time in milliseconds.
- */
-@BindingAdapter("elapsedTime")
-fun TextView.setElapsedTime(value: Long) {
-    val seconds = value / 1000
-    text = if (seconds < 60) seconds.toString() else DateUtils.formatElapsedTime(seconds)
-}

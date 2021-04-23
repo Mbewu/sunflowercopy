@@ -29,6 +29,7 @@ class PlantRepository(private val database: PlantDatabase,
     }
 
 
+
     /**
      * Refresh the videos stored in the offline cache.
      *
@@ -45,7 +46,7 @@ class PlantRepository(private val database: PlantDatabase,
 //                    val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
 //                    val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
 //
-//                    Timber.i("Number of plants found = ".plus(plantList.size.toString()))
+//                    Timber.i("Number of plants found = ${plantList.size.toString()}")
 //
 //                    //val database = getDatabase(appContext)
 //                    Timber.i("PageViewModel")
@@ -69,7 +70,7 @@ class PlantRepository(private val database: PlantDatabase,
                     val plantType = object : TypeToken<List<DatabasePlant>>() {}.type
                     val plantList: List<DatabasePlant> = Gson().fromJson(jsonReader, plantType)
 
-                    Timber.i("Number of plants found = ".plus(plantList.size.toString()))
+                    Timber.i("Number of plants found = ${plantList.size}")
 
                     //val database = getDatabase(appContext)
                     Timber.i("PageViewModel")

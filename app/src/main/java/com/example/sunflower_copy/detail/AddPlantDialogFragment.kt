@@ -45,7 +45,7 @@ class AddPlantDialogFragment : DialogFragment()  {
 
         viewModel.getPlantInformation()
         val plantName = viewModel.selectedPlant.value?.name
-        Timber.i("plant name = ".plus(viewModel.selectedPlant.value?.name))
+        Timber.i("plant name = ${viewModel.selectedPlant.value?.name}")
         binding.dialogMessage.text = getString(R.string.dialog_text_add_plant, plantName)
         binding.buttonPositive.text = getString(R.string.label_yes)
         binding.buttonNegative.text = getString(R.string.label_no)

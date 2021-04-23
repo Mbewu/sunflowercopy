@@ -18,5 +18,4 @@ class SunflowerApplication : Application() {
         Timber.plant(Timber.DebugTree())
     }
 
-    var GLOBAL_PLANT_ID = 0
 }

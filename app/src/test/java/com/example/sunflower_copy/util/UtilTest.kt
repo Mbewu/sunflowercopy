@@ -28,7 +28,8 @@ class UtilTest {
     }
 
     @Test
-    fun numPlantsGrowing_noGrowing_returnsZero() {
+    fun `numPlantsGrowing returns zero`() {
+    //fun numPlantsGrowing_noGrowing_returnsZero() {
 
         PowerMockito.mockStatic(SystemClock::class.java)
         BDDMockito.given(SystemClock.elapsedRealtime()).willReturn(1L);

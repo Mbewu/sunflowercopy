@@ -1,36 +1,29 @@
 package com.example.sunflower_copy.planted
 
 
-import android.app.Activity.RESULT_OK
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
-import android.text.method.LinkMovementMethod
-import android.text.method.TransformationMethod
-import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.FileProvider
-import androidx.core.text.HtmlCompat
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SharedViewModel
 import com.example.sunflower_copy.SunflowerApplication
@@ -38,18 +31,13 @@ import com.example.sunflower_copy.databinding.FragmentPlantedBinding
 import com.example.sunflower_copy.domain.Plant
 import com.example.sunflower_copy.ui.main.PageViewModel
 import com.example.sunflower_copy.ui.main.PageViewModelFactory
-import com.example.sunflower_copy.util.bindImage
-import com.example.sunflower_copy.util.convertLongToDateString
+import com.example.sunflower_copy.util.*
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.properties.Delegates
 
 /**
  * This [Fragment] shows the planteded information about a selected piece of Mars real estate.
@@ -65,6 +53,13 @@ class PlantedFragment : Fragment() {
 //    private lateinit var viewModel: PageViewModel
 //    private lateinit var viewModelFactory: PageViewModelFactory
 
+    private val args: PlantedFragmentArgs by navArgs()
+
+    private val plantedViewModel by viewModels<PlantedViewModel> {
+        PlantedViewModelFactory(requireActivity().application,
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+    }
+
 
     private val viewModel by activityViewModels<PageViewModel> {
         PageViewModelFactory(requireActivity().application,
@@ -77,6 +72,12 @@ class PlantedFragment : Fragment() {
 
     lateinit var currentPhotoPath: String
 
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+        Timber.i("HelloBaby")
+        if (isSuccess) {
+            setMostRecentImages()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -92,7 +93,7 @@ class PlantedFragment : Fragment() {
 
         //viewModelFactory = PageViewModelFactory(application)
         //viewModel = ViewModelProvider(requireActivity(), viewModelFactory).get(PageViewModel::class.java)
-        selectedPlant = PlantedFragmentArgs.fromBundle(requireArguments()).selectedPlant
+        selectedPlant = args.selectedPlant
 
         binding.lifecycleOwner = this
 
@@ -102,7 +103,9 @@ class PlantedFragment : Fragment() {
         // only init once that selected plant is known
         viewModel.initPlantedView()
         setMostRecentImages()
-        setTextViews()
+
+        binding.plantedViewModel = plantedViewModel
+        plantedViewModel.start(selectedPlant.id)
 
         // Specify the fragment view as the lifecycle owner of the binding.
         // This is used so that the binding can observe LiveData updates
@@ -110,11 +113,6 @@ class PlantedFragment : Fragment() {
 
         Timber.i( "in planted7")
 
-        // create channel for notifications
-        createChannel(
-            getString(R.string.sunflower_notification_channel_id),
-            getString(R.string.sunflower_notification_channel_name)
-        )
 
 
         setObservers()
@@ -126,6 +124,28 @@ class PlantedFragment : Fragment() {
         Timber.i("before the end")
         return binding.root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //this.setupRefreshLayout(viewDataBinding.refreshLayout)
+        Timber.i("starting plantedViewModel")
+        plantedViewModel.start(args.selectedPlant.id)
+
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.toolbar
+            .setupWithNavController(navController, appBarConfiguration)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        (activity as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_circle);
+
+    }
+
 
 
     private fun setObservers() {
@@ -159,18 +179,15 @@ class PlantedFragment : Fragment() {
         binding.fabCamera.setOnClickListener {
 
             Timber.i("taking picture after click")
-            dispatchTakePictureIntent()
+            val filenameBase = "${selectedPlant.name}_${selectedPlant.id}"
+            dispatchTakeAndSavePictureIntentSimple(this,filenameBase,cameraLauncher)
         }
 
         // observer for floating action button to go to the map
         binding.fabMaps.setOnClickListener {
-
-            // set the navigateToPlantOnMap event
-            sharedViewModel.navigateToPlantOnMap.value = selectedPlant
-
             // get the location information
             this.findNavController().navigate(
-                PlantedFragmentDirections.actionPlantedFragmentToMapFragment()
+                PlantedFragmentDirections.actionPlantedFragmentToMapFragment().setSelectedPlantId(selectedPlant.id)
             )
 
         }
@@ -198,12 +215,11 @@ class PlantedFragment : Fragment() {
 
                 Toast.makeText(
                     activity,
-                    selectedPlant.name.plus(" #").plus(selectedPlant.id)
-                        .plus(" removed from garden."),
+                    "${selectedPlant.name} #${selectedPlant.id} removed from garden.",
                     Toast.LENGTH_SHORT
                 ).show()
 
-                Timber.i("plant removed = ".plus(plantRemoved))
+                Timber.i("plant removed = $plantRemoved")
 
                 // Try and navigate up and back to the garden
                 this.findNavController().navigateUp()
@@ -211,7 +227,7 @@ class PlantedFragment : Fragment() {
                 Timber.i("hello3")
             }
 
-            Timber.i("hello plantedRemoved after = ".plus(plantRemoved))
+            Timber.i("hello plantedRemoved after = $plantRemoved")
 
         })
 
@@ -226,8 +242,8 @@ class PlantedFragment : Fragment() {
                 //val application = requireNotNull(activity).application
 
                 Toast.makeText(
-                    activity, selectedPlant.name.plus(" #")
-                        .plus(selectedPlant.id).plus(" doesn't need watering right now."),
+                    activity,
+                    "${selectedPlant.name} #${selectedPlant.id} doesn't need watering right now.",
                     Toast.LENGTH_SHORT
                 ).show()
 
@@ -293,12 +309,12 @@ class PlantedFragment : Fragment() {
                 //val application = requireNotNull(activity).application
 
                 Toast.makeText(
-                    activity, selectedPlant.name.plus(" #")
-                        .plus(selectedPlant.id).plus(" harvested from your garden!"),
+                    activity,
+                    "${selectedPlant.name} #${selectedPlant.id} harvested from your garden!",
                     Toast.LENGTH_SHORT
                 ).show()
 
-                Timber.i("plant harvested = ".plus(plantHarvested))
+                Timber.i("plant harvested = $plantHarvested")
 
                 // Try and navigate up and back to the garden
                 this.findNavController().navigateUp()
@@ -342,7 +358,7 @@ class PlantedFragment : Fragment() {
                 Log.d("Files", "Part:" + word)
             // make sure it is big enough to reference them
             if(parts.size >3)
-            if(parts[1] == selectedPlant.name && parts[2].toInt() == selectedPlant.id) {
+            if(parts[1] == selectedPlant.name && parts[2].toLong() == selectedPlant.id) {
                 selectedPlantImages.add(file)
                 dates.add(parts[3].toInt())
             }
@@ -356,7 +372,7 @@ class PlantedFragment : Fragment() {
             // sort by date, and i'm guessing the second argument is time??
             for (file in selectedPlantImages) {
                 val date = file.lastModified()
-                Timber.i("file last modified = ".plus(date))
+                Timber.i("file last modified = $date")
             }
 
             Collections.sort(selectedPlantImages, object : Comparator<File> {
@@ -448,216 +464,4 @@ class PlantedFragment : Fragment() {
 
 
 
-
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        Timber.i("hi1")
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        Timber.i("hi2")
-        val storageDir: File? = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        Timber.i("hi3, dir = ".plus(storageDir))
-        return File.createTempFile(
-            "JPEG_".plus(selectedPlant.name).plus("_").plus(selectedPlant.id)
-                .plus("_${timeStamp}_"), /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-        ).apply {
-            Timber.i("hi4")
-            // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
-        }
-    }
-
-    val REQUEST_IMAGE_CAPTURE_AND_SAVE = 2
-    val REQUEST_IMAGE_CAPTURE = 1
-
-    private fun dispatchTakePictureIntent() {
-//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//            }
-//        }
-
-        Timber.i("hi")
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            Timber.i("hi1")
-            takePictureIntent.resolveActivity(requireActivity().packageManager)?.also {
-                Timber.i("hi2")
-                // Create the File where the photo should go
-                val photoFile: File? = try {
-                    Timber.i("hi2a")
-                    createImageFile()
-                } catch (ex: IOException) {
-                    // Error occurred while creating the File
-                    Timber.e("Error, picture taking failed with exception: $ex")
-                    null
-                }
-                Timber.i("hi3")
-
-                Timber.i("hi, file =".plus(photoFile))
-                // Continue only if the File was successfully created
-
-                photoFile?.also {
-                    Timber.i("hi4a")
-                    try {
-                        val photoURI: Uri = FileProvider.getUriForFile(
-                            requireActivity(),
-                            "com.example.android.fileprovider",
-                            it
-                        )
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE_AND_SAVE)
-                    } catch (ex: IOException) {
-                        Timber.e("error with uri, $ex")
-                    }
-                    Timber.i("hi4b")
-                }
-                Timber.i("hi5")
-            }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        Timber.i("hibabe1")
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                Timber.i("hibabe2, data = ".plus(data))
-                Timber.i("hibabe2, data.extras = ".plus(data?.extras))
-                Timber.i("hibabe2, data?.extras?.get(\"data\") = ".plus(data?.extras?.get("data")))
-                val imageBitmap = data?.extras?.get("data") as Bitmap
-                Timber.i("hibabe3")
-                binding.mostRecentImage1.setImageBitmap(imageBitmap)
-                Timber.i("hibabe4")
-            } catch (ex: IOException) {
-                Timber.e("error here, $ex")
-            }
-        } else if (requestCode == REQUEST_IMAGE_CAPTURE_AND_SAVE && resultCode == RESULT_OK) {
-            Timber.i("hihun1")
-            val file = File(currentPhotoPath)
-            setMostRecentImages()
-            //updateMostRecentImages(file)
-        }
-    }
-
-    private fun createChannel(channelId: String, channelName: String) {
-        // TODO: Step 1.6 START create a channel
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationChannel = NotificationChannel(
-                channelId,
-                channelName,
-                // TODO: Step 2.4 change importance
-                NotificationManager.IMPORTANCE_HIGH
-            )// TODO: Step 2.6 disable badges for this channel
-                .apply {
-                    setShowBadge(false)
-                }
-
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
-            notificationChannel.enableVibration(true)
-            notificationChannel.description = getString(R.string.sunflower_notification_channel_description)
-
-            val notificationManager = requireActivity().getSystemService(
-                NotificationManager::class.java
-            )
-            notificationManager.createNotificationChannel(notificationChannel)
-
-        }
-        // TODO: Step 1.6 END create a channel
-    }
-
-
-
-
-
-
-    // these need to be linked to the livedata
-    // well, for now, they will be called when the livedata changes
-    private fun setTextViews() {
-
-        Timber.i("setting textViews")
-        Timber.i("selectedPlant.value?.id = ".plus(selectedPlant.id))
-        Timber.i("viewModel.selectedPlant.value?.id = ".plus(viewModel.selectedPlant.value?.id))
-
-        // image
-        val imageView: ImageView = binding.mainPhotoImage
-        //imageView.setImageURI() = getString(R.string.latin_plant_name_insert,selectedPlant.latinName)
-        bindImage(imageView, selectedPlant.imageUrl)
-
-        // plant name
-        val textViewPlantName: TextView = binding.plantName
-        val plantNameText = getString(
-            R.string.plant_name_colon,
-            selectedPlant.name,
-            selectedPlant.latinName
-        )
-        textViewPlantName.text = HtmlCompat.fromHtml(
-            plantNameText,
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
-
-        // plant ID
-        val textViewPlantId: TextView = binding.plantId
-        textViewPlantId.text = getString(R.string.plant_id_colon, selectedPlant.id)
-
-        // time planted
-        val textViewTimePlanted: TextView = binding.plantedTime
-        textViewTimePlanted.text = getString(
-            R.string.time_planted_colon,
-            selectedPlant.plantedTime?.let { convertLongToDateString(it) }
-        )
-
-
-        // watering interval
-        val textViewWateringInterval: TextView = binding.wateringInterval
-        textViewWateringInterval.text = getString(
-            R.string.watering_interval_colon,
-            selectedPlant.wateringInterval
-        )
-
-
-        // maturation time
-        val textViewMaturationTime: TextView = binding.maturationTime
-        val maturationMinutes = selectedPlant.getMaturationTime()?.div(60)
-        val maturationSeconds = maturationMinutes?.times(60)?.let {
-            selectedPlant.getMaturationTime()
-                ?.minus(it)
-        }
-        textViewMaturationTime.text = getString(
-            R.string.maturation_time_colon,
-            maturationMinutes,
-            maturationSeconds
-        )
-
-//          //these don't update, you have to do it in an observer or in the xml (afaik)
-//        // waterings remaining
-//        val textViewWateringsRemaining: TextView = binding.wateringsRemaining
-//        textViewWateringsRemaining.text = getString(R.string.waterings_remaining_colon,
-//            viewModel.wateringsRemaining.value
-//        )
-//
-//        // elapsed time s
-//        val textViewTimeRemaining: TextView = binding.timeRemaining
-//        textViewTimeRemaining.text = "poo".plus(convertLongToElapsedTimeString(viewModel.timeRemaining.value!!))
-
-
-        // plant description
-        val textViewDescription: TextView = binding.plantDescription
-        textViewDescription.text = selectedPlant.description?.let {
-            HtmlCompat.fromHtml(
-                it,
-                HtmlCompat.FROM_HTML_MODE_LEGACY
-            )
-        }
-        Linkify.addLinks(textViewDescription, Linkify.WEB_URLS);
-        textViewDescription.movementMethod = LinkMovementMethod.getInstance();
-
-    }
-
-//    private fun onAddPlantToGarden() {
-//        binding.viewModel.addPlantToGarden()
-//    }
 }

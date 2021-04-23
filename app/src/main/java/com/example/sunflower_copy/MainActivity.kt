@@ -13,10 +13,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.example.sunflower_copy.databinding.ActivityMainBinding
 import com.example.sunflower_copy.util.BackgroundMusicService
+import com.example.sunflower_copy.util.createChannel
 import com.example.sunflower_copy.util.setupUI
+import com.google.android.material.navigation.NavigationView
 import timber.log.Timber
 
 
@@ -57,25 +61,42 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
-        setSupportActionBar(binding.toolbar)
-
-        drawerLayout = binding.drawerLayout
-
+        //setSupportActionBar(binding.toolbar)
+//
+//        drawerLayout = binding.drawerLayout
+//
 //        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 //        val navController = navHostFragment.navController
-        val navController = this.findNavController(R.id.nav_host_fragment)
-
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
-        NavigationUI.setupWithNavController(binding.navView, navController)
+//        findViewById<NavigationView>(R.id.nav_view)
+//            .setupWithNavController(navController)
+//
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//
+//        NavigationUI.setupWithNavController(binding.navView, navController)
 
         // hide the keyboard in the toolbar mainly the issue
-        setupUI(drawerLayout, this)
+//        setupUI(drawerLayout, this)
 
 
         // Bind to BackgroundMusicService and start
         startBackgroundMusicService()
 
+
+        // create channel for notifications
+        createChannel(this,
+            getString(R.string.sunflower_notification_channel_id),
+            getString(R.string.sunflower_notification_channel_name)
+        )
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        Timber.i("inside onSupportNavigateUp")
+
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        //val navController = findNavController()
+        return navController.navigateUp()
+        //return NavigationUI.navigateUp(navController, drawerLayout)
     }
 
     private fun startBackgroundMusicService() {
@@ -86,10 +107,10 @@ class MainActivity : AppCompatActivity() {
         Timber.i("after starting background music service")
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = this.findNavController(R.id.nav_host_fragment)
-        return NavigationUI.navigateUp(navController, drawerLayout)
-    }
+//    override fun onSupportNavigateUp(): Boolean {
+//        val navController = this.findNavController(R.id.nav_host_fragment)
+//        return NavigationUI.navigateUp(navController, drawerLayout)
+//    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)

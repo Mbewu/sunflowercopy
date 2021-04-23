@@ -30,7 +30,7 @@ class PlantAndGardenPlantingsViewModel(Plant: Plant) {
         get() = plant.plantedTime > 0
 
     val plantNameAndId
-        get() = if(isPlanted) { plant.name.plus(" #").plus(plant.id) } else {plantName}
+        get() = if(isPlanted) { "${plant.name} #${plant.id}" } else {plantName}
 
 
     val readyToWater

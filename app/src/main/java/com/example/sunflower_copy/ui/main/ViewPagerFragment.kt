@@ -3,29 +3,38 @@ package com.example.sunflower_copy.ui.main
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.fragment.app.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.example.sunflower_copy.MainActivity
 import com.example.sunflower_copy.R
 import com.example.sunflower_copy.SunflowerApplication
 import com.example.sunflower_copy.databinding.FragmentViewPagerBinding
 import com.example.sunflower_copy.util.hideKeyboard
-import com.example.sunflower_copy.util.setupUI
 import com.google.android.material.tabs.TabLayoutMediator
-
 
 
 class ViewPagerFragment : Fragment() {
 
     //private lateinit var viewModel: PageViewModel
 
+    private lateinit var binding: FragmentViewPagerBinding
+
     // moved inside, not sure why it was outside
     private val viewModel by activityViewModels<PageViewModel> {
-        PageViewModelFactory(requireActivity().application,
+        PageViewModelFactory(
+            requireActivity().application,
             (requireContext().applicationContext as SunflowerApplication).plantRepository,
-            (requireContext().applicationContext as SunflowerApplication).gardenRepository)
+            (requireContext().applicationContext as SunflowerApplication).gardenRepository
+        )
     }
     //private lateinit var viewModelFactory: PageViewModelFactory
 
@@ -36,7 +45,7 @@ class ViewPagerFragment : Fragment() {
     ): View? {
 
         // inflate using binding to correct layout
-        val binding = FragmentViewPagerBinding.inflate(inflater)
+        binding = FragmentViewPagerBinding.inflate(inflater)
         val tabLayout = binding.tabs
         val viewPager = binding.viewPager
 
@@ -55,11 +64,27 @@ class ViewPagerFragment : Fragment() {
         setObservers()
 
         // hide the keyboard when clicking elsewhere in this fragment
-        val parentLayout = binding.drawerLayout
-        activity?.let { setupUI(parentLayout, it) }
+//        val parentLayout = binding.drawerLayout
+//        activity?.let { setupUI(parentLayout, it) }
+
 
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+//        binding.toolbar
+//            .setupWithNavController(navController, appBarConfiguration)
+
+        binding.toolbar
+            .setupWithNavController(navController)
+        (activity as AppCompatActivity).supportActionBar?.hide()
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
     }
 
     private fun getTabIcon(position: Int): Int {
@@ -91,12 +116,13 @@ class ViewPagerFragment : Fragment() {
             R.id.aboutFragment -> {
                 activity?.let { it1 -> hideKeyboard(it1) };
                 NavigationUI.onNavDestinationSelected(
-                item,requireView().findNavController()
-            )}
-            R.id.mapFragment -> {
+                    item, requireView().findNavController()
+                )
+            }
+            R.id.settingsFragment -> {
                 activity?.let { it1 -> hideKeyboard(it1) };
                 NavigationUI.onNavDestinationSelected(
-                    item,requireView().findNavController()
+                    item, requireView().findNavController()
                 )
             }
             R.id.clear_garden -> {

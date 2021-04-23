@@ -13,7 +13,6 @@ import timber.log.Timber
  * Simple ViewModel factory that provides the Plant and context to the ViewModel.
  */
 class PlantedViewModelFactory(
-    private val plantInformation: Plant,
     private val application: Application,
     private val gardenRepository: GardenRepository) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
@@ -23,7 +22,7 @@ class PlantedViewModelFactory(
         if (modelClass.isAssignableFrom(PlantedViewModel::class.java)) {
 
             Timber.i( "in detail1")
-            return PlantedViewModel(plantInformation, application,gardenRepository) as T
+            return PlantedViewModel(application,gardenRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
 

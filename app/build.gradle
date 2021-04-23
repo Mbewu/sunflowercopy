@@ -25,8 +25,12 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            ext.enableCrashlytics = false
         }
 //        customDebugType {
 //            debuggable true
@@ -83,8 +87,8 @@ dependencies {
     //implementation "com.github.bumptech.glide:glide:$version_glide"
     //implementation "com.github.bumptech.glide:glide:4.8.0"
     //kapt 'com.github.bumptech.glide:compiler:4.7.1'
-    implementation "com.github.bumptech.glide:glide:4.11.0"
-    kapt "com.github.bumptech.glide:compiler:4.10.0"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideCompilerVersion"
 
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
@@ -116,30 +120,34 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:$firebaseVersion"
 
     // for some map function used in firebase
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha02"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLiveDataVersion"
 
     // preferences for users
     implementation "androidx.preference:preference-ktx:$preferenceVersion"
 
     // dependencies for tests
-    testImplementation "org.mockito:mockito-core:2.9.0"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     // for system stuff (mocking static methods)
-    testImplementation "org.powermock:powermock-api-mockito2:1.7.0RC2"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermockApiVersion"
     //testImplementation "org.powermock:powermock-module-junit4-rule-agent:$powermockVersion"
-    testImplementation "org.powermock:powermock-module-junit4-rule:1.7.0"
-    testImplementation "org.powermock:powermock-module-junit4:1.7.0"
-    testImplementation "org.powermock:powermock-core:1.7.0"
+    testImplementation "org.powermock:powermock-module-junit4-rule:$powermockVersion"
+    testImplementation "org.powermock:powermock-module-junit4:$powermockVersion"
+    testImplementation "org.powermock:powermock-core:$powermockVersion"
 
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
     implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
 
     androidTestImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 
-    implementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
     implementation "androidx.test:core:$androidXTestCoreVersion"
 
-    implementation "androidx.fragment:fragment-ktx:1.1.0"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+    implementation "androidx.fragment:fragment:$fragmentKtxVersion"
+
+    implementation "androidx.activity:activity-ktx:$activityVersion"
+    implementation "androidx.activity:activity:$activityVersion"
 
     androidTestImplementation "androidx.test:rules:$rulesVersion"
     androidTestImplementation "androidx.test.ext:junit:$extJUnitVersion"
