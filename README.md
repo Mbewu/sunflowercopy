@@ -10,10 +10,10 @@ It is close to where I view completion and I may start another app with more rea
 
 Features:
 
--> add plants from a repository to a garden on a Google map
--> choose where to plant plant
--> need to water plants periodically before harvesting
--> notifications sent when ready to water or harvest or just planted
+-> add plants from a repository to a garden on a Google map  
+-> choose where to plant plant  
+-> need to water plants periodically before harvesting  
+-> notifications sent when ready to water or harvest or just planted  
 -> ability to set up polygon shaped garden overlaid on map
 -> different profile with different gardens
 -> settings like music on/off, mapstyle etc saved in profile
